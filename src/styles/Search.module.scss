@@ -1,0 +1,36 @@
+@use "variables" as *;
+
+.offcanvas-top {
+    height: auto !important;
+    bottom: auto !important;
+}
+
+.search-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid $black-color;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    input {
+        padding: 0.6rem 1rem;
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+    }
+    label {
+        margin-right: 2px;
+        padding: 0.2rem 0.8em;
+        background-color: rgba($color: $black-color, $alpha: 0.8);
+        color: $white-color;
+        border-radius: 20px;
+        cursor: pointer;
+
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: rgba($color: $black-color, $alpha: 1);
+        }
+    }
+}

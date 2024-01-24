@@ -1,0 +1,49 @@
+@use "variables" as *;
+
+.navbar-item {
+    padding: 1rem 0;
+    &:hover {
+        .popper {
+            display: flex;
+            justify-content: center;
+            top: 100%;
+        }
+    }
+    .navbar-link {
+        text-decoration: none;
+        .title {
+            position: relative;
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: $black-color;
+            cursor: pointer;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: -4px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: $primary-color;
+                transition: width 0.3s ease-in-out;
+            }
+        }
+        &.active .title::after,
+        &:hover .title::after {
+            width: 100%;
+        }
+    }
+    .popper {
+        display: none;
+    }
+
+    .item-link {
+        text-decoration: none;
+        color: rgba($color: $black-color, $alpha: 0.5);
+        &:hover {
+            color: $blue-color;
+        }
+    }
+}

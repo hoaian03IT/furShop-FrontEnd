@@ -1,0 +1,12 @@
+@use "variables" as *;
+
+.wrapper {
+    position: relative;
+    height: $max-height-header;
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+}

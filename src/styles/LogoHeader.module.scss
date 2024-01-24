@@ -1,0 +1,7 @@
+@use "variables" as *;
+
+.logo-image {
+    height: $max-height-header;
+    object-fit: cover;
+    object-position: center;
+}

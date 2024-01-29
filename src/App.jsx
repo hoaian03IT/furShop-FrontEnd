@@ -14,20 +14,18 @@ function App() {
         <Routes>
           {publicRoutes.map((route) => {
             let Page;
+            const Component = route.component;
             if (route.layout === null) {
-              Page = route.component;
+              Page = <Component />;
             } else {
               const Layout = route.layout;
-              const Component = route.component;
               Page = (
                 <Layout>
                   <Component />
                 </Layout>
               );
             }
-            return (
-              <Route key={route.path} to={route.path} element={<Page />} />
-            );
+            return <Route key={route.path} path={route.path} element={Page} />;
           })}
         </Routes>
       </main>

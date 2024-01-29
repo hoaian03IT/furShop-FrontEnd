@@ -1,0 +1,16 @@
+@use 'variables'  as *;
+
+.group {
+  .input {
+    &:checked + .checkbox {
+      background-color: $black-color;
+    }
+  }
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid $black-color;
+    background-color: $white-color;
+    transition: background-color 0.3s;
+  }
+}

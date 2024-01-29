@@ -1,1 +1,4 @@
-export const pathname = {};
+export const pathname = {
+  home: "/",
+  product: "/san-pham",
+};

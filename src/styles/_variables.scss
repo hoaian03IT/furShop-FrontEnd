@@ -1,17 +1,19 @@
 $grid-breakpoints: (
-    xs: 0,
-    sm: 576px,
-    md: 768px,
-    lg: 992px,
-    xl: 1200px,
-    xxl: 1400px,
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
 );
 
 // color
+$bg-gray-color: #f6f6f6;
 $white-color: #fff;
 $primary-color: #a7795e;
 $black-color: #000;
 $blue-color: #3a6fb5;
+$link-color: #2f80ed;
 
 // sizes
 $max-height-header: 65px;

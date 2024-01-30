@@ -1,0 +1,47 @@
+@use 'variables' as *;
+
+.wrapper {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  background-color: $bg-gray-color;
+  .breadcrumb {
+    margin: 0;
+    padding: 12px 0;
+    &-item {
+      position: relative;
+      font-size: 13px;
+      color: $black-color;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+
+      &::after {
+        position: absolute;
+        content: "/";
+        left: calc(100% + 2px);
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      & + .breadcrumb-item {
+        margin-left: 12px;
+      }
+
+      &:last-of-type {
+        &::after {
+          content: "";
+        }
+      }
+
+      &:hover {
+        color: $link-color;
+      }
+
+      &.active {
+        color: rgba($color: $black-color, $alpha: 0.4);
+        pointer-events: none;
+      }
+    }
+  }
+}

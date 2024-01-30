@@ -1,17 +1,7 @@
 // css
 import "~/styles/GlobalStyles.scss";
 import { Header } from "./components/Header/Header";
-<<<<<<< HEAD
-import Home from "./pages/Home";
 
-function App() {
-    return (
-        <div>
-            <Header />
-            <Home />
-        </div>
-    );
-=======
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
 
@@ -42,7 +32,6 @@ function App() {
       </main>
     </div>
   );
->>>>>>> 28b64f17d07f455669a28b1d2fe459baa111bdbd
 }
 
 export default App;

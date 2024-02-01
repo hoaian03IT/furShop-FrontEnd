@@ -1,0 +1,32 @@
+$width-icon: 45px;
+
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  .hover {
+    transition: all 0.3s linear;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  .icon {
+    display: block;
+    width: $width-icon;
+    height: $width-icon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 1rem;
+  }
+  .description {
+    font-size: 0.9rem;
+  }
+}
+.cursor {
+  cursor: pointer;
+}

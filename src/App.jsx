@@ -1,6 +1,7 @@
 // css
 import "~/styles/GlobalStyles.scss";
 import { Header } from "./components/Header/Header";
+
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import { ReactLazy } from "./components/ReactLazy";

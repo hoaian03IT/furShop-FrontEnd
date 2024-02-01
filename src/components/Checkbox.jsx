@@ -2,13 +2,11 @@ import classNames from "classnames/bind";
 import { FaCheck } from "react-icons/fa6";
 
 import styles from "~/styles/Checkbox.module.scss";
-import { useState, useId } from "react";
+import { useId } from "react";
 
 const cx = classNames.bind(styles);
 
-export const Checkbox = ({ label }) => {
-  const [checked, setChecked] = useState(false);
-
+export const Checkbox = ({ label, checked, onChange }) => {
   const inputId = useId();
   return (
     <div className={cx("group", "d-flex align-items-center")}>
@@ -17,7 +15,7 @@ export const Checkbox = ({ label }) => {
         type="checkbox"
         className={cx("input", "d-none")}
         checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
+        onChange={onChange}
       />
       <label
         htmlFor={inputId}
@@ -28,7 +26,9 @@ export const Checkbox = ({ label }) => {
       >
         <FaCheck className="text-white" />
       </label>
-      <label htmlFor={inputId}>{label}</label>
+      <label htmlFor={inputId} className={cx("text")}>
+        {label}
+      </label>
     </div>
   );
 };

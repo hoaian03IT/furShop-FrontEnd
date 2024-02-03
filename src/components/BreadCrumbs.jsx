@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 export const BreadCrumbs = ({ hrefs = [] }) => {
   console.log(hrefs);
   return (
-    <div className={cx("wrapper")}>
+    <div className={cx("wrapper", "mb-3 d-flex align-items-center")}>
       <Container>
         <div className={cx("breadcrumb")}>
           {hrefs.map((item) => (

@@ -43,9 +43,11 @@ export const ProductCard = ({ img1, img2, title, price, discount = 0, link }) =>
                 </div>
             </div>
             <div className={cx("content", "mt-4")}>
-                <Link to={link} className={cx("title", "fw-semibold d-block")}>
-                    {title}
-                </Link>
+                <OverlayTrigger placement="top" overlay={<span style={{ fontSize: 10 }}>{title}</span>}>
+                    <Link to={link} className={cx("title", "fw-semibold limit-line-2")}>
+                        {title}
+                    </Link>
+                </OverlayTrigger>
                 <span className="fw-normal text-black">{formatCurrencyVND(realPrice)}</span>
                 {discount > 0 && (
                     <div>

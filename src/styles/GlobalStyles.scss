@@ -65,3 +65,13 @@
 a {
     text-decoration: none !important;
 }
+
+@for $i from 1 through 10 {
+    .limit-line-#{$i} {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: $i; /* number of lines to show */
+        line-clamp: $i;
+        -webkit-box-orient: vertical;
+    }
+}

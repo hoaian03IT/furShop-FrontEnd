@@ -1,13 +1,15 @@
 import React from "react";
 import Background from "../components/HomePage/background";
 import Introduction from "../components/HomePage/Introduction";
-function HomePage() {
-    return (
-        <div>
-            <Background />
-            <Introduction />
-        </div>
-    );
+import DisplayVoicher from "~/components/HomePage/DisplayVoicher";
+function Home() {
+  return (
+    <div className="pb-5">
+      <Background />
+      <Introduction />
+      <DisplayVoicher />
+    </div>
+  );
 }
 
 export default HomePage;

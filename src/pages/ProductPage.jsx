@@ -12,12 +12,21 @@ import styles from "~/styles/ProductPage.module.scss";
 import banner from "~/assets/imgs/advertisement_banner.png";
 import imgProductExp1 from "~/assets/imgs/anh_sofa1.png";
 import imgProductExp2 from "~/assets/imgs/anh_sofa2.png";
+import {
+    Pagination,
+    PaginationEllipsis,
+    PaginationForward,
+    PaginationItem,
+    PaginationPrev,
+} from "~/components/Pagination";
 
 const cx = classNames.bind(styles);
 
 export default function ProductPage() {
     const [orderBy, setOrderBy] = useState(0);
     const [checked, setChecked] = useState(false);
+    const [activePage, setActivePage] = useState(1);
+    const nPageTemp = 3;
 
     return (
         <div className={cx("wrapper")}>
@@ -145,8 +154,8 @@ export default function ProductPage() {
                             </Col>
                             <Col md={9}>
                                 <Row md={{ cols: 4 }}>
-                                    {"hoaian03".split("").map(() => (
-                                        <Col className="mt-4">
+                                    {"hoaian03".split("").map((c, index) => (
+                                        <Col className="mt-4" key={index}>
                                             <div>
                                                 <ProductCard
                                                     img1={imgProductExp1}
@@ -159,6 +168,17 @@ export default function ProductPage() {
                                         </Col>
                                     ))}
                                 </Row>
+                                <div>
+                                    <Pagination placement="right">
+                                        <PaginationPrev />
+                                        {[...Array(nPageTemp + 1).keys()].slice(1).map((value) => (
+                                            <PaginationItem key={value} active={value === activePage}>
+                                                {value}
+                                            </PaginationItem>
+                                        ))}
+                                        <PaginationForward />
+                                    </Pagination>
+                                </div>
                             </Col>
                         </Row>
                     </div>

@@ -9,7 +9,7 @@ import styles from "~/styles/ProductCard.module.scss";
 const cx = classNames.bind(styles);
 
 export const ProductCard = ({ img1, img2, title, price, discount = 0, link }) => {
-    const realPrice = discount > 0 ? price - price * discount : price;
+    const realPrice = formatCurrencyVND(discount > 0 ? price - price * discount : price);
     return (
         <div className={cx("wrapper", "w-100")}>
             <div className={cx("img-wrapper")}>
@@ -56,7 +56,7 @@ export const ProductCard = ({ img1, img2, title, price, discount = 0, link }) =>
                                 "origin-price",
                                 "fw-semibold text-black-50 text-decoration-line-through me-2"
                             )}>
-                            {formatCurrencyVND(price)}
+                            {price}
                         </span>
                         <span className={cx("discount", "text-danger")}>-{discount * 100}%</span>
                     </div>

@@ -1,6 +1,34 @@
 .cart-title {
   font-size: 1.4rem;
 }
+
 .cart-content {
   padding: 10px 15px;
+}
+
+.cart-content-product {
+  padding: 10px 15px;
+}
+
+.cart-note {
+  margin-top: 15px;
+  display: grid;
+}
+
+.cart-checkout {
+  width: 100%;
+  height: 100%;
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+.form {
+  transition: max-height 0.5s;
+  overflow: hidden;
+  &.show {
+    max-height: 500px;
+  }
+  &.hide {
+    max-height: 0;
+  }
 }

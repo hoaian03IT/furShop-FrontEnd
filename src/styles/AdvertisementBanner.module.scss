@@ -1,0 +1,19 @@
+.wrapper {
+    overflow: hidden;
+    height: 200px;
+    .img-wrapper {
+        text-decoration: none;
+        &:hover {
+            img {
+                transform: scale(0.95);
+            }
+        }
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s;
+        }
+    }
+}

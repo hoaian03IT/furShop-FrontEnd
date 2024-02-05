@@ -1,9 +1,6 @@
 @use 'variables' as *;
 
 .wrapper {
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
   background-color: $bg-gray-color;
   .breadcrumb {
     margin: 0;

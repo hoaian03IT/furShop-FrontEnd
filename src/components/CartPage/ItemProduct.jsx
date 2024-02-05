@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { IoCloseOutline } from "react-icons/io5";
 
-import { FaMinus } from "react-icons/fa6";
+import { HiMiniMinus } from "react-icons/hi2";
 import { GoPlus } from "react-icons/go";
 import styles from "~/styles/ItemProduct.module.scss";
 
@@ -78,7 +78,7 @@ export const ItemProduct = ({
               type="button"
               onClick={handleReduceQuantity}
             >
-              <FaMinus />
+              <HiMiniMinus />
             </button>
             <input
               className={cx("quantity-product")}

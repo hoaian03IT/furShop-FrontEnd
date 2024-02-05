@@ -53,11 +53,20 @@
     &.arrow::after {
       left: 50%;
       transform: translateX(-50%);
+      @for $i from 1 through 10 {
+        .limit-line-#{$i} {
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: $i; /* number of lines to show */
+          line-clamp: $i;
+          -webkit-box-orient: vertical;
+        }
+      }
     }
-  }
-  &.full-screen {
-    left: 0;
-    right: 0;
-    transform: translateX(0);
+    &.full-screen {
+      left: 0;
+      right: 0;
+      transform: translateX(0);
+    }
   }
 }

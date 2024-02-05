@@ -5,11 +5,17 @@ import { Col, Container, Row } from "react-bootstrap";
 import product from "~/assets/imgs/product1.png";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { ItemProduct } from "~/components/CartPage/ItemProduct";
+import { NoteProduct } from "~/components/CartPage/NoteProduct";
+import { TimeDelivery } from "~/components/CartPage/TimeDelivery";
+import { CheckBoxBill } from "~/components/CartPage/CheckBoxBill";
+import { PaymentCompany } from "~/components/CartPage/PaymentCompany";
 import { useState } from "react";
 const cx = classNames.bind(styles);
 
 export default function CartPage() {
   const [quantity, setQuantity] = useState(1);
+  const [textValue, setTextValue] = useState("");
+  const [checked, setChecked] = useState(false);
   return (
     <div>
       <BreadCrumbs
@@ -39,11 +45,27 @@ export default function CartPage() {
                     quantity={quantity}
                     setQuantity={setQuantity}
                   />
-                  <div className={cx("cart-note")}>ghi chú</div>
+                  <div className={cx("cart-note")}>
+                    <NoteProduct
+                      label={"Ghi chú hóa đơn"}
+                      textValue={textValue}
+                      setTextValue={setTextValue}
+                    />
+                  </div>
                 </div>
               </Col>
               <Col md={4}>
-                <div className={cx("cart-content-price")}>asd</div>
+                <div className={cx("cart-checkout")}>
+                  <TimeDelivery title={"HẸN GIỜ NHẬN HÀNG"} />
+                  <CheckBoxBill
+                    label={"Xuất hóa đơn công ty"}
+                    checked={checked}
+                    onChange={(e) => setChecked(e.target.checked)}
+                  />
+                  <div className={cx("form", checked ? "show" : "hide")}>
+                    <PaymentCompany />
+                  </div>
+                </div>
               </Col>
             </Row>
           </div>

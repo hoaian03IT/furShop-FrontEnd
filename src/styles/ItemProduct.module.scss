@@ -102,6 +102,9 @@
     stroke: currentColor;
     fill: currentColor;
   }
+  &:active {
+    opacity: 0.5;
+  }
 }
 
 .quantity-product {
@@ -134,6 +137,10 @@
     stroke-width: 0;
     stroke: currentColor;
     fill: currentColor;
+  }
+
+  &:active {
+    opacity: 0.5;
   }
 }
 

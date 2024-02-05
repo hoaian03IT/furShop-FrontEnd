@@ -1,8 +1,10 @@
 // css
 import "~/styles/GlobalStyles.scss";
 import { Header } from "./components/Header/Header";
+
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
+import Home from "~/pages/HomePage";
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
             return <Route key={route.path} path={route.path} element={Page} />;
           })}
         </Routes>
+        <Home />
       </main>
     </div>
   );

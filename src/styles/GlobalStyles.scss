@@ -8,6 +8,7 @@
   font-family: "Montserrat", sans-serif;
 }
 
+<<<<<<< HEAD
 .popper {
   position: absolute;
   top: calc(100% + 10px);
@@ -67,6 +68,15 @@
       left: 0;
       right: 0;
       transform: translateX(0);
+=======
+@for $i from 1 through 10 {
+    .limit-line-#{$i} {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: $i; /* number of lines to show */
+        line-clamp: $i;
+        -webkit-box-orient: vertical;
+>>>>>>> ffc3ca59e1585fdd9dc5d96f21e1d9ad99a49502
     }
   }
 }

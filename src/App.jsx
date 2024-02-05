@@ -13,23 +13,6 @@ function App() {
         <Header />
       </header>
       <main>
-        <Routes>
-          {publicRoutes.map((route) => {
-            let Page;
-            const Component = route.component;
-            if (route.layout === null) {
-              Page = <Component />;
-            } else {
-              const Layout = route.layout;
-              Page = (
-                <Layout>
-                  <Component />
-                </Layout>
-              );
-            }
-            return <Route key={route.path} path={route.path} element={Page} />;
-          })}
-        </Routes>
         <Home />
       </main>
     </div>

@@ -9,6 +9,10 @@ import { NoteProduct } from "~/components/CartPage/NoteProduct";
 import { TimeDelivery } from "~/components/CartPage/TimeDelivery";
 import { CheckBoxBill } from "~/components/CartPage/CheckBoxBill";
 import { PaymentCompany } from "~/components/CartPage/PaymentCompany";
+import { TotalBill } from "~/components/CartPage/TotalBill";
+import { CouponBill } from "~/components/CartPage/CouponBill";
+import { CheckOutBill } from "~/components/CartPage/CheckOutBill";
+import { Trustbadge } from "~/components/CartPage/Trustbadge";
 import { useState } from "react";
 const cx = classNames.bind(styles);
 
@@ -65,6 +69,10 @@ export default function CartPage() {
                   <div className={cx("form", checked ? "show" : "hide")}>
                     <PaymentCompany />
                   </div>
+                  <TotalBill name={"TỔNG CỘNG"} total={1000000} />
+                  <CouponBill />
+                  <CheckOutBill />
+                  <Trustbadge />
                 </div>
               </Col>
             </Row>

@@ -10,7 +10,7 @@
   border-radius: 2px;
   display: inline-block;
   margin-top: 2px;
-  padding: 6px;
+  padding: 8px;
   position: relative;
 
   &::after {
@@ -18,7 +18,7 @@
     font-size: 13px;
     position: absolute;
     top: -3px;
-    left: 1px;
+    left: 3px;
     color: #fff;
     display: none;
   }

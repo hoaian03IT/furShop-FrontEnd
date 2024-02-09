@@ -1,0 +1,96 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #66afe9;
+    &:hover {
+      color: #2a6395;
+    }
+  }
+}
+
+.content {
+  .field {
+    margin-bottom: 4px;
+    width: 100%;
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      outline: none;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      height: 44px;
+      font-size: 14px;
+      color: #999;
+      &:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 0 1px #66afe9;
+        color: #000;
+      }
+    }
+  }
+}
+
+.note {
+  position: relative;
+
+  &:focus-within {
+    .field-note {
+      transform: none;
+      font-size: 0.84em;
+      padding-left: 0.9em;
+    }
+  }
+
+  .field-note {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    margin-top: 0.4em;
+    margin-left: 1px;
+    padding: 0 0.8em;
+    color: #999;
+    z-index: 1;
+    pointer-events: none;
+    font-size: 14px;
+    transform: translateY(6px);
+    transition: transform 0.3s ease;
+  }
+
+  .noteText {
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: 0.94em 0.8em;
+    border: 1px #d9d9d9 solid;
+    background-color: #fff;
+    color: #333;
+    &:focus {
+      outline: none;
+      border-color: #66afe9;
+      box-shadow: 0 0 0 1px #66afe9;
+      padding-top: 1.5em;
+      padding-bottom: 0.35em;
+      + .field-note {
+        transform: none;
+        font-size: 0.84em;
+        padding-left: 0.9em;
+      }
+    }
+  }
+}

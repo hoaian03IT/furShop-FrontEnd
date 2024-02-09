@@ -1,0 +1,70 @@
+@use "variables" as *;
+.wrapper {
+  display: flex;
+  width: 100%;
+  margin-bottom: 4px;
+  .province {
+    margin-right: 2px;
+    flex: 1;
+    height: 44px;
+    outline: none;
+    border: 1px #d9d9d9 solid;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    &:focus {
+      outline: none;
+      border-color: #66afe9;
+      box-shadow: 0 0 0 1px #66afe9;
+      color: #000;
+    }
+  }
+  .selectedProvince {
+    background-color: $white-color;
+    color: $black-color;
+  }
+  .district {
+    margin-right: 2px;
+    flex: 1;
+    height: 44px;
+    outline: none;
+    border: 1px #d9d9d9 solid;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    &:active {
+      outline: none;
+      border-color: #66afe9;
+      box-shadow: 0 0 0 1px #66afe9;
+      color: #000;
+      background-color: white;
+    }
+  }
+  .selectedDictrict {
+    background-color: $white-color;
+    color: $black-color;
+  }
+
+  .village {
+    flex: 1;
+    height: 44px;
+    outline: none;
+    border: 1px #d9d9d9 solid;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    &:focus {
+      outline: none;
+      border-color: #66afe9;
+      box-shadow: 0 0 0 1px #66afe9;
+      color: #000;
+    }
+  }
+  .selectedVillage {
+    background-color: $white-color;
+    color: $black-color;
+  }
+}

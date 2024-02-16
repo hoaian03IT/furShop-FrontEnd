@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Offcanvas, Container, Row, Col, FormGroup } from "react-bootstrap";
 import classNames from "classnames/bind";
 import { CiSearch } from "react-icons/ci";

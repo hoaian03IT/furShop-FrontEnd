@@ -1,0 +1,15 @@
+@use "variables" as *;
+.checkOut {
+  margin-top: 8px;
+  .btn {
+    width: 100%;
+    background-color: $black-color;
+    color: $white-color;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+}

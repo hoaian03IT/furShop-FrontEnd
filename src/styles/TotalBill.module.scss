@@ -1,0 +1,21 @@
+.title {
+  margin: 15px 0;
+  .totalBill {
+    display: flex;
+    justify-content: space-between;
+    .name {
+      font-size: 1rem;
+    }
+    .total {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+  .vat {
+    display: flex;
+    text-align: right;
+    justify-content: right;
+    font-size: 14px;
+    color: #828282;
+  }
+}

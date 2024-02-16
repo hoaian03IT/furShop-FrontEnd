@@ -5,6 +5,7 @@ import { Header } from "./components/Header/Header";
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import Home from "./pages/HomePage";
+import Home from "~/pages/HomePage";
 
 function App() {
   return (

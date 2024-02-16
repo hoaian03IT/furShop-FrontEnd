@@ -6,5 +6,5 @@ const HomePage = lazy(() => import("~/pages/HomePage"));
 
 export const publicRoutes = [
   { path: pathname.product, component: ProductPage, layout: null },
-  { path: pathname.home, component: HomePage, layout: null },
+  { pat: pathname.home, component: HomePage, layout: null },
 ];

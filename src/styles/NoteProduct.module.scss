@@ -1,0 +1,17 @@
+.text {
+  margin-bottom: 5px;
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.textBox {
+  outline: none;
+  border-color: #e1e1e1;
+  border-radius: 3px;
+  font-size: 1rem;
+  resize: none;
+  padding: 10px;
+  background-clip: padding-box;
+  height: 53px;
+}

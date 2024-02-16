@@ -4,7 +4,7 @@ import { Header } from "./components/Header/Header";
 
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
-import Home from "./pages/Home";
+import Home from "./pages/HomePage";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Header />
       </header>
       <main>
-        {/* <Routes>
+        <Routes>
           {publicRoutes.map((route) => {
             let Page;
             const Component = route.component;
@@ -29,9 +29,10 @@ function App() {
             }
             return <Route key={route.path} path={route.path} element={Page} />;
           })}
-        </Routes> */}
-        <Home />
+        </Routes>
+        {/* <Home /> */}
       </main>
+      <footer></footer>
     </div>
   );
 }

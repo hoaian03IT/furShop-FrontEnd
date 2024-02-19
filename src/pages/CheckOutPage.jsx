@@ -4,7 +4,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { LogoCheckOut } from "~/components/CheckOutPage/LogoCheckOut";
 import { SectionCheckOut } from "~/components/CheckOutPage/SectionCheckOut";
-import { BtnCheckOut } from "~/components/CheckOutPage/BtnCheckOut";
 import styles from "~/styles/CheckOutPage.module.scss";
 
 const cx = classNames.bind(styles);
@@ -28,7 +27,6 @@ function CheckOutPage() {
                 ]}
               />
               <SectionCheckOut />
-              <BtnCheckOut />
             </div>
           </Col>
           <Col md={5}>

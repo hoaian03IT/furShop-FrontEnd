@@ -12,21 +12,55 @@ import styles from "~/styles/ProductPage.module.scss";
 import banner from "~/assets/imgs/advertisement_banner.png";
 import imgProductExp1 from "~/assets/imgs/anh_sofa1.png";
 import imgProductExp2 from "~/assets/imgs/anh_sofa2.png";
-import {
-    Pagination,
-    PaginationEllipsis,
-    PaginationForward,
-    PaginationItem,
-    PaginationPrev,
-} from "~/components/Pagination";
+import { Pagination, PaginationForward, PaginationItem, PaginationPrev } from "~/components/Pagination";
 
 const cx = classNames.bind(styles);
 
+const branchTemp = ["Ashley", "Aaron", "French Heritage", "Khác"];
+const prices = [
+    {
+        show: "Giá dưới 1.000.000₫",
+        key: "smaller-one-million",
+    },
+    {
+        show: "1.000.000₫ - 2.000.000₫",
+        key: "one-to-two-million",
+    },
+    {
+        show: "2.000.000₫ - 5.000.000₫",
+        key: "two-to-file-million",
+    },
+    {
+        show: "5.000.000₫ - 10.000.000₫",
+        key: "five-to-ten-million",
+    },
+    {
+        show: "Giá trên 10.000.000₫",
+        key: "over-10-million",
+    },
+];
+
 export default function ProductPage() {
     const [orderBy, setOrderBy] = useState(0);
-    const [checked, setChecked] = useState(false);
     const [activePage, setActivePage] = useState(1);
+
+    const [selectedPrice, setSelectedPrice] = useState({ checked: null });
+    const [selectedBranch, setSelectedBranch] = useState([]);
+
     const nPageTemp = 3;
+
+    const handleBackPage = () => {
+        if (activePage > 1) setActivePage((prev) => prev - 1);
+    };
+
+    const handleNextPage = () => {
+        if (activePage < nPageTemp) setActivePage((prev) => prev + 1);
+    };
+
+    const handleSelectBranches = (value) => {
+        if (selectedBranch.includes(value)) setSelectedBranch((prev) => prev.filter((item) => item !== value));
+        else setSelectedBranch((prev) => [...prev, value]);
+    };
 
     return (
         <div className={cx("wrapper")}>
@@ -64,56 +98,27 @@ export default function ProductPage() {
                                 <div className={cx("part-filter")}>
                                     <h6 className="text-uppercase">thương hiệu</h6>
                                     <div>
-                                        <Checkbox
-                                            label="Ashley"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
-                                        <Checkbox
-                                            label="Aaron"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
-                                        <Checkbox
-                                            label="French Heritage"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
-                                        <Checkbox
-                                            label="Khác"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
+                                        {branchTemp.map((branch) => (
+                                            <Checkbox
+                                                key={branch}
+                                                label={branch}
+                                                checked={selectedBranch.includes(branch)}
+                                                onChange={() => handleSelectBranches(branch)}
+                                            />
+                                        ))}
                                     </div>
                                 </div>
                                 <div className={cx("part-filter")}>
                                     <h6 className="text-uppercase">mức giá </h6>
                                     <div>
-                                        <Checkbox
-                                            label="Giá dưới 1.000.000₫"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
-                                        <Checkbox
-                                            label="1.000.000₫ - 2.000.000₫"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
-                                        <Checkbox
-                                            label="2.000.000₫ - 3.000.000₫"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
-                                        <Checkbox
-                                            label="3.000.000₫ - 5.000.000₫"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
-                                        <Checkbox
-                                            label="Giá trên 10.000.000₫"
-                                            checked={checked}
-                                            onChange={(e) => setChecked(e.target.checked)}
-                                        />
+                                        {prices.map((price) => (
+                                            <Checkbox
+                                                key={price.key}
+                                                label={price.show}
+                                                checked={price.key === selectedPrice}
+                                                onChange={() => setSelectedPrice(price.key)}
+                                            />
+                                        ))}
                                     </div>
                                 </div>
                                 <div className={cx("part-filter")}>
@@ -168,15 +173,18 @@ export default function ProductPage() {
                                         </Col>
                                     ))}
                                 </Row>
-                                <div>
+                                <div className="mt-4">
                                     <Pagination placement="right">
-                                        <PaginationPrev />
+                                        <PaginationPrev onClick={handleBackPage} />
                                         {[...Array(nPageTemp + 1).keys()].slice(1).map((value) => (
-                                            <PaginationItem key={value} active={value === activePage}>
+                                            <PaginationItem
+                                                key={value}
+                                                active={value === activePage}
+                                                onClick={() => setActivePage(value)}>
                                                 {value}
                                             </PaginationItem>
                                         ))}
-                                        <PaginationForward />
+                                        <PaginationForward onClick={handleNextPage} />
                                     </Pagination>
                                 </div>
                             </Col>

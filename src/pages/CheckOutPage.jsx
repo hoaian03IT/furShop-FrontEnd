@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { LogoCheckOut } from "~/components/CheckOutPage/LogoCheckOut";
 import { SectionCheckOut } from "~/components/CheckOutPage/SectionCheckOut";
+import { SidebarOrder } from "~/components/CheckOutPage/SidebarOrder";
 import styles from "~/styles/CheckOutPage.module.scss";
 
 const cx = classNames.bind(styles);
@@ -26,11 +27,11 @@ function CheckOutPage() {
                   },
                 ]}
               />
-              <SectionCheckOut />
+              <SectionCheckOut link={"/gio-hang"} />
             </div>
           </Col>
           <Col md={5}>
-            <div>zxxczxcczxc</div>
+            <SidebarOrder />
           </Col>
         </Row>
       </Container>

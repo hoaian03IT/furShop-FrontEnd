@@ -1,10 +1,10 @@
 import freeShipIcon from "~/assets/imgs/freeShipIcon.png";
 import decreaseMoneyIcon from "~/assets/imgs/decreaseMoney.png";
 import decreaseMoneyPercentIcon from "~/assets/imgs/decreaseMoneyPercent.png";
-import styles from "~/styles/displayVoicherHomeComponent.module.scss";
+import styles from "~/styles/displayVoucherHomeComponent.module.scss";
 import classNames from "classnames/bind";
 import { Col, Container, Row } from "react-bootstrap";
-import Voicher from "../Voicher";
+import Voucher from "../Voucher";
 
 const cx = classNames.bind(styles);
 
@@ -43,13 +43,13 @@ const listCode = [
   },
 ];
 
-function DisplayVoicher() {
+function DisplayVoucher() {
   return (
     <Container>
       <Row>
         {listCode.map((item, index) => (
           <Col>
-            <Voicher
+            <Voucher
               title={item.title}
               code={item.code}
               expire={item.expire}
@@ -64,4 +64,4 @@ function DisplayVoicher() {
   );
 }
 
-export default DisplayVoicher;
+export default DisplayVoucher;

@@ -4,7 +4,7 @@ $border-radius-large: 15px;
 $padding-top: 10px;
 $dropdown: 0px 0px 3px #ccc;
 
-.voicher {
+.Voucher {
   border-bottom-left-radius: $border-radius;
   border-top-left-radius: $border-radius;
   filter: drop-shadow($dropdown);
@@ -38,13 +38,13 @@ $dropdown: 0px 0px 3px #ccc;
       height: 40px;
     }
   }
-  .info-voicher {
+  .info-Voucher {
     padding: $padding-top 10px;
     background-color: $background-color;
     border-radius: $border-radius-large;
     border-radius: $border-radius-large;
-    .contain-info{
-      p{
+    .contain-info {
+      p {
         font-size: 0.9rem;
       }
     }

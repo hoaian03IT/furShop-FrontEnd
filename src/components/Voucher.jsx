@@ -1,12 +1,12 @@
-import styles from "~/styles/VoicherComponent.module.scss";
+import styles from "~/styles/VoucherComponent.module.scss";
 import classNames from "classnames/bind";
-import expiredVoicherIcon from "~/assets/imgs/expiredVoicherIcon.png";
+import expiredVoucherIcon from "~/assets/imgs/expiredVoucherIcon.png";
 
 const cx = classNames.bind(styles);
 
-function Voicher({ icon, title, description, code, expire, isExpired }) {
+function Voucher({ icon, title, description, code, expire, isExpired }) {
   return (
-    <div className={cx("voicher", "d-flex")}>
+    <div className={cx("Voucher", "d-flex")}>
       <div className={cx("line-color", "d-block", "bg-primary")}></div>
       <div
         className={cx(
@@ -18,9 +18,9 @@ function Voicher({ icon, title, description, code, expire, isExpired }) {
       >
         <img src={icon} />
       </div>
-      <div className={cx("info-voicher")}>
+      <div className={cx("info-Voucher")}>
         <h4>{title}</h4>
-        <p className={cx('description')}>{description}</p>
+        <p className={cx("description")}>{description}</p>
         <div
           className={cx(
             "info-detail",
@@ -29,18 +29,18 @@ function Voicher({ icon, title, description, code, expire, isExpired }) {
             "align-items-center"
           )}
         >
-          <div className={cx('contain-info')}>
+          <div className={cx("contain-info")}>
             <p className={cx("code-title")}>
               Mã:
               <span>{code}</span>
             </p>
             <p>HSD: {expire}</p>
           </div>
-          {isExpired && <img src={expiredVoicherIcon} />}
+          {isExpired && <img src={expiredVoucherIcon} />}
         </div>
       </div>
     </div>
   );
 }
 
-export default Voicher;
+export default Voucher;

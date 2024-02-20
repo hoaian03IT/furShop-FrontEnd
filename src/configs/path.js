@@ -3,4 +3,5 @@ export const pathname = {
   product: "/san-pham",
   cart: "/gio-hang",
   checkout: "/thanh-toan",
+  policy: "/chinh-sach",
 };

@@ -1,0 +1,25 @@
+.total {
+  padding-top: 14px;
+  .money {
+    padding: 10px 0;
+    border-bottom: 1px solid #e1e1e1;
+    .provisional {
+      display: flex;
+      justify-content: space-between;
+    }
+    .fee {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  .totalProduct {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    .totalPrice {
+      font-size: 18px;
+      color: #2a9dcc;
+      font-weight: 500;
+    }
+  }
+}

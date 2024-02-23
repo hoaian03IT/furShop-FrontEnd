@@ -1,0 +1,38 @@
+.filed {
+  border-bottom: 1px solid #e1e1e1;
+  padding: 14px 0;
+
+  .coupon {
+    display: flex;
+    .textbox {
+      outline: none;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      width: 100%;
+      height: 44px;
+      margin-right: 10px;
+      padding: 10px;
+      &:focus {
+        outline: none;
+        border-color: #66afe9;
+        box-shadow: 0 0 0 1px #66afe9;
+        color: #000;
+      }
+    }
+    .btn {
+      width: 30%;
+      height: 44px;
+      outline: none;
+      border: 1px solid #d9d9d9;
+      background-color: #357ebd;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 5px;
+    }
+  }
+  .error {
+    color: red;
+    font-size: 14px;
+  }
+}

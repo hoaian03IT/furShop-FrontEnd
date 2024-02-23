@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 export const LogoCheckOut = () => {
   return (
     <Link to={"/"}>
-      <h1 className={cx("logo")}>EGA Sportswear</h1>
+      <h1 className={cx("logo")}>Fur Shop</h1>
     </Link>
   );
 };

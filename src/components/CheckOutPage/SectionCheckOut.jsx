@@ -1,8 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "~/styles/SectionCheckOut.module.scss";
+import Address from "~/components/CheckOutPage/Address";
 import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import Address from "~/components/CheckOutPage/Address";
 import { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa6";
 
@@ -41,7 +41,6 @@ export const SectionCheckOut = ({ link }) => {
     );
     setNameError(!/^[A-Za-z\s]+$/.test(name) || name.trim() === "");
     setBillingPhoneError(!/^\d{10,11}$/.test(billingPhone));
-    console.log(addressName);
     setProvinceError(
       addressName.trim() === "" || addressName.trim() === "thành--"
     );
@@ -126,9 +125,7 @@ export const SectionCheckOut = ({ link }) => {
           <span className={cx("title-btn")}>Giỏ hàng</span>
         </Link>
         <button className={cx("btn")} type="submit" onClick={handleSubmit}>
-          <span className={cx("content-btn")}>
-            Tiếp tục chọn phương thức vận chuyển
-          </span>
+          <span className={cx("content-btn")}>Thanh toán</span>
         </button>
       </div>
     </div>

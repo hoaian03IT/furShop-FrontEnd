@@ -1,8 +1,33 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { combineReducers } from "redux";
 import productReducer from "./slices/productSlice";
+import cartReducer from "./slices/cartSlide";
+import persistCombineReducers from "redux-persist/es/persistCombineReducers";
+
+const persistConfig = {
+    key: "root",
+    version: 1,
+    storage,
+};
+
+// add vào đây nếu muốn state lưu vào local storage
+const reducerNeededCombine = { cart: cartReducer };
+
+const persistedReducer = persistCombineReducers(persistConfig, reducerNeededCombine);
+
+const rootReducer = combineReducers({
+    persist: persistedReducer,
+    product: productReducer,
+});
 
 export const store = configureStore({
-    reducer: {
-        product: productReducer,
-    },
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
 });

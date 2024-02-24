@@ -1,3 +1,9 @@
+.error-msg {
+  color: red;
+  margin-left: 10px;
+}
+
+
 .container {
   width: 1080px;
 }
@@ -15,6 +21,7 @@
 .signup {
   max-width: 1250px;
   margin-top: 50px;
+  padding-bottom: 100px;
   &__textheading,
   &__textcontent {
     display: flex;
@@ -49,7 +56,7 @@
       background-color: black;
       width: inherit;
       height: 50px;
-      margin-top: 20px;
+      position: relative;
     }
     &__social {
       display: flex;

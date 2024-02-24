@@ -4,4 +4,6 @@ export const pathname = {
   cart: "/gio-hang",
   checkout: "/thanh-toan",
   policy: "/chinh-sach",
-};
+  login:"/dang-nhap",
+  signup: "/dang-ky"
+};  

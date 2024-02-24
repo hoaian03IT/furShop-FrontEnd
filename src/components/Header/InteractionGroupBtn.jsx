@@ -23,9 +23,9 @@ export const InteractionGroupBtn = () => {
         </div>
       </OverlayTrigger>
       <OverlayTrigger placement="bottom" overlay={<Tooltip>Đăng nhập</Tooltip>}>
-        <div className={cx("action", "login-register")}>
+        <Link to={"./dang-nhap"} className={cx("action", "login-register")}>
           <CiUser className="fs-2" />
-        </div>
+        </Link>
       </OverlayTrigger>
       <OverlayTrigger placement="bottom" overlay={<Tooltip>Giỏ hàng</Tooltip>}>
         <Link to={"/gio-hang"} className={cx("action", "cart")}>

@@ -1,7 +1,7 @@
 import { pathname } from "~/configs/path";
 import styles from "~/styles/Login.scss";
 import classNames from "classnames/bind";
-import { Container, Form } from "react-bootstrap"; 
+import { Container, Form } from "react-bootstrap";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import fb_login from "~/assets/imgs/login_facebook.png";
 import gg_login from "~/assets/imgs/login_google.png";
@@ -18,15 +18,18 @@ export default function Login() {
   });
 
   const [errors, setErrors] = useState({});
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = {};
-    
+
     if (!formData.email.trim()) {
       validationErrors.email = "Email không được để trống !";
-    } else if (!new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$').test(formData.email)) {
+    } else if (
+      !new RegExp(
+        "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(?:.[a-zA-Z]{2,})?$"
+      ).test(formData.email)
+    ) {
       validationErrors.email = "Email không đúng định dạng";
     }
 
@@ -38,7 +41,7 @@ export default function Login() {
 
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      alert("Form submitted successfully");
+      alert("Đăng nhập thành công");
     }
   };
 
@@ -57,7 +60,7 @@ export default function Login() {
               <h3 className={cx("signup__textheading")}>ĐĂNG NHẬP TÀI KHOẢN</h3>
               <h6 className={cx("signup__textcontent")}>
                 Bạn chưa có tài khoản?&nbsp;{" "}
-                <Link to={"/dang-ky"}>Đăng ký tại đây</Link>
+                <Link to={pathname.signup}>Đăng ký tại đây</Link>
               </h6>
             </div>
             <div className={cx("signup-form ")}>
@@ -73,7 +76,9 @@ export default function Login() {
                     id="email"
                     placeholder="Email"
                     value={formData.email}
-                    onChange={e => setFormData({...formData, email: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                   />
                   {errors.email && (
                     <span className={cx("error-msg")}>{errors.email}</span>
@@ -92,7 +97,9 @@ export default function Login() {
                     className={cx("signup-form__input")}
                     id="password"
                     placeholder="Mật khẩu"
-                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
                   />
                   {errors.password && (
                     <span className={cx("error-msg")}>{errors.password}</span>
@@ -100,7 +107,7 @@ export default function Login() {
                 </div>
                 <div className={cx("signup-form__forget")}>
                   <p>
-                    Quên mật khẩu ? Nhấn vào <Link to={"/"}>đây</Link>
+                    Quên mật khẩu ? Nhấn vào <Link to={pathname.forgetaccount}>đây</Link>
                   </p>
                 </div>
                 <button className={cx("signup-form__submit")} type="submit">

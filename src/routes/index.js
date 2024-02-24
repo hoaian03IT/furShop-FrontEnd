@@ -9,6 +9,7 @@ const DetailProductPage = lazy(() => import("~/pages/DetailProductPage"));
 const PolicyPage = lazy(() => import("~/pages/PolicyPage"));
 const PageLogin = lazy(() => import("~/pages/PageLogin"));
 const PageSignUp = lazy(() => import("~/pages/PageSignUp"));
+const PageForgetAccount = lazy(() => import("~/pages/PageForgetAccount"));
 
 export const publicRoutes = [
   { path: pathname.product, component: ProductPage, layout: null },
@@ -17,5 +18,7 @@ export const publicRoutes = [
   { path: pathname.checkout, component: CheckOutPage, layout: null },
   { path: pathname.policy, component: PolicyPage, layout: null },
   { path: pathname.login, component: PageLogin, layout: null },
+  { path: pathname.signup, component: PageSignUp, layout: null },
+  { path: pathname.forgetaccount, component: PageForgetAccount, layout: null },
   { path: pathname.productDetail, component: DetailProductPage, layout: null },
 ];

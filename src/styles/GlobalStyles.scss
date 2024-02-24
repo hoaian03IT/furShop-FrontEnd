@@ -2,81 +2,90 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
 }
 
 .popper {
-  position: absolute;
-  top: calc(100% + 10px);
-  padding: 0.6rem;
-  border-radius: 4px;
-  box-shadow: 0px 4px 5px 1px rgba($color: $black-color, $alpha: 0.1);
-  background-color: $white-color;
-  border: 1px solid rgba($color: $black-color, $alpha: 0.02);
-
-  &::before {
     position: absolute;
-    content: "";
-    width: 100%;
-    height: 10px;
-    background-color: transparent;
-    top: -8px;
-  }
+    top: calc(100% + 10px);
+    padding: 0.6rem;
+    border-radius: 4px;
+    box-shadow: 0px 4px 5px 1px rgba($color: $black-color, $alpha: 0.1);
+    background-color: $white-color;
+    border: 1px solid rgba($color: $black-color, $alpha: 0.02);
 
-  &.arrow::after {
-    position: absolute;
-    content: "";
-    bottom: calc(100% - 2px);
-    border-width: 10px 8px;
-    border-style: solid;
-    border-color: transparent transparent $white-color transparent;
-  }
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 10px;
+        background-color: transparent;
+        top: -8px;
+    }
 
-  &.left {
-    left: 0;
     &.arrow::after {
-      left: 0;
+        position: absolute;
+        content: "";
+        bottom: calc(100% - 2px);
+        border-width: 10px 8px;
+        border-style: solid;
+        border-color: transparent transparent $white-color transparent;
     }
-  }
-  &.right {
-    right: 0;
-    &.arrow::after {
-      right: 0;
-    }
-  }
-  &.middle {
-    left: 50%;
-    transform: translateX(-50%);
-    &.arrow::after {
-      left: 50%;
-      transform: translateX(-50%);
-      @for $i from 1 through 10 {
-        .limit-line-#{$i} {
-          overflow: hidden;
-          display: -webkit-box;
-          -webkit-line-clamp: $i; /* number of lines to show */
-          line-clamp: $i;
-          -webkit-box-orient: vertical;
+
+    &.left {
+        left: 0;
+        &.arrow::after {
+            left: 0;
         }
-      }
     }
-    &.full-screen {
-      left: 0;
-      right: 0;
-      transform: translateX(0);
+    &.right {
+        right: 0;
+        &.arrow::after {
+            right: 0;
+        }
     }
-  }
+    &.middle {
+        left: 50%;
+        transform: translateX(-50%);
+        &.arrow::after {
+            left: 50%;
+            transform: translateX(-50%);
+            @for $i from 1 through 10 {
+                .limit-line-#{$i} {
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: $i; /* number of lines to show */
+                    line-clamp: $i;
+                    -webkit-box-orient: vertical;
+                }
+            }
+        }
+        &.full-screen {
+            left: 0;
+            right: 0;
+            transform: translateX(0);
+        }
+    }
 }
 
 @for $i from 1 through 10 {
-  .limit-line-#{$i} {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: $i; /* number of lines to show */
-    line-clamp: $i;
-    -webkit-box-orient: vertical;
-  }
+    .limit-line-#{$i} {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: $i; /* number of lines to show */
+        line-clamp: $i;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.product-detail.carousel {
+    .carousel-inner {
+        height: 100% !important;
+    }
+    .carousel-indicators {
+        display: none;
+    }
 }

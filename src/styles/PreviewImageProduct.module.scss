@@ -1,0 +1,47 @@
+@use "variables" as *;
+
+.wrapper {
+    .img-slider {
+        height: 500px;
+        .img {
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+    .img-preview {
+        .item {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            padding: 4px;
+            border-radius: 4px;
+            opacity: 0.6;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            .img {
+                object-fit: cover;
+                object-position: center;
+            }
+
+            &.active {
+                opacity: 1;
+                border-color: rgba($color: $black-color, $alpha: 0.4);
+            }
+
+            & + .item {
+                margin-top: 8px;
+            }
+        }
+    }
+}
+
+.prev-btn,
+.next-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $black-color;
+    background-color: $white-color;
+    border-radius: 50%;
+}

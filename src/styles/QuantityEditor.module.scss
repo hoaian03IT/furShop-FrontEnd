@@ -1,0 +1,29 @@
+@use "variables" as *;
+
+.wrapper {
+    border: 1px solid rgba($color: $black-color, $alpha: 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    .btn {
+        padding: 8px;
+        background-color: $white-color;
+        border: none;
+        outline: none;
+    }
+    .quantity {
+        border: none;
+        outline: none;
+        text-align: center;
+        /* Chrome, Safari, Edge, Opera */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        &[type="number"] {
+            -moz-appearance: textfield;
+        }
+    }
+}

@@ -6,7 +6,7 @@ const initialState = {
     error: "",
 };
 
-export const counterSlice = createSlice({
+export const productSlice = createSlice({
     name: "product",
     initialState,
     reducers: {
@@ -27,6 +27,6 @@ export const counterSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { fetchProductFailed, fetchProductRequest, fetchProductSuccess } = counterSlice.actions;
+export const { fetchProductFailed, fetchProductRequest, fetchProductSuccess } = productSlice.actions;
 
-export default counterSlice.reducer;
+export default productSlice.reducer;

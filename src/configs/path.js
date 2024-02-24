@@ -10,4 +10,5 @@ export const pathname = {
   product: "/san-pham/:type",
   policy: "/chinh-sach",
   productDetail: "/chi-tiet-san-pham/:idProduct",
+  
 };

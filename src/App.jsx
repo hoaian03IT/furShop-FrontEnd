@@ -5,9 +5,11 @@ import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import { Suspense } from "react";
 import Footer from "./components/Footer/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 function App() {
     return (
         <div>
+            <ScrollToTop />
             <header>
                 <Header />
             </header>

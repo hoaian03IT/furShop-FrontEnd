@@ -153,7 +153,11 @@ export default function DetailProductPage() {
             <BreadCrumbs
                 hrefs={[
                     { path: pathname.home, name: "Trang chủ", isCurrent: false },
-                    { path: "/san-pham/ban-may-tinh", name: "Bàn máy tính", isCurrent: false }, // category của sản phẩm
+                    {
+                        path: pathname.product + `?category=${product.category?._id}`,
+                        name: product.category?.name,
+                        isCurrent: false,
+                    }, // category của sản phẩm
                     {
                         path: pathname.product, // địa chỉ sản phẩm
                         name: productName,
@@ -185,7 +189,9 @@ export default function DetailProductPage() {
                                 <div className="d-flex align-items-center">
                                     <div className={cx("branch", "me-5")}>
                                         <span className={cx("label")}>Thương hiệu:</span>&nbsp;
-                                        <Link to="/" className={cx("branch-name")}>
+                                        <Link
+                                            to={pathname.product + `?branch=${product.branch?._id}`}
+                                            className={cx("branch-name")}>
                                             {branch?.name}
                                         </Link>
                                     </div>

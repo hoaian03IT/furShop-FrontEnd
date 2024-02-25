@@ -8,6 +8,10 @@
     font-family: "Montserrat", sans-serif;
 }
 
+.header {
+    padding-bottom: $max-height-header;
+}
+
 .popper {
     position: absolute;
     top: calc(100% + 10px);

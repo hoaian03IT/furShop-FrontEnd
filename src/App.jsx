@@ -3,14 +3,26 @@ import "~/styles/GlobalStyles.scss";
 import { Header } from "./components/Header/Header";
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import { fetchCategoriesApi } from "./api-server";
+
 function App() {
+    // fetch categories
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const fetchCategories = async () => {
+            await fetchCategoriesApi(dispatch);
+        };
+        fetchCategories();
+    }, [dispatch]);
+
     return (
         <div>
             <ScrollToTop />
-            <header>
+            <header className="header">
                 <Header />
             </header>
             <main>

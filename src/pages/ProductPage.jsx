@@ -1,5 +1,5 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Container, Form, Col, Row } from "react-bootstrap";
 import classNames from "classnames/bind";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
@@ -7,59 +7,108 @@ import { pathname } from "~/configs/path";
 import { AdvertisementBanner } from "~/components/AdvertisementBanner";
 import { Checkbox } from "~/components/Checkbox";
 import { ProductCard } from "~/components/ProductCard";
-
-import styles from "~/styles/ProductPage.module.scss";
-import banner from "~/assets/imgs/advertisement_banner.png";
-import imgProductExp1 from "~/assets/imgs/anh_sofa1.png";
-import imgProductExp2 from "~/assets/imgs/anh_sofa2.png";
 import { Pagination, PaginationForward, PaginationItem, PaginationPrev } from "~/components/Pagination";
+import { fetchBrandsApi, fetchListProductApi } from "~/api-server";
+import { useSelector, useDispatch } from "react-redux";
+
+import banner from "~/assets/imgs/advertisement_banner.png";
+import styles from "~/styles/ProductPage.module.scss";
 
 const cx = classNames.bind(styles);
 
-const branchTemp = ["Ashley", "Aaron", "French Heritage", "Khác"];
 const prices = [
     {
         show: "Giá dưới 1.000.000₫",
-        key: "smaller-one-million",
+        key: "0-999999",
     },
     {
         show: "1.000.000₫ - 2.000.000₫",
-        key: "one-to-two-million",
+        key: "1000000-1999999",
     },
     {
         show: "2.000.000₫ - 5.000.000₫",
-        key: "two-to-file-million",
+        key: "2000000-4999999",
     },
     {
         show: "5.000.000₫ - 10.000.000₫",
-        key: "five-to-ten-million",
+        key: "5000000-9999999",
     },
     {
         show: "Giá trên 10.000.000₫",
-        key: "over-10-million",
+        key: "over-10000000",
     },
 ];
 
+const ORDER = [
+    {
+        key: "asc",
+        label: "Tên A -> Z",
+    },
+    {
+        key: "desc",
+        label: "Tên Z -> A",
+    },
+    {
+        key: "lowest",
+        label: "Giá tăng dần",
+    },
+    {
+        key: "highest",
+        label: "Giá giảm dần",
+    },
+
+    {
+        key: "newest",
+        label: "Hàng mới",
+    },
+];
+
+const nPageTemp = 8;
+
 export default function ProductPage() {
-    const [orderBy, setOrderBy] = useState(0);
+    const dispatch = useDispatch();
+    const { products, pages } = useSelector((state) => state.listProduct);
+    const { brands } = useSelector((state) => state.persist.brand);
+
     const [activePage, setActivePage] = useState(1);
 
-    const [selectedPrice, setSelectedPrice] = useState({ checked: null });
-    const [selectedBranch, setSelectedBranch] = useState([]);
+    const { search } = useLocation();
 
-    const nPageTemp = 3;
+    const sp = new URLSearchParams(search);
+
+    const [categoryFilter, setCategoryFilter] = useState(sp.get("category") || "all");
+    const [brandFilter, setBrandFilter] = useState(sp.get("branch") || "all");
+    const [priceFilter, setPriceFilter] = useState(sp.get("price") || "all");
+    const [order, setOrder] = useState(sp.get("order") || "asc");
+
+    useEffect(() => {
+        const fetchBrands = async () => {
+            await fetchBrandsApi(5, dispatch);
+        };
+        fetchBrands();
+    }, [dispatch]);
+
+    useEffect(() => {
+        const fetchListProduct = async () => {
+            await fetchListProductApi(
+                `category=${categoryFilter}&order=${order}&brand=${brandFilter}&price=${priceFilter}&pageSize=${nPageTemp}&page=${activePage}`,
+                dispatch
+            );
+        };
+        fetchListProduct();
+    }, [activePage, brandFilter, categoryFilter, dispatch, order, priceFilter]);
 
     const handleBackPage = () => {
         if (activePage > 1) setActivePage((prev) => prev - 1);
     };
 
     const handleNextPage = () => {
-        if (activePage < nPageTemp) setActivePage((prev) => prev + 1);
+        if (activePage < pages) setActivePage((prev) => prev + 1);
     };
 
-    const handleSelectBranches = (value) => {
-        if (selectedBranch.includes(value)) setSelectedBranch((prev) => prev.filter((item) => item !== value));
-        else setSelectedBranch((prev) => [...prev, value]);
+    const handleFilterPrice = (value) => {
+        if (priceFilter === value) setPriceFilter("all");
+        else setPriceFilter(value);
     };
 
     return (
@@ -83,13 +132,13 @@ export default function ProductPage() {
                         <h5>Tất cả sản phẩm</h5>
                         <Form.Select
                             className={cx("order-selection")}
-                            onChange={(e) => setOrderBy(e.target.value)}
-                            value={orderBy}>
-                            <option value={0}>{"Tên A -> Z"}</option>
-                            <option value={1}>{"Tên Z -> A"}</option>
-                            <option value={2}>Giá tăng dần</option>
-                            <option value={3}>Giá giảm dần</option>
-                            <option value={4}>Hàng mới</option>
+                            onChange={(e) => setOrder(e.target.value)}
+                            value={order}>
+                            {ORDER.map((item) => (
+                                <option key={item.key} value={item.key}>
+                                    {item.label}
+                                </option>
+                            ))}
                         </Form.Select>
                     </div>
                     <div className="p-2">
@@ -98,12 +147,17 @@ export default function ProductPage() {
                                 <div className={cx("part-filter")}>
                                     <h6 className="text-uppercase">thương hiệu</h6>
                                     <div>
-                                        {branchTemp.map((branch) => (
+                                        <Checkbox
+                                            label="Tất cả"
+                                            checked={brandFilter === "all"}
+                                            onChange={() => setBrandFilter("all")}
+                                        />
+                                        {brands?.map((brand) => (
                                             <Checkbox
-                                                key={branch}
-                                                label={branch}
-                                                checked={selectedBranch.includes(branch)}
-                                                onChange={() => handleSelectBranches(branch)}
+                                                key={brand?._id}
+                                                label={brand?.name}
+                                                checked={brandFilter === brand?._id}
+                                                onChange={() => setBrandFilter(brand._id)}
                                             />
                                         ))}
                                     </div>
@@ -115,78 +169,48 @@ export default function ProductPage() {
                                             <Checkbox
                                                 key={price.key}
                                                 label={price.show}
-                                                checked={price.key === selectedPrice}
-                                                onChange={() => setSelectedPrice(price.key)}
+                                                checked={price.key === priceFilter}
+                                                onChange={() => handleFilterPrice(price.key)}
                                             />
                                         ))}
-                                    </div>
-                                </div>
-                                <div className={cx("part-filter")}>
-                                    <h6 className="text-uppercase">loại</h6>
-                                    <div>
-                                        <NavLink
-                                            to={pathname.product}
-                                            className={({ isActive }) => cx("link", isActive ? "active" : "")}>
-                                            Bàn
-                                        </NavLink>
-                                        <NavLink
-                                            to={"/"}
-                                            className={({ isActive }) => cx("link", isActive ? "active" : "")}>
-                                            Ghế
-                                        </NavLink>
-                                        <NavLink
-                                            to={"/"}
-                                            className={({ isActive }) => cx("link", isActive ? "active" : "")}>
-                                            Tủ
-                                        </NavLink>
-                                        <NavLink
-                                            to={"/"}
-                                            className={({ isActive }) => cx("link", isActive ? "active" : "")}>
-                                            Giường
-                                        </NavLink>
-                                        <NavLink
-                                            to={"/"}
-                                            className={({ isActive }) => cx("link", isActive ? "active" : "")}>
-                                            Khăn màn rèm
-                                        </NavLink>
-                                        <NavLink
-                                            to={"/"}
-                                            className={({ isActive }) => cx("link", isActive ? "active" : "")}>
-                                            Đồ da dụng
-                                        </NavLink>
                                     </div>
                                 </div>
                             </Col>
                             <Col md={9}>
                                 <Row md={{ cols: 4 }}>
-                                    {"hoaian03".split("").map((c, index) => (
-                                        <Col className="mt-4" key={index}>
-                                            <div>
-                                                <ProductCard
-                                                    img1={imgProductExp1}
-                                                    img2={imgProductExp2}
-                                                    title="Sofa Vải Phòng Khách Nhỏ"
-                                                    price={7599000}
-                                                    discount={0.3}
-                                                />
-                                            </div>
-                                        </Col>
-                                    ))}
+                                    {products.map((product) => {
+                                        const imgs = product?.attributes.map((attr) => attr.image);
+                                        return (
+                                            <Col className="mt-4" key={product?._id}>
+                                                <div>
+                                                    <ProductCard
+                                                        imgs={imgs}
+                                                        title="Sofa Vải Phòng Khách Nhỏ"
+                                                        price={product?.price}
+                                                        discount={product?.discount}
+                                                        link={pathname.productDetail.split(":")[0] + product._id}
+                                                    />
+                                                </div>
+                                            </Col>
+                                        );
+                                    })}
                                 </Row>
-                                <div className="mt-4">
-                                    <Pagination placement="right">
-                                        <PaginationPrev onClick={handleBackPage} />
-                                        {[...Array(nPageTemp + 1).keys()].slice(1).map((value) => (
-                                            <PaginationItem
-                                                key={value}
-                                                active={value === activePage}
-                                                onClick={() => setActivePage(value)}>
-                                                {value}
-                                            </PaginationItem>
-                                        ))}
-                                        <PaginationForward onClick={handleNextPage} />
-                                    </Pagination>
-                                </div>
+                                {pages > 1 && (
+                                    <div className="mt-4">
+                                        <Pagination placement="right">
+                                            <PaginationPrev onClick={handleBackPage} />
+                                            {[...Array(pages + 1).keys()].slice(1).map((value) => (
+                                                <PaginationItem
+                                                    key={value}
+                                                    active={value === activePage}
+                                                    onClick={() => setActivePage(value)}>
+                                                    {value}
+                                                </PaginationItem>
+                                            ))}
+                                            <PaginationForward onClick={handleNextPage} />
+                                        </Pagination>
+                                    </div>
+                                )}
                             </Col>
                         </Row>
                     </div>

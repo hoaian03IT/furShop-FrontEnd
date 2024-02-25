@@ -1,6 +1,6 @@
 export const pathname = {
     home: "/",
-    product: "/san-pham/:type",
+    product: "/san-pham",
     cart: "/gio-hang",
     checkout: "/thanh-toan",
     policy: "/chinh-sach",

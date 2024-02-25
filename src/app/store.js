@@ -8,6 +8,8 @@ import persistCombineReducers from "redux-persist/es/persistCombineReducers";
 import productReducer from "./slices/productSlice";
 import cartReducer from "./slices/cartSlide";
 import listProductReducer from "./slices/listProductSlice";
+import brandReducer from "./slices/brandSlice";
+import categorySlice from "./slices/categorySlice";
 
 const persistConfig = {
     key: "root",
@@ -16,7 +18,7 @@ const persistConfig = {
 };
 
 // add vào đây nếu muốn state lưu vào local storage
-const reducerNeededCombine = { cart: cartReducer };
+const reducerNeededCombine = { cart: cartReducer, brand: brandReducer, category: categorySlice };
 
 const persistedReducer = persistCombineReducers(persistConfig, reducerNeededCombine);
 

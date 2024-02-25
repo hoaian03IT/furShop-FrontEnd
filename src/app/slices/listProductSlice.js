@@ -3,6 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
     products: [],
+    page: null,
+    pages: null,
     loading: false,
     error: "",
 };
@@ -16,7 +18,10 @@ export const listProductSlice = createSlice({
             state.error = "";
         },
         fetchListProductSuccess: (state, action) => {
-            if (action.payload.length > 0) state.products = action.payload;
+            const { products, page, pages } = action.payload;
+            state.products = products;
+            state.page = page;
+            state.pages = pages;
             state.loading = false;
         },
         fetchListProductFailed: (state, action) => {

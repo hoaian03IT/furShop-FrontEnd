@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import banner from "~/assets/imgs/advertisement_banner.png";
 import styles from "~/styles/ProductPage.module.scss";
+import { Loading } from "~/components/Loading";
 
 const cx = classNames.bind(styles);
 
@@ -67,7 +68,7 @@ const nPageTemp = 8;
 
 export default function ProductPage() {
     const dispatch = useDispatch();
-    const { products, pages } = useSelector((state) => state.listProduct);
+    const { products, pages, loading: loadingProducts } = useSelector((state) => state.listProduct);
     const { brands } = useSelector((state) => state.persist.brand);
 
     const [activePage, setActivePage] = useState(1);
@@ -178,22 +179,26 @@ export default function ProductPage() {
                             </Col>
                             <Col md={9}>
                                 <Row md={{ cols: 4 }}>
-                                    {products.map((product) => {
-                                        const imgs = product?.attributes.map((attr) => attr.image);
-                                        return (
-                                            <Col className="mt-4" key={product?._id}>
-                                                <div>
-                                                    <ProductCard
-                                                        imgs={imgs}
-                                                        title="Sofa Vải Phòng Khách Nhỏ"
-                                                        price={product?.price}
-                                                        discount={product?.discount}
-                                                        link={pathname.productDetail.split(":")[0] + product._id}
-                                                    />
-                                                </div>
-                                            </Col>
-                                        );
-                                    })}
+                                    {loadingProducts ? (
+                                        <Loading />
+                                    ) : (
+                                        products.map((product) => {
+                                            const imgs = product?.attributes.map((attr) => attr.image);
+                                            return (
+                                                <Col className="mt-4" key={product?._id}>
+                                                    <div>
+                                                        <ProductCard
+                                                            imgs={imgs}
+                                                            title="Sofa Vải Phòng Khách Nhỏ"
+                                                            price={product?.price}
+                                                            discount={product?.discount}
+                                                            link={pathname.productDetail.split(":")[0] + product._id}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            );
+                                        })
+                                    )}
                                 </Row>
                                 {pages > 1 && (
                                     <div className="mt-4">

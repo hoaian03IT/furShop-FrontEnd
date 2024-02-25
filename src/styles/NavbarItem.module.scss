@@ -11,6 +11,7 @@
     }
     .navbar-link {
         text-decoration: none;
+
         .title {
             position: relative;
             margin: 0;
@@ -33,6 +34,9 @@
         &.active .title::after,
         &:hover .title::after {
             width: 100%;
+        }
+        &.disabled {
+            pointer-events: none;
         }
     }
     .popper {

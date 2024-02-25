@@ -10,17 +10,17 @@ const cx = classNames.bind(styles);
 function PolicyPage() {
   return (
     <div>
+      <BreadCrumbs
+        hrefs={[
+          { path: pathname.home, name: "Trang chủ", isCurrent: false },
+          {
+            path: pathname.policy,
+            name: "Chính sách đổi trả",
+            isCurrent: true,
+          },
+        ]}
+      />
       <Container>
-        <BreadCrumbs
-          hrefs={[
-            { path: pathname.home, name: "Trang chủ", isCurrent: false },
-            {
-              path: pathname.policy,
-              name: "Chính sách đổi trả",
-              isCurrent: true,
-            },
-          ]}
-        />
         <div className={cx("container")}>
           <h1 className={cx("title")}>Chính sách đổi trả</h1>
           <PolicyContainer />

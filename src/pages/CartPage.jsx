@@ -2,7 +2,7 @@ import { pathname } from "~/configs/path";
 import styles from "~/styles/CartPage.module.scss";
 import classNames from "classnames/bind";
 import { Col, Container, Row } from "react-bootstrap";
-import product from "~/assets/imgs/product1.png";
+// import product from "~/assets/imgs/product1.png";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { ItemProduct } from "~/components/CartPage/ItemProduct";
 import { NoteProduct } from "~/components/CartPage/NoteProduct";
@@ -13,13 +13,36 @@ import { TotalBill } from "~/components/CartPage/TotalBill";
 import { CouponBill } from "~/components/CartPage/CouponBill";
 import { CheckOutBill } from "~/components/CartPage/CheckOutBill";
 import { Trustbadge } from "~/components/CartPage/Trustbadge";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import * as sv from "~/config-axios";
 const cx = classNames.bind(styles);
 
 export default function CartPage() {
   const [quantity, setQuantity] = useState(1);
   const [textValue, setTextValue] = useState("");
   const [checked, setChecked] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const datas = await sv.get("gio-hang/xem-gio-hang", {
+        customerId: "65db441b4e38ab6618ee0f26",
+      });
+      if (datas && datas?.status === 200 && datas?.statusText === "OK") {
+        const dataCart = datas.data.data;
+        setData(dataCart);
+      }
+    })();
+  }, [JSON.stringify(data)]);
+
+  const totalPrice = useMemo(() => {
+    return data.reduce((first, item, i) => {
+      const product = item.productId;
+      const att = item.productAttributes;
+      return product.price * item.amount * (1 - product.discount) + first;
+    }, 0);
+  });
+
   return (
     <div>
       <BreadCrumbs
@@ -39,16 +62,24 @@ export default function CartPage() {
             <Row>
               <Col md={8}>
                 <div className={cx("cart-content-product")}>
-                  <ItemProduct
-                    link={"/gio-hang"}
-                    img={product}
-                    nameProduct="Bàn học"
-                    description="Đẹp gỗ liêm"
-                    price={1000000}
-                    discount={0.1}
-                    quantity={quantity}
-                    setQuantity={setQuantity}
-                  />
+                  {data.map((item, index) => {
+                    console.log(item);
+                    const product = item.productId;
+                    const attributes = item.productAttributes;
+                    return (
+                      <ItemProduct
+                        key={index}
+                        link={"/chi-tiet-san-pham"}
+                        img={product.image}
+                        nameProduct={product.productName}
+                        description={product.description}
+                        price={product.price}
+                        discount={product.discount}
+                        quantity={item.amount}
+                        setQuantity={setQuantity}
+                      />
+                    );
+                  })}
                   <div className={cx("cart-note")}>
                     <NoteProduct
                       label={"Ghi chú hóa đơn"}
@@ -69,7 +100,7 @@ export default function CartPage() {
                   <div className={cx("form", checked ? "show" : "hide")}>
                     <PaymentCompany />
                   </div>
-                  <TotalBill name={"TỔNG CỘNG"} total={1000000} />
+                  <TotalBill name={"TỔNG CỘNG"} total={totalPrice} />
                   <CouponBill />
                   <CheckOutBill />
                   <Trustbadge />

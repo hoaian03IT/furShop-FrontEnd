@@ -1,0 +1,38 @@
+@use "variables" as *;
+
+.wrapper {
+    width: 100%;
+    padding: 12px;
+
+    & + .wrapper {
+        border-top: 1px solid rgba($color: $black-color, $alpha: 0.1);
+    }
+
+    &:hover {
+        background-color: rgba($color: $black-color, $alpha: 0.05);
+    }
+
+    .image {
+        img {
+            height: 100%;
+            width: 80px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+    .description {
+        .price {
+            font-size: 16px;
+            color: $black-color;
+            font-weight: 500;
+        }
+        .origin-price {
+            font-size: 14px;
+            color: rgba($color: $black-color, $alpha: 0.8);
+            text-decoration: line-through;
+        }
+        .discount {
+            font-size: 12px;
+        }
+    }
+}

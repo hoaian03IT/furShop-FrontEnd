@@ -1,18 +1,13 @@
 import classNames from "classnames/bind";
 import { Link, NavLink } from "react-router-dom";
 import { Popper } from "../Popper";
-import { fetchListProductApi } from "~/api-server";
-import { useDispatch } from "react-redux";
 import styles from "~/styles/NavbarItem.module.scss";
 
 const cx = classNames.bind(styles);
 export const NavbarItem = ({ path, title, list, fullScreenPopper = false, disablePath = false }) => {
-    const dispatch = useDispatch();
-
     // fetch product when click link
-    const handleClick = async (category) => {
-        // await fetchListProductApi(`category=${category}&pageSize=8`, dispatch);
-        window.location.reload();
+    const handleClick = async () => {
+        // window.location.reload();
     };
     return (
         <div className={`${cx("navbar-item")} ${!fullScreenPopper ? "position-relative" : ""}`}>
@@ -35,10 +30,7 @@ export const NavbarItem = ({ path, title, list, fullScreenPopper = false, disabl
                             <ul className="list-unstyled m-0">
                                 {child.list.map((item, index) => (
                                     <li key={index}>
-                                        <Link
-                                            to={item.path}
-                                            className={cx("item-link")}
-                                            onClick={() => handleClick(item.path.split("=")[1])}>
+                                        <Link to={item.path} className={cx("item-link")} onClick={handleClick}>
                                             {item.title[0].toLocaleUpperCase() + item.title.slice(1)}
                                         </Link>
                                     </li>

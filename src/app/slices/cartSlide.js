@@ -16,22 +16,26 @@ export const cartSlice = createSlice({
             state.error = "";
         },
         addProductToCartSuccess: (state, action) => {
-            const addedProduct = action.payload;
+            const product = action.payload;
             let isExisted = false;
 
-            const newCartItems = state.cartItems.map((item) => {
-                if (item.attributes[0]?._id === addedProduct.attributes[0]._id) {
+            const attributeProduct = product.attributes[0];
+
+            let newCartItems;
+
+            newCartItems = state.cartItems.map((item) => {
+                if (item.attributes[0]?._id === attributeProduct?._id) {
                     const attr = item.attributes[0];
-                    attr.quantity += addedProduct.attributes[0].quantity;
+                    attr.quantity += attributeProduct?.quantity;
                     isExisted = true;
-                    return { ...item, attributes: attr };
+                    return { ...item, attributes: [attr] };
                 } else {
                     return { ...item };
                 }
             });
 
             if (!isExisted) {
-                newCartItems.push(addedProduct);
+                newCartItems.push(product);
             }
 
             // update cart
@@ -49,15 +53,19 @@ export const cartSlice = createSlice({
         removeProductFromCartSuccess: (state, action) => {
             const removedProduct = action.payload;
 
-            const newCart = state.cartItems.map((product) => {
-                if (product.id === removedProduct._id) {
-                    if (product.quantity === 1) {
-                        return {};
+            const attributeProduct = removedProduct.attributes[0];
+
+            let newCart = state.cartItems.map((item) => {
+                const attributeItem = item.attributes[0];
+                if (attributeItem?.id === attributeProduct?._id) {
+                    const remain = attributeItem?.quantity - attributeProduct?.quantity;
+                    if (remain <= 0) {
+                        return { ...item, attributes: [{ ...attributeItem, quantity: 1 }] };
                     } else {
-                        return { ...product, quantity: product.quantity - removedProduct.quantity };
+                        return { ...item, attributes: [{ ...attributeItem, quantity: remain }] };
                     }
                 } else {
-                    return {};
+                    return { ...item };
                 }
             });
 

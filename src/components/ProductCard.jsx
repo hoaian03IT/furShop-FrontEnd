@@ -8,14 +8,15 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import styles from "~/styles/ProductCard.module.scss";
 const cx = classNames.bind(styles);
 
-export const ProductCard = ({ img1, img2, title, price, discount = 0, link }) => {
+export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => {
     const realPrice = formatCurrencyVND(discount > 0 ? price - price * discount : price);
+
     return (
         <div className={cx("wrapper", "w-100")}>
             <div className={cx("img-wrapper")}>
                 <Link to={link} className={cx("img-link", "d-block w-100 h-100")}>
-                    <img draggable={false} src={img1} alt="" className={cx("img", "first")} />
-                    <img draggable={false} src={img2} alt="" className={cx("img", "second")} />
+                    <img draggable={false} src={imgs[0]} alt="" className={cx("img", "first")} />
+                    {imgs.length > 1 && <img draggable={false} src={imgs[1]} alt="" className={cx("img", "second")} />}
                 </Link>
                 <div className={cx("group-btn")}>
                     <OverlayTrigger
@@ -42,7 +43,7 @@ export const ProductCard = ({ img1, img2, title, price, discount = 0, link }) =>
                     </OverlayTrigger>
                 </div>
             </div>
-            <div className={cx("content", "mt-4")}>
+            <div className={cx("content", "mt-2")}>
                 <OverlayTrigger placement="top" overlay={<span style={{ fontSize: 10 }}>{title}</span>}>
                     <Link to={link} className={cx("title", "fw-semibold limit-line-2")}>
                         {title}

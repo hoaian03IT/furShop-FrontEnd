@@ -2,9 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
+import persistCombineReducers from "redux-persist/es/persistCombineReducers";
+
+// reducers
 import productReducer from "./slices/productSlice";
 import cartReducer from "./slices/cartSlide";
-import persistCombineReducers from "redux-persist/es/persistCombineReducers";
+import listProductReducer from "./slices/listProductSlice";
 
 const persistConfig = {
     key: "root",
@@ -20,6 +23,7 @@ const persistedReducer = persistCombineReducers(persistConfig, reducerNeededComb
 const rootReducer = combineReducers({
     persist: persistedReducer,
     product: productReducer,
+    listProduct: listProductReducer,
 });
 
 export const store = configureStore({

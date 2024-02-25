@@ -9,13 +9,11 @@ import styles from "~/styles/DetailProductPage.module.scss";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { formatCurrencyVND } from "~/utils";
-import { fetchProductDetailApi } from "~/api-server";
+import { fetchListProductApi, fetchProductDetailApi } from "~/api-server";
 import { useDispatch, useSelector } from "react-redux";
 import { PreviewImageProduct } from "~/components/PreviewImageProduct";
 import { QuantityEditor } from "~/components/QuantityEditor";
 import { ImFacebook, ImPinterest, ImTwitter } from "react-icons/im";
-import imgProductExp1 from "~/assets/imgs/anh_sofa1.png";
-import imgProductExp2 from "~/assets/imgs/anh_sofa2.png";
 import { ProductCard } from "~/components/ProductCard";
 import { addProductToCartFailed, addProductToCartRequest, addProductToCartSuccess } from "~/app/slices/cartSlide";
 import { toast } from "react-toastify";
@@ -23,13 +21,16 @@ import "react-toastify/dist/ReactToastify.css";
 
 const cx = classNames.bind(styles);
 
+const LIMIT_PRODUCT_RECOMMENDED = 5;
+
 export default function DetailProductPage() {
     const dispatch = useDispatch();
     const { idProduct } = useParams();
 
     const { product } = useSelector((state) => state.product);
+    const { products } = useSelector((state) => state.listProduct);
 
-    const { _id, productName, description, branch, price = 0, discount = 0, attributes } = product;
+    const { _id, productName, category, description, branch, price = 0, discount = 0, attributes } = product;
 
     const [images, setImages] = useState([]);
     const [colors, setColors] = useState([]);
@@ -44,6 +45,7 @@ export default function DetailProductPage() {
         image: "",
     });
 
+    // fetch product by id
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -53,6 +55,7 @@ export default function DetailProductPage() {
         fetchProduct();
     }, [dispatch, idProduct]);
 
+    // push images of products to state
     useEffect(() => {
         let imgs = [];
         attributes?.forEach((attr) => {
@@ -61,6 +64,7 @@ export default function DetailProductPage() {
         setImages(imgs);
     }, [attributes]);
 
+    // filter colors of products
     useEffect(() => {
         let colorsAttr = [];
         attributes?.forEach((attr) => {
@@ -79,6 +83,15 @@ export default function DetailProductPage() {
         setSelectedAttributes({ ...selectedAttributes, image: selected?.image, _id: selected?._id });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [attributes, selectedAttributes.size]);
+
+    useEffect(() => {
+        const fetchProductRelated = async (query) => {
+            try {
+                await fetchListProductApi(query, dispatch);
+            } catch (error) {}
+        };
+        category?._id && fetchProductRelated(`category=${category?._id}&pageSize=${LIMIT_PRODUCT_RECOMMENDED}`);
+    }, [category, dispatch]);
 
     const handleSelectColor = (color) => {
         setSelectedAttributes({ ...selectedAttributes, color: color, size: "" });
@@ -285,52 +298,21 @@ export default function DetailProductPage() {
                         <Col>
                             <div className={cx("same-products", "my-5")}>
                                 <h4 className="">Sản phẩm cùng loại</h4>
-                                <Row>
-                                    <Col>
-                                        <ProductCard
-                                            img1={imgProductExp1}
-                                            img2={imgProductExp2}
-                                            title="Sofa Vải Phòng Khách Nhỏ"
-                                            price={7599000}
-                                            discount={0.3}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <ProductCard
-                                            img1={imgProductExp1}
-                                            img2={imgProductExp2}
-                                            title="Sofa Vải Phòng Khách Nhỏ"
-                                            price={7599000}
-                                            discount={0.3}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <ProductCard
-                                            img1={imgProductExp1}
-                                            img2={imgProductExp2}
-                                            title="Sofa Vải Phòng Khách Nhỏ"
-                                            price={7599000}
-                                            discount={0.3}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <ProductCard
-                                            img1={imgProductExp1}
-                                            img2={imgProductExp2}
-                                            title="Sofa Vải Phòng Khách Nhỏ"
-                                            price={7599000}
-                                            discount={0.3}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <ProductCard
-                                            img1={imgProductExp1}
-                                            img2={imgProductExp2}
-                                            title="Sofa Vải Phòng Khách Nhỏ"
-                                            price={7599000}
-                                            discount={0.3}
-                                        />
-                                    </Col>
+                                <Row md={{ cols: LIMIT_PRODUCT_RECOMMENDED }}>
+                                    {products?.slice(0, LIMIT_PRODUCT_RECOMMENDED).map((product, index) => {
+                                        const imgs = product?.attributes.map((attr) => attr.image);
+                                        return (
+                                            <Col key={index}>
+                                                <ProductCard
+                                                    imgs={imgs}
+                                                    title={product?.productName}
+                                                    price={product?.price}
+                                                    discount={product?.discount}
+                                                    link={pathname.productDetail.split(":")[0] + product?._id}
+                                                />
+                                            </Col>
+                                        );
+                                    })}
                                 </Row>
                             </div>
                         </Col>

@@ -4,7 +4,7 @@ import styles from "~/styles/CheckOutBill.module.scss";
 
 const cx = classNames.bind(styles);
 
-export const CheckOutBill = ({}) => {
+export const CheckOutBill = ({ disabled }) => {
   const handleCheckOut = () => {
     return;
   };
@@ -13,6 +13,7 @@ export const CheckOutBill = ({}) => {
       <Link to={"/thanh-toan"}>
         <button
           title="Tiến hành thanh toán"
+          disabled={disabled}
           className={cx("btn")}
           type="button"
           onClick={handleCheckOut}

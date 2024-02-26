@@ -14,14 +14,15 @@ import { axiosInterceptor } from "~/utils/axiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchCartItemApi } from "~/api-server";
+import { Loading } from "~/components/Loading";
 const cx = classNames.bind(styles);
 
 export default function CartPage() {
   const [quantity, setQuantity] = useState(1);
   const [textValue, setTextValue] = useState("");
   const [checked, setChecked] = useState(false);
-  const [data, setData] = useState([]);
   const { user } = useSelector((state) => state.persist);
+  const { cartItems, loading } = useSelector((state) => state.persist.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const axiosJWT = axiosInterceptor(user, dispatch, navigate);
@@ -33,7 +34,7 @@ export default function CartPage() {
   }, [dispatch]);
 
   const totalPrice = useMemo(() => {
-    return data.reduce((first, item, i) => {
+    return cartItems?.reduce((first, item, i) => {
       const product = item.productId;
       const att = item.productAttributes;
       return product.price * item.amount * (1 - product.discount) + first;
@@ -59,26 +60,30 @@ export default function CartPage() {
             <Row>
               <Col md={8}>
                 <div className={cx("cart-content-product")}>
-                  {data.map((item, index) => {
-                    console.log(item);
-                    const product = item.productId;
-                    const attributes = item.productAttributes;
-                    return (
-                      <ItemProduct
-                        key={index}
-                        link={
-                          pathname.productDetail.split(":")[0] + product._id
-                        }
-                        img={product.image}
-                        nameProduct={product.productName}
-                        description={product.description}
-                        price={product.price}
-                        discount={product.discount}
-                        quantity={item.amount}
-                        setQuantity={setQuantity}
-                      />
-                    );
-                  })}
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    cartItems?.map((item, index) => {
+                      console.log(item);
+                      const product = item.productId;
+                      const attributes = item.productAttributes;
+                      return (
+                        <ItemProduct
+                          key={index}
+                          link={
+                            pathname.productDetail.split(":")[0] + product._id
+                          }
+                          img={product.image}
+                          nameProduct={product.productName}
+                          description={product.description}
+                          price={product.price}
+                          discount={product.discount}
+                          quantity={item.amount}
+                          setQuantity={setQuantity}
+                        />
+                      );
+                    })
+                  )}
                   <div className={cx("cart-note")}>
                     <NoteProduct
                       label={"Ghi chú hóa đơn"}
@@ -92,7 +97,7 @@ export default function CartPage() {
                 <div className={cx("cart-checkout")}>
                   <TotalBill name={"TỔNG CỘNG"} total={totalPrice} />
                   <CouponBill />
-                  <CheckOutBill />
+                  <CheckOutBill disabled={cartItems?.length === 0} />
                   <Trustbadge />
                 </div>
               </Col>

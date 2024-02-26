@@ -6,7 +6,11 @@ import {
   fetchBrandRequest,
   fetchBrandSuccess,
 } from "~/app/slices/brandSlice";
-import { fetchCartItemRequest } from "~/app/slices/cartSlide";
+import {
+  fetchCartItemRequest,
+  fetchCartItemSuccess,
+  fetchCartItemFail,
+} from "~/app/slices/cartSlide";
 import {
   fetchCategoriesFailed,
   fetchCategoriesRequest,

@@ -6,11 +6,7 @@ import {
   fetchBrandRequest,
   fetchBrandSuccess,
 } from "~/app/slices/brandSlice";
-import {
-  fetchCartItemFail,
-  fetchCartItemRequest,
-  fetchCartItemSuccess,
-} from "~/app/slices/cartSlide";
+import { fetchCartItemRequest } from "~/app/slices/cartSlide";
 import {
   fetchCategoriesFailed,
   fetchCategoriesRequest,
@@ -101,7 +97,7 @@ export const loginApi = async (dispatch, payload, navigate, redirect) => {
   }
 };
 
-export const registerApi = async (dispatch, payload) => {
+export const registerApi = async (dispatch, payload = {}) => {
   dispatch(registerRequest());
   const { email, username, password, role, gender } = payload;
   try {

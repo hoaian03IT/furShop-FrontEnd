@@ -10,4 +10,5 @@ export const pathname = {
     productDetail: "/chi-tiet-san-pham/:idProduct",
     account: "/tai-khoan",
 
+    changePassword: "/doi-mat-khau"
 };

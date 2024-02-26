@@ -7,11 +7,20 @@ import fb_login from "~/assets/imgs/login_facebook.png";
 import gg_login from "~/assets/imgs/login_google.png";
 import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loginApi } from "~/api-server";
+import { useDispatch, useSelector } from "react-redux";
+import { Loading } from "~/components/Loading";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 export default function Login() {
+    const { search } = useLocation();
+    const redirect = new URLSearchParams(search).get("redirect") || pathname.home;
+    const navigate = useNavigate();
+    const { userInfo } = useSelector((state) => state.persist.user);
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -19,7 +28,10 @@ export default function Login() {
 
     const [errors, setErrors] = useState({});
 
-    const handleSubmit = (e) => {
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state) => state.persist.user);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validationErrors = {};
 
@@ -39,7 +51,9 @@ export default function Login() {
 
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length === 0) {
-            alert("Đăng nhập thành công");
+            try {
+                await loginApi(dispatch, { ...formData }, navigate, redirect);
+            } catch (error) {}
         }
     };
 
@@ -93,11 +107,11 @@ export default function Login() {
                                 </div>
                                 <div className={cx("signup-form__forget")}>
                                     <p>
-                                        Quên mật khẩu ? Nhấn vào <Link to={pathname.forgetaccount}>đây</Link>
+                                        Quên mật khẩu ? Nhấn vào <Link to={pathname.forgetAccount}>đây</Link>
                                     </p>
                                 </div>
                                 <button className={cx("signup-form__submit")} type="submit">
-                                    ĐĂNG NHẬP
+                                    {loading ? <Loading /> : <span>ĐĂNG NHẬP</span>}
                                 </button>
                                 <p className={cx("text-content-secondary")}>Hoặc đăng nhập bằng</p>
                                 <div className="signup-form__social">

@@ -1,0 +1,21 @@
+@use "variables" as *;
+
+.wrapper {
+    display: none;
+    padding: 4px 12px;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-height: 50vh;
+    background-color: $white-color;
+    border-radius: 4px;
+    box-shadow: 1px 0 4px 1px rgba($color: $black-color, $alpha: 0.05);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &.show {
+        display: block;
+    }
+}

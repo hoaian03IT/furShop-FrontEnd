@@ -8,44 +8,38 @@ import gg_login from "~/assets/imgs/login_google.png";
 import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { useState } from "react";
+import { registerApi } from "~/api-server";
+import { useDispatch } from "react-redux";
 
 const cx = classNames.bind(styles);
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
+    username: "",
     email: "",
     password: "",
+    role: "customer",
+    gender: null,
   });
+
+  const dispatch = useDispatch();
 
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = {};
 
-    if (!formData.firstName.trim()) {
-      validationErrors.firstName = "Họ không được để trống!";
-    }
-
-    if (!formData.lastName.trim()) {
-      validationErrors.lastName = "Tên không được để trống!";
-    }
-
-    if (!formData.phoneNumber.trim()) {
-      validationErrors.phoneNumber = "Số điện thoại không được để trống!";
-    } else if (!/^\d{10,11}$/.test(formData.phoneNumber.trim())) {
-      validationErrors.phoneNumber = "Số điện thoại không hợp lệ!";
+    if (!formData.username.trim()) {
+      validationErrors.username = "tên tài khoản không được để trống!";
+    } else if (formData.username.trim().includes(" ") || !formData.username) {
+      validationErrors.username = "tên tài khoản không hợp lệ!";
     }
 
     if (!formData.email.trim()) {
       validationErrors.email = "Email không được để trống!";
     } else if (
-      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-        formData.email
-      )
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
     ) {
       validationErrors.email = "Email không đúng định dạng!";
     }
@@ -59,8 +53,9 @@ export default function SignUp() {
     }
 
     setErrors(validationErrors);
+    const data = await registerApi(dispatch, formData);
     if (Object.keys(validationErrors).length === 0) {
-      alert("Đăng ký thành công");
+      console.log(data);
     }
   };
 
@@ -78,11 +73,12 @@ export default function SignUp() {
             <div className={cx("signup__text")}>
               <h3 className={cx("signup__textheading")}>ĐĂNG KÝ TÀI KHOẢN</h3>
               <h6 className={cx("signup__textcontent")}>
-                Bạn đã có tài khoản ? Đăng nhập&nbsp;<Link to={pathname.login}>tại đây</Link>
+                Bạn đã có tài khoản ? Đăng nhập&nbsp;
+                <Link to={pathname.login}>tại đây</Link>
               </h6>
             </div>
-            <div className={cx("signup-form ")}>
-              <Form onSubmit={handleSubmit}>
+            <div>
+              <Form onSubmit={handleSubmit} className={cx("signup-form ")}>
                 <p
                   style={{
                     display: "flex",
@@ -94,87 +90,29 @@ export default function SignUp() {
                 </p>
                 <div className={cx("signup-form__group")}>
                   <label
-                    htmlFor="firstname"
-                    className={cx("signup-form__label")}
-                  >
-                    Họ <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="firstname"
-                    className={cx("signup-form__input")}
-                    id="firstname"
-                    placeholder="Họ"
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, firstName: e.target.value })
-                    }
-                  />
-                  {errors.firstName && (
-                    <span className={cx("error-msg")}>{errors.firstName}</span>
-                  )}
-                </div>
-                <div className={cx("signup-form__group")}>
-                  <label
-                    htmlFor="lastname"
-                    className={cx("signup-form__label")}
-                  >
-                    Tên <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="lastname"
-                    className={cx("signup-form__input")}
-                    id="lastname"
-                    placeholder="Tên"
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, lastName: e.target.value })
-                    }
-                  />
-                  {errors.lastName && (
-                    <span className={cx("error-msg")}>{errors.lastName}</span>
-                  )}
-                </div>
-                <div className={cx("signup-form__group")}>
-                  <label
                     htmlFor="phonenumber"
                     className={cx("signup-form__label")}
                   >
-                    Số điện thoại <span style={{ color: "red" }}>*</span>
+                    User name <span style={{ color: "red" }}>*</span>
                   </label>
                   <input
-                    type="tel"
+                    type="text"
                     name="phonenumber"
                     className={cx("signup-form__input")}
                     id="phonenumber"
-                    placeholder="Số điện thoại"
+                    placeholder="Tên đăng nhập"
                     value={formData.phoneNumber}
                     onChange={(e) =>
-                      setFormData({ ...formData, phoneNumber: e.target.value })
+                      setFormData({
+                        ...formData,
+                        username: e.target.value,
+                      })
                     }
                   />
                   {errors.phoneNumber && (
-                    <span className={cx("error-msg")}>{errors.phoneNumber}</span>
-                  )}
-                </div>
-                <div className={cx("signup-form__group")}>
-                  <label htmlFor="email" className={cx("signup-form__label")}>
-                    Email <span style={{ color: "red" }}>*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    className={cx("signup-form__input")}
-                    id="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
-                  {errors.email && (
-                    <span className={cx("error-msg")}>{errors.email}</span>
+                    <span className={cx("error-msg")}>
+                      {errors.phoneNumber}
+                    </span>
                   )}
                 </div>
                 <div className={cx("signup-form__group")}>
@@ -199,33 +137,92 @@ export default function SignUp() {
                     <span className={cx("error-msg")}>{errors.password}</span>
                   )}
                 </div>
+                <div className={cx("signup-form__group")}>
+                  <label htmlFor="email" className={cx("signup-form__label")}>
+                    Email <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    className={cx("signup-form__input")}
+                    id="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
+                  />
+                  {errors.email && (
+                    <span className={cx("error-msg")}>{errors.email}</span>
+                  )}
+                </div>
 
-                <br />
-
-                <button className={cx("signup-form__submit")} type="submit">
-                  ĐĂNG KÝ
-                </button>
-                <p className={cx("text-content-secondary")}>
-                  Hoặc đăng nhập bằng
-                </p>
-                <div className="signup-form__social">
-                  <div className="signup-form__social-item">
-                    <Link to="/">
-                      <Image
-                        className={cx("signup-form__social-item")}
-                        src={fb_login}
-                        alt="Facebook Login"
-                      />
-                    </Link>
-                  </div>
-                  <div className="signup-form__social-item">
-                    <Link to="/">
-                      <Image
-                        className={cx("signup-form__social-item")}
-                        src={gg_login}
-                        alt="Google Login   "
-                      />
-                    </Link>
+                <div className={cx("signup-form__group")}>
+                  <label htmlFor="" className={cx("signup-form__label")}>
+                    Vai Trò <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <select
+                    className={cx("select__role")}
+                    name=""
+                    id=""
+                    style={{ display: "block" }}
+                    onChange={(e) => {
+                      setFormData({ ...formData, role: e.target.value });
+                    }}
+                  >
+                    <option selected disabled>
+                      Vai trò
+                    </option>
+                    <option value="customer">Customer</option>
+                    <option value="provider">Provider</option>
+                  </select>
+                </div>
+                <div className={cx("signup-form__group")}>
+                  <label htmlFor="" className={cx("signup-form__label")}>
+                    Giới tính <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <select
+                    className={cx("select__role")}
+                    name=""
+                    id=""
+                    style={{ display: "block" }}
+                    onChange={(e) => {
+                      setFormData({ ...formData, gender: e.target.value * 1 });
+                    }}
+                  >
+                    <option selected disabled>
+                      Giới tính
+                    </option>
+                    <option value={0}>Nam</option>
+                    <option value={1}>Nữ</option>
+                    <option value={2}>Khác</option>
+                  </select>
+                  <br />
+                  <button className={cx("signup-form__submit")} type="submit">
+                    ĐĂNG KÝ
+                  </button>
+                  <p className={cx("text-content-secondary")}>
+                    Hoặc đăng nhập bằng
+                  </p>
+                  <div className="signup-form__social">
+                    <div className="signup-form__social-item">
+                      <Link to="/">
+                        <Image
+                          className={cx("signup-form__social-item")}
+                          src={fb_login}
+                          alt="Facebook Login"
+                        />
+                      </Link>
+                    </div>
+                    <div className="signup-form__social-item">
+                      <Link to="/">
+                        <Image
+                          className={cx("signup-form__social-item")}
+                          src={gg_login}
+                          alt="Google Login   "
+                        />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </Form>

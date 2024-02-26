@@ -7,7 +7,7 @@
     background-color: $white-color;
     height: $max-height-header;
     box-shadow: 0px 1px 4px 1px rgba($color: $black-color, $alpha: 0.05);
-    z-index: 9999;
+    z-index: 3;
 
     .navbar {
         display: flex;

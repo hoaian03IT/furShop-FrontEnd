@@ -15,7 +15,7 @@ import { PreviewImageProduct } from "~/components/PreviewImageProduct";
 import { QuantityEditor } from "~/components/QuantityEditor";
 import { ImFacebook, ImPinterest, ImTwitter } from "react-icons/im";
 import { ProductCard } from "~/components/ProductCard";
-import { addProductToCartFailed, addProductToCartRequest, addProductToCartSuccess } from "~/app/slices/cartSlide";
+// import { addProductToCartFailed, addProductToCartRequest, addProductToCartSuccess } from "~/app/slices/cartSlide";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -133,20 +133,20 @@ export default function DetailProductPage() {
         }
     };
 
-    const handleAddToCart = () => {
-        if (selectedAttributes.color && selectedAttributes.size && selectedAttributes.quantity) {
-            try {
-                const addedProduct = { ...product, attributes: [selectedAttributes] };
-                dispatch(addProductToCartRequest());
-                dispatch(addProductToCartSuccess(addedProduct));
-                toast.success("Đã thêm sản phẩm vào giỏ hàng");
-            } catch (error) {
-                dispatch(addProductToCartFailed(error.message));
-            }
-        } else {
-            toast.error("Vui lòng chọn màu sắc, kích thước và số lượng sản phẩm!");
-        }
-    };
+    // const handleAddToCart = () => {
+    //     if (selectedAttributes.color && selectedAttributes.size && selectedAttributes.quantity) {
+    //         try {
+    //             const addedProduct = { ...product, attributes: [selectedAttributes] };
+    //             dispatch(addProductToCartRequest());
+    //             dispatch(addProductToCartSuccess(addedProduct));
+    //             toast.success("Đã thêm sản phẩm vào giỏ hàng");
+    //         } catch (error) {
+    //             dispatch(addProductToCartFailed(error.message));
+    //         }
+    //     } else {
+    //         toast.error("Vui lòng chọn màu sắc, kích thước và số lượng sản phẩm!");
+    //     }
+    // };
 
     return (
         <div className={cx("wrapper")}>
@@ -275,7 +275,8 @@ export default function DetailProductPage() {
                                         </div>
                                         <button
                                             className={cx("add-to-cart", "text-uppercase flex-grow-1")}
-                                            onClick={handleAddToCart}>
+                                            // onClick={handleAddToCart}
+                                        >
                                             thêm vào giỏ hàng
                                         </button>
                                     </div>

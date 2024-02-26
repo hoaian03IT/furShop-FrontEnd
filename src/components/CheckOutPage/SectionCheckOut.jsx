@@ -49,10 +49,6 @@ export const SectionCheckOut = ({ link }) => {
     <div>
       <div className={cx("header")}>
         <h2 className={cx("title")}>Thông tin nhận hàng</h2>
-        <Link to={link} className={cx("link")}>
-          <FaUserCircle />
-          <span>Đăng nhập</span>
-        </Link>
       </div>
       <div className={cx("content")}>
         <div className={cx("field")}>

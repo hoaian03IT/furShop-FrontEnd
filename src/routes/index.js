@@ -19,6 +19,6 @@ export const publicRoutes = [
   { path: pathname.policy, component: PolicyPage, layout: null },
   { path: pathname.login, component: PageLogin, layout: null },
   { path: pathname.signup, component: PageSignUp, layout: null },
-  { path: pathname.forgetaccount, component: PageForgetAccount, layout: null },
+  { path: pathname.forgetAccount, component: PageForgetAccount, layout: null },
   { path: pathname.productDetail, component: DetailProductPage, layout: null },
 ];

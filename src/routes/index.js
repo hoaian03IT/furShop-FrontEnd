@@ -1,6 +1,7 @@
 import { pathname } from "~/configs/path";
 import { lazy } from "react";
 
+const UserProfilePage = lazy(() => import("~/pages/UserProfilePage"));
 const ProductPage = lazy(() => import("~/pages/ProductPage"));
 const HomePage = lazy(() => import("~/pages/HomePage"));
 const CartPage = lazy(() => import("~/pages/CartPage"));
@@ -22,5 +23,6 @@ export const publicRoutes = [
   { path: pathname.signup, component: PageSignUp, layout: null },
   { path: pathname.forgetAccount, component: PageForgetAccount, layout: null },
   { path: pathname.productDetail, component: DetailProductPage, layout: null },
+  { path: pathname.account, component: UserProfilePage, layout: null },
   { path: pathname.changePassword, component: PageChangePassword, layout: null },
 ];

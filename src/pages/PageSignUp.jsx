@@ -154,6 +154,7 @@ export default function SignUp() {
                     Vai Trò <span style={{ color: "red" }}>*</span>
                   </label>
                   <select
+                    defaultValue="1"
                     className={cx("select__role")}
                     name=""
                     id=""
@@ -162,8 +163,8 @@ export default function SignUp() {
                     <option selected disabled>
                       Vai trò
                     </option>
-                    <option value="o">Customer</option>
-                    <option value="o">Provider</option>
+                    <option value="1">Customer</option>
+                    <option value="2">Provider</option>
                   </select>
                 </div>
                 <div className={cx("signup-form__group")}>
@@ -171,6 +172,7 @@ export default function SignUp() {
                     Giới tính <span style={{ color: "red" }}>*</span>
                   </label>
                   <select
+                    defaultValue="1"
                     className={cx("select__role")}
                     name=""
                     id=""
@@ -179,9 +181,9 @@ export default function SignUp() {
                     <option selected disabled>
                       Giới tính
                     </option>
-                    <option value="o">Nam</option>
-                    <option value="o">Nữ</option>
-                    <option value="o">Khác</option>
+                    <option value="1">Nam</option>
+                    <option value="2">Nữ</option>
+                    <option value="3">Khác</option>
                   </select>
                   <br />
                   <button className={cx("signup-form__submit")} type="submit">

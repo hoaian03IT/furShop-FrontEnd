@@ -1,8 +1,7 @@
 import axios from "axios";
-import { AiOutlineSafety } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { fetchBrandFailed, fetchBrandRequest, fetchBrandSuccess } from "~/app/slices/brandSlice";
-import { fetchCartItemRequest } from "~/app/slices/cartSlide";
+import { fetchCartItemRequest, fetchCartItemSuccess, fetchCartItemFail } from "~/app/slices/cartSlide";
 import { fetchCategoriesFailed, fetchCategoriesRequest, fetchCategoriesSuccess } from "~/app/slices/categorySlice";
 import {
     fetchListProductFailed,
@@ -75,7 +74,7 @@ export const loginApi = async (dispatch, payload, navigate, redirect) => {
     }
 };
 
-export const registerApi = async (dispatch, payload) => {
+export const registerApi = async (dispatch, payload = {}) => {
     dispatch(registerRequest());
     const { email, username, password, role, gender } = payload;
     try {
@@ -100,5 +99,17 @@ export const refreshTokenApi = async (userId, navigate) => {
         return res.data;
     } catch (error) {
         alert(error.message || error.response?.data.message);
+    }
+};
+
+export const fetchCartItemApi = async (dispatch, axiosJWT) => {
+    dispatch(fetchCartItemRequest());
+    try {
+        const res = await axiosJWT.get(`/api/gio-hang/xem-gio-hang`);
+        dispatch(fetchCartItemSuccess(res.data));
+    } catch (error) {
+        const errMsg = error.response?.data.message || error.message;
+        toast.error(errMsg);
+        dispatch(fetchCartItemFail(errMsg));
     }
 };

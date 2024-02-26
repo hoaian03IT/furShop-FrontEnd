@@ -5,37 +5,36 @@ import { Col, Container, Row } from "react-bootstrap";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { ItemProduct } from "~/components/CartPage/ItemProduct";
 import { NoteProduct } from "~/components/CartPage/NoteProduct";
-import { TimeDelivery } from "~/components/CartPage/TimeDelivery";
-import { CheckBoxBill } from "~/components/CartPage/CheckBoxBill";
-import { PaymentCompany } from "~/components/CartPage/PaymentCompany";
 import { TotalBill } from "~/components/CartPage/TotalBill";
 import { CouponBill } from "~/components/CartPage/CouponBill";
 import { CheckOutBill } from "~/components/CartPage/CheckOutBill";
 import { Trustbadge } from "~/components/CartPage/Trustbadge";
 import { useEffect, useMemo, useState } from "react";
-import * as sv from "~/config-axios";
+import { axiosInterceptor } from "~/utils/axiosInterceptor";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchCartItemApi } from "~/api-server";
+import { Loading } from "~/components/Loading";
 const cx = classNames.bind(styles);
 
 export default function CartPage() {
   const [quantity, setQuantity] = useState(1);
   const [textValue, setTextValue] = useState("");
   const [checked, setChecked] = useState(false);
-  const [data, setData] = useState([]);
+  const { user } = useSelector((state) => state.persist);
+  const { cartItems, loading } = useSelector((state) => state.persist.cart);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const axiosJWT = axiosInterceptor(user, dispatch, navigate);
 
   useEffect(() => {
     (async () => {
-      const datas = await sv.get("gio-hang/xem-gio-hang", {
-        customerId: "65db441b4e38ab6618ee0f26",
-      });
-      if (datas && datas?.status === 200 && datas?.statusText === "OK") {
-        const dataCart = datas.data.data;
-        setData(dataCart);
-      }
+      await fetchCartItemApi(dispatch, axiosJWT);
     })();
-  }, [JSON.stringify(data)]);
+  }, [dispatch]);
 
   const totalPrice = useMemo(() => {
-    return data.reduce((first, item, i) => {
+    return cartItems?.reduce((first, item, i) => {
       const product = item.productId;
       const att = item.productAttributes;
       return product.price * item.amount * (1 - product.discount) + first;
@@ -61,24 +60,30 @@ export default function CartPage() {
             <Row>
               <Col md={8}>
                 <div className={cx("cart-content-product")}>
-                  {data.map((item, index) => {
-                    console.log(item);
-                    const product = item.productId;
-                    const attributes = item.productAttributes;
-                    return (
-                      <ItemProduct
-                        key={index}
-                        link={"/chi-tiet-san-pham"}
-                        img={product.image}
-                        nameProduct={product.productName}
-                        description={product.description}
-                        price={product.price}
-                        discount={product.discount}
-                        quantity={item.amount}
-                        setQuantity={setQuantity}
-                      />
-                    );
-                  })}
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    cartItems?.map((item, index) => {
+                      console.log(item);
+                      const product = item.productId;
+                      const attributes = item.productAttributes;
+                      return (
+                        <ItemProduct
+                          key={index}
+                          link={
+                            pathname.productDetail.split(":")[0] + product._id
+                          }
+                          img={product.image}
+                          nameProduct={product.productName}
+                          description={product.description}
+                          price={product.price}
+                          discount={product.discount}
+                          quantity={item.amount}
+                          setQuantity={setQuantity}
+                        />
+                      );
+                    })
+                  )}
                   <div className={cx("cart-note")}>
                     <NoteProduct
                       label={"Ghi chú hóa đơn"}
@@ -90,18 +95,9 @@ export default function CartPage() {
               </Col>
               <Col md={4}>
                 <div className={cx("cart-checkout")}>
-                  <TimeDelivery title={"HẸN GIỜ NHẬN HÀNG"} />
-                  <CheckBoxBill
-                    label={"Xuất hóa đơn công ty"}
-                    checked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
-                  />
-                  <div className={cx("form", checked ? "show" : "hide")}>
-                    <PaymentCompany />
-                  </div>
                   <TotalBill name={"TỔNG CỘNG"} total={totalPrice} />
                   <CouponBill />
-                  <CheckOutBill />
+                  <CheckOutBill disabled={cartItems?.length === 0} />
                   <Trustbadge />
                 </div>
               </Col>

@@ -97,7 +97,7 @@ export default function ProductPage() {
             );
         };
         fetchListProduct();
-    }, [activePage, brandFilter, categoryFilter, dispatch, order, priceFilter]);
+    }, [activePage, brandFilter, categoryFilter, dispatch, order, priceFilter, search]);
 
     const handleBackPage = () => {
         if (activePage > 1) setActivePage((prev) => prev - 1);

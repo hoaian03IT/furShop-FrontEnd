@@ -107,7 +107,7 @@ export default function Login() {
                                 </div>
                                 <div className={cx("signup-form__forget")}>
                                     <p>
-                                        Quên mật khẩu ? Nhấn vào <Link to={pathname.forgetaccount}>đây</Link>
+                                        Quên mật khẩu ? Nhấn vào <Link to={pathname.forgetAccount}>đây</Link>
                                     </p>
                                 </div>
                                 <button className={cx("signup-form__submit")} type="submit">

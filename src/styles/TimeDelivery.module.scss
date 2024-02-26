@@ -1,87 +1,53 @@
 @use "variables" as *;
 
 .content {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 
-    .title {
-        color: #da2424;
+  .title {
+    color: #da2424;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .deliver {
+    display: flex;
+    font-size: 0.9rem;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 8px;
+    .date {
+      flex: 1;
+      margin-right: 15px;
+      margin-bottom: 8px;
+      .datePicker {
+        padding: 9px 10px;
+        border: 1px solid #d1d1d2;
+        border-radius: 3px;
+        transition: border-color 0.3s ease;
+        &:focus {
+          outline: none;
+          border-color: $black-color;
+        }
+      }
+    }
+    .time {
+      flex: 1;
+      position: relative;
+
+      .option {
         width: 100%;
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 500;
         margin-bottom: 1rem;
+        width: 100%;
+        padding: 10px;
+        border-radius: 3px;
+        border: 1px solid #d1d1d2;
+        transition: border-color 0.3s ease;
+        outline: none;
+      }
     }
-
-    .deliver {
-        display: flex;
-        font-size: 0.9rem;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 8px;
-        .date {
-            flex: 1;
-            margin-right: 15px;
-            margin-bottom: 8px;
-            .datePicker {
-                padding: 9px 10px;
-                border: 1px solid #d1d1d2;
-                border-radius: 3px;
-                transition: border-color 0.3s ease;
-                &:focus {
-                    outline: none;
-                    border-color: $black-color;
-                }
-            }
-        }
-        .time {
-            flex: 1;
-            position: relative;
-
-            .option {
-                width: 100%;
-                font-size: 1rem;
-                font-weight: 500;
-                margin-bottom: 1rem;
-            }
-
-            .deliver {
-                display: flex;
-                font-size: 0.9rem;
-                justify-content: space-between;
-                align-items: flex-start;
-                margin-bottom: 8px;
-                .date {
-                    flex: 1;
-                    margin-right: 15px;
-                    margin-bottom: 8px;
-                    .datePicker {
-                        padding: 9px 10px;
-                        border: 1px solid #d1d1d2;
-                        border-radius: 3px;
-                        transition: border-color 0.3s ease;
-                        &:focus {
-                            outline: none;
-                            border-color: $black-color;
-                        }
-                    }
-                }
-                .time {
-                    flex: 1;
-                    position: relative;
-
-                    .option {
-                        width: 100%;
-                        padding: 10px;
-                        border-radius: 3px;
-                        border: 1px solid #d1d1d2;
-                        transition: border-color 0.3s ease;
-
-                        &:focus {
-                            outline: none;
-                            border-color: $black-color;
-                        }
-                    }
-                }
-            }
-        }
-    }
+  }
 }

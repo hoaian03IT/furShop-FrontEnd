@@ -2,7 +2,6 @@ import { pathname } from "~/configs/path";
 import styles from "~/styles/CartPage.module.scss";
 import classNames from "classnames/bind";
 import { Col, Container, Row } from "react-bootstrap";
-// import product from "~/assets/imgs/product1.png";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { ItemProduct } from "~/components/CartPage/ItemProduct";
 import { NoteProduct } from "~/components/CartPage/NoteProduct";

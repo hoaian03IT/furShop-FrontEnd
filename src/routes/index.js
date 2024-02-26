@@ -10,6 +10,7 @@ const PolicyPage = lazy(() => import("~/pages/PolicyPage"));
 const PageLogin = lazy(() => import("~/pages/PageLogin"));
 const PageSignUp = lazy(() => import("~/pages/PageSignUp"));
 const PageForgetAccount = lazy(() => import("~/pages/PageForgetAccount"));
+const PageChangePassword = lazy(() => import("~/pages/PageChangePassword"));
 
 export const publicRoutes = [
   { path: pathname.product, component: ProductPage, layout: null },
@@ -21,4 +22,5 @@ export const publicRoutes = [
   { path: pathname.signup, component: PageSignUp, layout: null },
   { path: pathname.forgetAccount, component: PageForgetAccount, layout: null },
   { path: pathname.productDetail, component: DetailProductPage, layout: null },
+  { path: pathname.changePassword, component: PageChangePassword, layout: null },
 ];

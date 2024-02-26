@@ -13,8 +13,6 @@ const cx = classNames.bind(styles);
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     phoneNumber: "",
     email: "",
     password: "",
@@ -25,14 +23,6 @@ export default function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = {};
-
-    if (!formData.firstName.trim()) {
-      validationErrors.firstName = "Họ không được để trống!";
-    }
-
-    if (!formData.lastName.trim()) {
-      validationErrors.lastName = "Tên không được để trống!";
-    }
 
     if (!formData.phoneNumber.trim()) {
       validationErrors.phoneNumber = "Số điện thoại không được để trống!";
@@ -131,33 +121,33 @@ export default function SignUp() {
                   {errors.password && (
                     <span className={cx("error-msg")}>{errors.password}</span>
                   )}
-                  <div className={cx("signup-form__group")}>
-                    <label
-                      htmlFor="phonenumber"
-                      className={cx("signup-form__label")}
-                    >
-                      Số điện thoại <span style={{ color: "red" }}>*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      name="phonenumber"
-                      className={cx("signup-form__input")}
-                      id="phonenumber"
-                      placeholder="Số điện thoại"
-                      value={formData.phoneNumber}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          phoneNumber: e.target.value,
-                        })
-                      }
-                    />
-                    {errors.phoneNumber && (
-                      <span className={cx("error-msg")}>
-                        {errors.phoneNumber}
-                      </span>
-                    )}
-                  </div>
+                </div>
+                <div className={cx("signup-form__group")}>
+                  <label
+                    htmlFor="phonenumber"
+                    className={cx("signup-form__label")}
+                  >
+                    Số điện thoại <span style={{ color: "red" }}>*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    name="phonenumber"
+                    className={cx("signup-form__input")}
+                    id="phonenumber"
+                    placeholder="Số điện thoại"
+                    value={formData.phoneNumber}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        phoneNumber: e.target.value,
+                      })
+                    }
+                  />
+                  {errors.phoneNumber && (
+                    <span className={cx("error-msg")}>
+                      {errors.phoneNumber}
+                    </span>
+                  )}
                 </div>
                 <div className={cx("signup-form__group")}>
                   <label htmlFor="" className={cx("signup-form__label")}>
@@ -177,10 +167,7 @@ export default function SignUp() {
                   </select>
                 </div>
                 <div className={cx("signup-form__group")}>
-                  <label
-                    htmlFor=""
-                    className={cx("signup-form__label")}
-                  >
+                  <label htmlFor="" className={cx("signup-form__label")}>
                     Giới tính <span style={{ color: "red" }}>*</span>
                   </label>
                   <select
@@ -196,34 +183,32 @@ export default function SignUp() {
                     <option value="o">Nữ</option>
                     <option value="o">Khác</option>
                   </select>
-                </div>
-
-                <br />
-
-                <button className={cx("signup-form__submit")} type="submit">
-                  ĐĂNG KÝ
-                </button>
-                <p className={cx("text-content-secondary")}>
-                  Hoặc đăng nhập bằng
-                </p>
-                <div className="signup-form__social">
-                  <div className="signup-form__social-item">
-                    <Link to="/">
-                      <Image
-                        className={cx("signup-form__social-item")}
-                        src={fb_login}
-                        alt="Facebook Login"
-                      />
-                    </Link>
-                  </div>
-                  <div className="signup-form__social-item">
-                    <Link to="/">
-                      <Image
-                        className={cx("signup-form__social-item")}
-                        src={gg_login}
-                        alt="Google Login   "
-                      />
-                    </Link>
+                  <br />
+                  <button className={cx("signup-form__submit")} type="submit">
+                    ĐĂNG KÝ
+                  </button>
+                  <p className={cx("text-content-secondary")}>
+                    Hoặc đăng nhập bằng
+                  </p>
+                  <div className="signup-form__social">
+                    <div className="signup-form__social-item">
+                      <Link to="/">
+                        <Image
+                          className={cx("signup-form__social-item")}
+                          src={fb_login}
+                          alt="Facebook Login"
+                        />
+                      </Link>
+                    </div>
+                    <div className="signup-form__social-item">
+                      <Link to="/">
+                        <Image
+                          className={cx("signup-form__social-item")}
+                          src={gg_login}
+                          alt="Google Login   "
+                        />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </Form>

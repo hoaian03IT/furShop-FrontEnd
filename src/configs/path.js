@@ -8,4 +8,5 @@ export const pathname = {
     signup: "/dang-ky",
     forgetAccount: "/quen-mat-khau",
     productDetail: "/chi-tiet-san-pham/:idProduct",
+    changePassword:"/doi-mat-khau"
 };

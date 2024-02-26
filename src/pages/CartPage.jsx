@@ -5,15 +5,15 @@ import { Col, Container, Row } from "react-bootstrap";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { ItemProduct } from "~/components/CartPage/ItemProduct";
 import { NoteProduct } from "~/components/CartPage/NoteProduct";
-import { TimeDelivery } from "~/components/CartPage/TimeDelivery";
-import { CheckBoxBill } from "~/components/CartPage/CheckBoxBill";
-import { PaymentCompany } from "~/components/CartPage/PaymentCompany";
 import { TotalBill } from "~/components/CartPage/TotalBill";
 import { CouponBill } from "~/components/CartPage/CouponBill";
 import { CheckOutBill } from "~/components/CartPage/CheckOutBill";
 import { Trustbadge } from "~/components/CartPage/Trustbadge";
 import { useEffect, useMemo, useState } from "react";
-import * as sv from "~/config-axios";
+import { axiosInterceptor } from "~/utils/axiosInterceptor";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchCartItemApi } from "~/api-server";
 const cx = classNames.bind(styles);
 
 export default function CartPage() {
@@ -21,18 +21,16 @@ export default function CartPage() {
   const [textValue, setTextValue] = useState("");
   const [checked, setChecked] = useState(false);
   const [data, setData] = useState([]);
+  const { user } = useSelector((state) => state.persist);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const axiosJWT = axiosInterceptor(user, dispatch, navigate);
 
   useEffect(() => {
     (async () => {
-      const datas = await sv.get("gio-hang/xem-gio-hang", {
-        customerId: "65db441b4e38ab6618ee0f26",
-      });
-      if (datas && datas?.status === 200 && datas?.statusText === "OK") {
-        const dataCart = datas.data.data;
-        setData(dataCart);
-      }
+      await fetchCartItemApi(dispatch, axiosJWT);
     })();
-  }, [JSON.stringify(data)]);
+  }, [dispatch]);
 
   const totalPrice = useMemo(() => {
     return data.reduce((first, item, i) => {
@@ -68,7 +66,9 @@ export default function CartPage() {
                     return (
                       <ItemProduct
                         key={index}
-                        link={"/chi-tiet-san-pham"}
+                        link={
+                          pathname.productDetail.split(":")[0] + product._id
+                        }
                         img={product.image}
                         nameProduct={product.productName}
                         description={product.description}
@@ -90,15 +90,6 @@ export default function CartPage() {
               </Col>
               <Col md={4}>
                 <div className={cx("cart-checkout")}>
-                  <TimeDelivery title={"HẸN GIỜ NHẬN HÀNG"} />
-                  <CheckBoxBill
-                    label={"Xuất hóa đơn công ty"}
-                    checked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
-                  />
-                  <div className={cx("form", checked ? "show" : "hide")}>
-                    <PaymentCompany />
-                  </div>
                   <TotalBill name={"TỔNG CỘNG"} total={totalPrice} />
                   <CouponBill />
                   <CheckOutBill />

@@ -23,7 +23,7 @@ export const InteractionGroupBtn = () => {
         </div>
       </OverlayTrigger>
       <OverlayTrigger placement="bottom" overlay={<Tooltip>Đăng nhập</Tooltip>}>
-        <Link to={"./dang-nhap"} className={cx("action", "login-register")}>
+        <Link to={"./tai-khoan"} className={cx("action", "login-register")}>
           <CiUser className="fs-2" />
         </Link>
       </OverlayTrigger>

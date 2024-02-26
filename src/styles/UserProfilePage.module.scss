@@ -1,0 +1,40 @@
+.user-info {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.avatar-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.avatar-selector {
+    margin-top: 25px;
+}
+
+.avatar-selector .file-input-label {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.avatar-selector .file-input-label:hover {
+    background-color: #0056b3;
+}
+
+.avatar-selector input[type="file"] {
+    display: none;
+}

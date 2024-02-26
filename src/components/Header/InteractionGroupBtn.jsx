@@ -15,8 +15,6 @@ export const InteractionGroupBtn = () => {
 
     const { userInfo } = useSelector((state) => state.persist.user);
 
-    console.log(userInfo);
-
     return (
         <div className={cx("wrapper")}>
             <OverlayTrigger placement="bottom" overlay={<Tooltip>Tìm kiếm</Tooltip>}>
@@ -25,14 +23,26 @@ export const InteractionGroupBtn = () => {
                 </div>
             </OverlayTrigger>
             {Object.keys(userInfo).length > 0 ? (
+                <OverlayTrigger
+                    placement="bottom"
+                    // trigger={true}
+                    overlay={
+                        <Tooltip>
+                            <div className={cx("tooltip-user-logged")}>
+                                <Link className={cx("link")} to={"/profile"}>
+                                    Your profile
+                                </Link>
+                                <button className={cx("btn-logged")}>Logout</button>
+                            </div>
+                        </Tooltip>
+                    }>
+                    <img className={cx("avatar-username")} src={userInfo?.image} alt={userInfo?.username} />
+                </OverlayTrigger>
+            ) : (
                 <OverlayTrigger placement="bottom" overlay={<Tooltip>Đăng nhập</Tooltip>}>
                     <Link to={"./dang-nhap"} className={cx("action", "login-register")}>
                         <CiUser className="fs-2" />
                     </Link>
-                </OverlayTrigger>
-            ) : (
-                <OverlayTrigger placement="bottom" overlay={<Tooltip>Đăng nhập</Tooltip>}>
-                    <img src={userInfo?.image} alt={userInfo?.username} />
                 </OverlayTrigger>
             )}
             <OverlayTrigger placement="bottom" overlay={<Tooltip>Giỏ hàng</Tooltip>}>

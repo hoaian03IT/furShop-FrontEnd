@@ -1,35 +1,58 @@
 @use "variables" as *;
 .wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  user-select: none;
-  .action {
-    cursor: pointer;
-    & + .action {
-      margin-left: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    user-select: none;
+    .action {
+        cursor: pointer;
+        & + .action {
+            margin-left: 1.5rem;
+        }
+
+        &.cart {
+            position: relative;
+
+            .number-item-in-cart {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                font-size: 0.6rem;
+                color: $white-color;
+                background-color: $blue-color;
+                border-radius: 50%;
+            }
+        }
     }
+    a {
+        color: $black-color;
+    }
+}
 
-    &.cart {
-      position: relative;
-
-      .number-item-in-cart {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 20px;
-        height: 20px;
-        font-size: 0.6rem;
+.tooltip-user-logged {
+    text-align: start;
+    .link {
+        padding: 8px 0;
+        display: block;
         color: $white-color;
-        background-color: $blue-color;
-        border-radius: 50%;
-      }
     }
-  }
-  a {
-    color: $black-color;
-  }
+    .btn-logged {
+        padding: 8px 0;
+        border: none;
+        outline: none;
+        background-color: $black-color;
+        color: $white-color;
+    }
+}
+
+.avatar-username {
+    margin: 0 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
 }

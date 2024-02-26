@@ -63,9 +63,9 @@ export const fetchCategoriesApi = async (dispatch) => {
 
 export const loginApi = async (dispatch, payload, navigate, redirect) => {
     dispatch(loginRequest());
-    const { email, password } = payload;
+    const { username, password } = payload;
     try {
-        const res = await axios.post("/api/tai-khoan/dang-nhap", { email, password }, payload);
+        const res = await axios.post("/api/tai-khoan/dang-nhap", { username, password }, payload);
         dispatch(loginSuccess(res.data));
         navigate(redirect);
     } catch (error) {

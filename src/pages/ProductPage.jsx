@@ -151,7 +151,10 @@ export default function ProductPage() {
                                         <Checkbox
                                             label="Tất cả"
                                             checked={brandFilter === "all"}
-                                            onChange={() => setBrandFilter("all")}
+                                            onChange={() => {
+                                                setBrandFilter("all");
+                                                setCategoryFilter("all");
+                                            }}
                                         />
                                         {brands?.map((brand) => (
                                             <Checkbox

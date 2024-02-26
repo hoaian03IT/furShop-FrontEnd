@@ -7,7 +7,7 @@ import fb_login from "~/assets/imgs/login_facebook.png";
 import gg_login from "~/assets/imgs/login_google.png";
 import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { loginApi } from "~/api-server";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "~/components/Loading";
@@ -19,10 +19,9 @@ export default function Login() {
     const { search } = useLocation();
     const redirect = new URLSearchParams(search).get("redirect") || pathname.home;
     const navigate = useNavigate();
-    const { userInfo } = useSelector((state) => state.persist.user);
 
     const [formData, setFormData] = useState({
-        email: "",
+        username: "",
         password: "",
     });
 
@@ -35,12 +34,8 @@ export default function Login() {
         e.preventDefault();
         const validationErrors = {};
 
-        if (!formData.email.trim()) {
-            validationErrors.email = "Email không được để trống !";
-        } else if (
-            !new RegExp("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}(?:.[a-zA-Z]{2,})?$").test(formData.email)
-        ) {
-            validationErrors.email = "Email không đúng định dạng";
+        if (!formData.username.trim()) {
+            validationErrors.username = "Tên đăng nhập không được để trống !";
         }
 
         if (!formData.password.trim()) {
@@ -77,19 +72,19 @@ export default function Login() {
                         <div className={cx("signup-form ")}>
                             <Form onSubmit={handleSubmit}>
                                 <div className={cx("signup-form__group")}>
-                                    <label htmlFor="email" className={cx("signup-form__label")}>
-                                        Email <span style={{ color: "red" }}>*</span>
+                                    <label htmlFor="username" className={cx("signup-form__label")}>
+                                        Tên đăng nhập <span style={{ color: "red" }}>*</span>
                                     </label>
                                     <input
                                         type="text"
-                                        name="email"
+                                        name="username"
                                         className={cx("signup-form__input")}
-                                        id="email"
-                                        placeholder="Email"
-                                        value={formData.email}
-                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        id="username"
+                                        placeholder="Tên đăng nhập"
+                                        value={formData.username}
+                                        onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                                     />
-                                    {errors.email && <span className={cx("error-msg")}>{errors.email}</span>}
+                                    {errors.username && <span className={cx("error-msg")}>{errors.username}</span>}
                                 </div>
                                 <div className={cx("signup-form__group")}>
                                     <label htmlFor="password" className={cx("signup-form__label")}>

@@ -35,18 +35,41 @@
 }
 
 .tooltip-user-logged {
-    text-align: start;
-    .link {
-        padding: 8px 0;
+    padding: 8px;
+    top: 10px !important;
+    max-width: 180px;
+    background-color: $white-color;
+    box-shadow: 1px 0 4px 1px rgba($color: $black-color, $alpha: 0.1);
+    border-radius: 4px;
+    overflow-x: hidden;
+    z-index: 10;
+    .item {
+        padding: 8px;
         display: block;
-        color: $white-color;
-    }
-    .btn-logged {
-        padding: 8px 0;
-        border: none;
-        outline: none;
-        background-color: $black-color;
-        color: $white-color;
+        width: 100%;
+        color: $black-color;
+        background-color: $white-color;
+        text-align: start;
+        font-size: 14px;
+        transition: background-color 0.3s;
+        &.btn-logged {
+            outline: none;
+            border: none;
+        }
+        & + .item {
+            border-top: 1px solid rgba($color: $black-color, $alpha: 0.1);
+        }
+        &:hover {
+            background-color: rgba($color: $black-color, $alpha: 0.05);
+        }
+        &:first-child {
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+        }
+        &:last-child {
+            border-bottom-right-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
     }
 }
 
@@ -55,4 +78,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
+    cursor: pointer;
+
+    outline: 1px solid rgba($color: $black-color, $alpha: 0.1);
 }

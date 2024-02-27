@@ -28,18 +28,18 @@ export default function CartPage() {
     const axiosJWT = axiosInterceptor(user, dispatch, navigate);
 
     useEffect(() => {
-        (async () => {
-            await fetchCartItemApi(dispatch, axiosJWT);
-        })();
-    }, [dispatch]);
+        if (user.token)
+            (async () => {
+                await fetchCartItemApi(dispatch, axiosJWT);
+            })();
+    }, [dispatch, user.token]);
 
     const totalPrice = useMemo(() => {
         return cartItems?.reduce((first, item, i) => {
             const product = item.productId;
-            const att = item.productAttributes;
             return product.price * item.amount * (1 - product.discount) + first;
         }, 0);
-    });
+    }, [cartItems]);
 
     return (
         <div>
@@ -64,7 +64,6 @@ export default function CartPage() {
                                         <Loading />
                                     ) : (
                                         cartItems?.map((item) => {
-                                            console.log(item);
                                             const product = item.productId;
                                             const attributes = item.productAttributes;
                                             return (

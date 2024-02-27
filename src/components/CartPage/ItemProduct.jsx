@@ -6,7 +6,6 @@ import { IoCloseOutline } from "react-icons/io5";
 import { HiMiniMinus } from "react-icons/hi2";
 import { GoPlus } from "react-icons/go";
 import styles from "~/styles/ItemProduct.module.scss";
-import { formatCurrencyVND } from "~/utils";
 
 const cx = classNames.bind(styles);
 export const ItemProduct = ({

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { fetchBrandFailed, fetchBrandRequest, fetchBrandSuccess } from "~/app/slices/brandSlice";
-import { fetchCartItemRequest, fetchCartItemSuccess, fetchCartItemFail } from "~/app/slices/cartSlide";
+import { fetchCartItemRequest, fetchCartItemSuccess, fetchCartItemFail, clearCartItems } from "~/app/slices/cartSlide";
 import { fetchCategoriesFailed, fetchCategoriesRequest, fetchCategoriesSuccess } from "~/app/slices/categorySlice";
 import {
     fetchListProductFailed,
@@ -13,10 +13,14 @@ import {
     loginFailed,
     loginRequest,
     loginSuccess,
+    logoutFailed,
+    logoutRequest,
+    logoutSuccess,
     registerFailed,
     registerRequest,
     registerSuccess,
 } from "~/app/slices/userSlice";
+import { pathname } from "~/configs/path";
 
 axios.defaults.baseURL = `http://localhost:${process.env.REACT_APP_SERVER_POST || 8080}`;
 
@@ -64,7 +68,7 @@ export const loginApi = async (dispatch, payload, navigate, redirect) => {
     dispatch(loginRequest());
     const { username, password } = payload;
     try {
-        const res = await axios.post("/api/tai-khoan/dang-nhap", { username, password }, payload);
+        const res = await axios.post("/api/tai-khoan/dang-nhap", { username, password }, { withCredentials: true });
         dispatch(loginSuccess(res.data));
         navigate(redirect);
     } catch (error) {
@@ -91,8 +95,24 @@ export const registerApi = async (dispatch, payload = {}) => {
     }
 };
 
+export const logoutApi = async (dispatch, navigate, axiosJWT) => {
+    dispatch(logoutRequest());
+
+    try {
+        await axiosJWT.post("/api/tai-khoan/auth/dang-xuat", {}, { withCredentials: true });
+        dispatch(logoutSuccess());
+        dispatch(clearCartItems());
+        navigate(pathname.home);
+    } catch (error) {
+        const errMsg = error.response?.data.message || error.message;
+        toast.error(errMsg);
+        dispatch(logoutFailed(errMsg));
+    }
+};
+
 export const refreshTokenApi = async (userId, navigate) => {
     try {
+        console.log(userId);
         const res = await axios.get(`/api/tai-khoan/refresh-token/${userId}`, {
             withCredentials: true,
         });

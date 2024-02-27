@@ -5,6 +5,7 @@ import img1 from "~/assets/imgs/anh_sofa1.png";
 import img2 from "~/assets/imgs/anh_sofa2.png";
 import { Col, Container, Row } from "react-bootstrap";
 import { ProductCard } from "../ProductCard";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
@@ -40,20 +41,21 @@ const products = [
 ];
 
 function NewProduct() {
+  const product = useSelector((state) => state);
+  console.log(product);
   return (
     <Container>
       <Row>
         <Col>
           <div className={cx("new-product__info")}>
-            <h4>Nữ</h4>
-            <h3>New Arrival</h3>
+            <h3 className="mt-3 ">Sản phẩm mới</h3>
             <Link to={""}>Đến cữa hàng</Link>
           </div>
         </Col>
       </Row>
       <Row>
         {products.map((product, index) => (
-          <Col>
+          <Col key={index}>
             <ProductCard
               img1={product.img1}
               img2={product.img2}

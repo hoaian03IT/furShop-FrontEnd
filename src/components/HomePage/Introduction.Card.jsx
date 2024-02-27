@@ -13,10 +13,11 @@ function Cards({
   borderIcon,
   cursor,
   hover,
+  ...props
 }) {
   return (
     <div
-      style={{ backgroundColor: background }}
+      {...props}
       className={cx("card", {
         border: border,
         "border-primary": border,

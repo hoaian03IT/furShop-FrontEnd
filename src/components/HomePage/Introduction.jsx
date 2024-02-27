@@ -7,6 +7,7 @@ import { HiOutlineGift } from "react-icons/hi2";
 import { GrCertificate } from "react-icons/gr";
 import { LuContact2 } from "react-icons/lu";
 import { imageCatalory } from "./image";
+import { useSelector } from "react-redux";
 
 const cx = classNames.bind(styles);
 
@@ -65,6 +66,9 @@ const listCatalory = [
   },
 ];
 function Introduction() {
+  const { categories } = useSelector((state) => state.persist.category);
+  let listCatalory = [...categories];
+  listCatalory = categories.slice(0, 6);
   return (
     <Container>
       <Row className={cx("mt-5")}>
@@ -80,17 +84,21 @@ function Introduction() {
           </Col>
         ))}
       </Row>
-      <Row className={cx("mt-5",'pb-5')}>
+      <Row className={cx("mt-5", "pb-5")}>
         {listCatalory.map((item, index) => (
           <Col key={index}>
             <Cards
               cursor
               hover
-              background="rgb(246,246,246)"
               className={cx("cover-image")}
-              Icon={item.Icon}
-              title={item.title}
-              description={item.description}
+              style={{
+                maxHeight: "270px",
+                height: "270px",
+                backgroundColor: "rgb(246,246,246)",
+              }}
+              Icon={<img className={cx("img-catalory")} src={item.image} />}
+              title={item.name}
+              description={`Còn ${item.quantity} sản phẩm`}
             />
           </Col>
         ))}

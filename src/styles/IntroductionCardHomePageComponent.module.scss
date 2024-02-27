@@ -3,6 +3,7 @@ $width-icon: 45px;
 .card {
   border-radius: 10px;
   overflow: hidden;
+  width: 100%;
   .hover {
     transition: all 0.3s linear;
     &:hover {

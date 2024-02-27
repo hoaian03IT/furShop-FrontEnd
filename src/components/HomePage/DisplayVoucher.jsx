@@ -48,7 +48,7 @@ function DisplayVoucher() {
     <Container>
       <Row>
         {listCode.map((item, index) => (
-          <Col>
+          <Col key={index}>
             <Voucher
               title={item.title}
               code={item.code}

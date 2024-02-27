@@ -64,7 +64,7 @@ export default function CartPage() {
                     <Loading />
                   ) : (
                     cartItems?.map((item, index) => {
-                      console.log(item);
+                      
                       const product = item.productId;
                       const attributes = item.productAttributes;
                       return (

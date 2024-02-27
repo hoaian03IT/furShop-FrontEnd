@@ -20,36 +20,38 @@ function App() {
     }, [dispatch]);
 
     return (
-        <div>
+        <div className="d-flex flex-column justify-content-between vh-100">
             <ScrollToTop />
-            <header className="header">
-                <Header />
-            </header>
-            <main>
-                <Routes>
-                    {publicRoutes.map((route) => {
-                        let Page;
-                        const Component = route.component;
-                        if (route.layout === null) {
-                            Page = <Component />;
-                        } else {
-                            const Layout = route.layout;
-                            Page = (
-                                <Layout>
-                                    <Component />
-                                </Layout>
+            <div>
+                <header className="header">
+                    <Header />
+                </header>
+                <main>
+                    <Routes>
+                        {publicRoutes.map((route) => {
+                            let Page;
+                            const Component = route.component;
+                            if (route.layout === null) {
+                                Page = <Component />;
+                            } else {
+                                const Layout = route.layout;
+                                Page = (
+                                    <Layout>
+                                        <Component />
+                                    </Layout>
+                                );
+                            }
+                            return (
+                                <Route
+                                    key={route.path}
+                                    path={route.path}
+                                    element={<Suspense fallback={<div>Loading...</div>}>{Page}</Suspense>}
+                                />
                             );
-                        }
-                        return (
-                            <Route
-                                key={route.path}
-                                path={route.path}
-                                element={<Suspense fallback={<div>Loading...</div>}>{Page}</Suspense>}
-                            />
-                        );
-                    })}
-                </Routes>
-            </main>
+                        })}
+                    </Routes>
+                </main>
+            </div>
             <footer>
                 <Footer />
             </footer>

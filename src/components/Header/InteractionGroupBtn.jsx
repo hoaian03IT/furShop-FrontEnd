@@ -4,16 +4,31 @@ import { CiSearch, CiUser, CiShoppingCart } from "react-icons/ci";
 import { HeaderContext } from "./Header";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import styles from "~/styles/InteractionGroupBtn.module.scss";
+import { logoutApi } from "~/api-server";
+import { axiosInterceptor } from "~/utils/axiosInterceptor";
 
 const cx = classNames.bind(styles);
 
 export const InteractionGroupBtn = () => {
     const { setShowSearchOffCanvas } = useContext(HeaderContext);
 
-    const { userInfo } = useSelector((state) => state.persist.user);
+    const { user } = useSelector((state) => state.persist);
+    const { userInfo } = user;
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const axiosJWT = axiosInterceptor(user, dispatch, navigate);
+
+    const handleLogout = async () => {
+        try {
+            await logoutApi(dispatch, navigate, axiosJWT);
+        } catch (error) {}
+    };
 
     return (
         <div className={cx("wrapper")}>
@@ -25,16 +40,19 @@ export const InteractionGroupBtn = () => {
             {Object.keys(userInfo).length > 0 ? (
                 <OverlayTrigger
                     placement="bottom"
-                    // trigger={true}
+                    trigger="click"
                     overlay={
-                        <Tooltip>
-                            <div className={cx("tooltip-user-logged")}>
-                                <Link className={cx("link")} to={"/profile"}>
-                                    Your profile
-                                </Link>
-                                <button className={cx("btn-logged")}>Logout</button>
-                            </div>
-                        </Tooltip>
+                        <div className={cx("tooltip-user-logged")}>
+                            <Link className={cx("item", "link")} to={"/profile"}>
+                                Thông tin cá nhân
+                            </Link>
+                            <Link className={cx("item", "link")} to={"/profile"}>
+                                Yêu thích
+                            </Link>
+                            <button className={cx("item", "btn-logged")} onClick={handleLogout}>
+                                Đăng xuất
+                            </button>
+                        </div>
                     }>
                     <img className={cx("avatar-username")} src={userInfo?.image} alt={userInfo?.username} />
                 </OverlayTrigger>

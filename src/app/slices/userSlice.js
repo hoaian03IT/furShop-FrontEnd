@@ -51,6 +51,7 @@ export const userSlice = createSlice({
         logoutSuccess: (state) => {
             state.loading = false;
             state.userInfo = {};
+            state.token = "";
         },
         logoutFailed: (state, action) => {
             state.error = action.payload;

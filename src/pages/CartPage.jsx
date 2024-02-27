@@ -12,7 +12,7 @@ import { Trustbadge } from "~/components/CartPage/Trustbadge";
 import { useEffect, useMemo, useState } from "react";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchCartItemApi } from "~/api-server";
 import { Loading } from "~/components/Loading";
 const cx = classNames.bind(styles);
@@ -57,48 +57,59 @@ export default function CartPage() {
                 <div className={cx("cart-container")}>
                     <h1 className={cx("cart-title")}>Giỏ hàng</h1>
                     <div className={cx("cart-content")}>
-                        <Row>
-                            <Col md={8}>
-                                <div className={cx("cart-content-product")}>
-                                    {loading ? (
-                                        <Loading />
-                                    ) : (
-                                        cartItems?.map((item) => {
-                                            const product = item.productId;
-                                            const attributes = item.productAttributes;
-                                            return (
-                                                <ItemProduct
-                                                    key={item._id}
-                                                    link={pathname.productDetail.split(":")[0] + product._id}
-                                                    img={attributes.image}
-                                                    nameProduct={product.productName}
-                                                    description={product.description}
-                                                    price={product.price}
-                                                    discount={product.discount}
-                                                    quantity={item.amount}
-                                                    setQuantity={setQuantity}
-                                                />
-                                            );
-                                        })
-                                    )}
-                                    <div className={cx("cart-note")}>
-                                        <NoteProduct
-                                            label={"Ghi chú hóa đơn"}
-                                            textValue={textValue}
-                                            setTextValue={setTextValue}
-                                        />
+                        {!user.token ? (
+                            <span>
+                                Bạn cần đăng nhập để xem giỏ hàng{" "}
+                                <Link
+                                    className="link-info text-decoration-underline"
+                                    to={pathname.login + `?redirect=${pathname.cart}`}>
+                                    đăng nhập
+                                </Link>
+                            </span>
+                        ) : (
+                            <Row>
+                                <Col md={8}>
+                                    <div className={cx("cart-content-product")}>
+                                        {loading ? (
+                                            <Loading />
+                                        ) : (
+                                            cartItems?.map((item) => {
+                                                const product = item.productId;
+                                                const attributes = item.productAttributes;
+                                                return (
+                                                    <ItemProduct
+                                                        key={item._id}
+                                                        link={pathname.productDetail.split(":")[0] + product._id}
+                                                        img={attributes.image}
+                                                        nameProduct={product.productName}
+                                                        description={product.description}
+                                                        price={product.price}
+                                                        discount={product.discount}
+                                                        quantity={item.amount}
+                                                        setQuantity={setQuantity}
+                                                    />
+                                                );
+                                            })
+                                        )}
+                                        <div className={cx("cart-note")}>
+                                            <NoteProduct
+                                                label={"Ghi chú hóa đơn"}
+                                                textValue={textValue}
+                                                setTextValue={setTextValue}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </Col>
-                            <Col md={4}>
-                                <div className={cx("cart-checkout")}>
-                                    <TotalBill name={"TỔNG CỘNG"} total={totalPrice} />
-                                    <CouponBill />
-                                    <CheckOutBill disabled={cartItems?.length === 0} />
-                                    <Trustbadge />
-                                </div>
-                            </Col>
-                        </Row>
+                                </Col>
+                                <Col md={4}>
+                                    <div className={cx("cart-checkout")}>
+                                        <TotalBill name={"TỔNG CỘNG"} total={totalPrice} />
+                                        <CouponBill />
+                                        <CheckOutBill disabled={cartItems?.length === 0} />
+                                        <Trustbadge />
+                                    </div>
+                                </Col>
+                            </Row>
+                        )}
                     </div>
                 </div>
             </Container>

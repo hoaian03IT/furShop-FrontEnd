@@ -1,0 +1,47 @@
+.error-msg {
+  color: red;
+  margin-left: 10px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+
+  .left-content {
+    width: 50%;
+    height: auto;
+    padding: 5px;
+    .content {
+      &__information {
+        display: block;
+      }
+    }
+  }
+  .right-content {
+    width: 50%;
+  }
+  form {
+    padding-top: 10px;
+  }
+  .form-group {
+    padding-bottom: 15px;
+    width: 90%;
+  }
+  textarea {
+    padding: 10px;
+    resize: none;
+    width: 100%;
+    height: 150px;
+    border-radius: 5px;
+  }
+  hr {
+    width: 90%;
+  }
+  .submit {
+    position: relative;
+    display: block;
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}

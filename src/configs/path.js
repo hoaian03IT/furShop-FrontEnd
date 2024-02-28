@@ -9,6 +9,6 @@ export const pathname = {
     forgetAccount: "/quen-mat-khau",
     productDetail: "/chi-tiet-san-pham/:idProduct",
     account: "/tai-khoan",
-    
+    contacts:"/lien-he",
     changePassword: "/doi-mat-khau"
 };

@@ -12,6 +12,7 @@ const PageLogin = lazy(() => import("~/pages/PageLogin"));
 const PageSignUp = lazy(() => import("~/pages/PageSignUp"));
 const PageForgetAccount = lazy(() => import("~/pages/PageForgetAccount"));
 const PageChangePassword = lazy(() => import("~/pages/PageChangePassword"));
+const PageContacts = lazy(() => import("~/pages/PageContacts"));
 
 export const publicRoutes = [
   { path: pathname.product, component: ProductPage, layout: null },
@@ -25,4 +26,5 @@ export const publicRoutes = [
   { path: pathname.productDetail, component: DetailProductPage, layout: null },
   { path: pathname.account, component: UserProfilePage, layout: null },
   { path: pathname.changePassword, component: PageChangePassword, layout: null },
+  { path: pathname.contacts, component: PageContacts, layout: null },
 ];

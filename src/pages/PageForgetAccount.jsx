@@ -1,5 +1,5 @@
 import { pathname } from "~/configs/path";
-import styles from "~/styles/ForgetAccount.scss";
+import styles from "~/styles/ForgetAccount.module.scss";
 import classNames from "classnames/bind";
 import { Container, Form } from "react-bootstrap"; // Import Form from react-bootstrap
 import { BreadCrumbs } from "~/components/BreadCrumbs";
@@ -114,23 +114,15 @@ export default function Login() {
                 <p className={cx("text-content-secondary")}>
                   Hoặc đăng nhập bằng
                 </p>
-                <div className="signup-form__social">
-                  <div className="signup-form__social-item">
+                <div className={cx("signup-form__social")}>
+                  <div className={cx("signup-form__social-item")}>
                     <Link to="/">
-                      <Image
-                        className={cx("signup-form__social-item")}
-                        src={fb_login}
-                        alt="Facebook Login"
-                      />
+                      <Image src={fb_login} alt="Facebook Login" className={cx("signup-form__social-item")} />
                     </Link>
                   </div>
-                  <div className="signup-form__social-item">
+                  <div className={cx("signup-form__social-item")}>
                     <Link to="/">
-                      <Image
-                        className={cx("signup-form__social-item")}
-                        src={gg_login}
-                        alt="Google Login"
-                      />
+                      <Image src={gg_login} alt="Google Login" className={cx("signup-form__social-item")}/>
                     </Link>
                   </div>
                 </div>

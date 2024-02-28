@@ -1,5 +1,5 @@
 import { pathname } from "~/configs/path";
-import styles from "~/styles/SignUp.scss";
+import styles from "~/styles/SignUp.module.scss";
 import classNames from "classnames/bind";
 import { Container, Form } from "react-bootstrap";
 import { BreadCrumbs } from "~/components/BreadCrumbs";
@@ -192,26 +192,18 @@ export default function SignUp() {
                   <p className={cx("text-content-secondary")}>
                     Hoặc đăng nhập bằng
                   </p>
-                  <div className="signup-form__social">
-                    <div className="signup-form__social-item">
-                      <Link to="/">
-                        <Image
-                          className={cx("signup-form__social-item")}
-                          src={fb_login}
-                          alt="Facebook Login"
-                        />
-                      </Link>
-                    </div>
-                    <div className="signup-form__social-item">
-                      <Link to="/">
-                        <Image
-                          className={cx("signup-form__social-item")}
-                          src={gg_login}
-                          alt="Google Login   "
-                        />
-                      </Link>
-                    </div>
+                  <div className={cx("signup-form__social")}>
+                  <div className={cx("signup-form__social-item")}>
+                    <Link to="/">
+                      <Image src={fb_login} alt="Facebook Login" className={cx("signup-form__social-item")} />
+                    </Link>
                   </div>
+                  <div className={cx("signup-form__social-item")}>
+                    <Link to="/">
+                      <Image src={gg_login} alt="Google Login" className={cx("signup-form__social-item")}/>
+                    </Link>
+                  </div>
+                </div>
                 </div>
               </Form>
             </div>

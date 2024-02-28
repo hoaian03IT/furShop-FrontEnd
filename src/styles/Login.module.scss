@@ -1,0 +1,85 @@
+.error-msg {
+  color: red;
+  margin-left: 10px;
+}
+
+.container {
+  width: 1080px;
+}
+
+.row {
+  .row__title {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    height: 20px;
+    background-color: #ccc;
+  }
+}
+
+.signup {
+  max-width: 500px;
+  margin-top: 50px;
+  margin: 0 auto;
+  .signup__textheading,
+  .signup__textcontent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.signup-form {
+  margin: 0 auto;
+  width: 480px;
+  height: 350px;
+  text-align: center; 
+  &__group {
+    margin-bottom: 20px;
+  }
+  &__label {
+    cursor: pointer;
+    margin-bottom: 5px;
+    font-weight: bold;
+    display: block; 
+  }
+  &__input {
+    display: block;
+    width: 100%; 
+    height: 40px;
+    padding: 15px 20px;
+    outline: none;
+    margin: 0 auto;
+  }
+  &__forget {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__submit {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    width: 100%; 
+    height: 50px;
+    position: relative;
+  }
+  &__social {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+.signup-form__social-item {
+  width: 180px;
+  height: 40px;
+  object-fit: cover;
+  background-image: center;
+}
+.text-content-secondary {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

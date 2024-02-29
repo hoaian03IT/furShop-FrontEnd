@@ -54,11 +54,11 @@ function UserProfilePage() {
           </div>
         </div>
         <div>
-          <p>Tên Đăng Nhập :{localStorage?.name}</p>
-          <p>Giới Tính : {}</p>
-          <p>Email : {localStorage?.email}</p>
-          <p>Password : </p>
-          <p>Số Điện Thoại : </p>
+          <p>Tên Đăng Nhập : {userInfo?.username}</p>
+          <p>Giới Tính : {userInfo?.gender === 0 ? "Nam" : userInfo?.gender === 1 ? "Nữ" : "Khác"}</p>
+          <p>Email : {userInfo?.email}</p>
+          <p>Password : *******</p>
+          <p>Số Điện Thoại : {userInfo.phone} </p>
           
         </div>
       </Container>

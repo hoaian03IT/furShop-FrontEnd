@@ -9,7 +9,8 @@ function axiosInterceptor(user, dispatch, navigate) {
         async (config) => {
             let currentToken = user.token;
             const { exp } = jwtDecode(currentToken);
-            if (exp && exp < new Date().getTime() / 1000) {
+
+            if (exp < new Date().getTime() / 1000) {
                 try {
                     const { token: newToken } = await refreshTokenApi(user.userInfo._id, navigate);
                     currentToken = newToken;

@@ -83,7 +83,7 @@ export const ProductDetail = ({ product }) => {
     const handleIncreaseQuantity = () => {
         if (selectedAttributes.size) {
             if (selectedAttributes.quantity !== stock) {
-                setSelectedAttributes({ ...selectedAttributes, quantity: selectedAttributes.quantity + 1 });
+                setSelectedAttributes({ ...selectedAttributes, quantity: Number(selectedAttributes.quantity) + 1 });
             }
         }
     };
@@ -91,7 +91,7 @@ export const ProductDetail = ({ product }) => {
     const handleDecreaseQuantity = () => {
         if (selectedAttributes.size) {
             if (selectedAttributes.quantity !== 1) {
-                setSelectedAttributes({ ...selectedAttributes, quantity: selectedAttributes.quantity - 1 });
+                setSelectedAttributes({ ...selectedAttributes, quantity: Number(selectedAttributes.quantity) - 1 });
             }
         }
     };

@@ -28,9 +28,11 @@ export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => 
                                 <span style={{ fontSize: 10 }}>Thêm vào giỏ hàng</span>
                             </Tooltip>
                         }>
-                        <button className={cx("add-card")}>
-                            <CiShoppingCart className="fs-6" />
-                        </button>
+                        {({ ref, ...triggerHandler }) => (
+                            <button className={cx("add-card")}>
+                                <CiShoppingCart className="fs-6" />
+                            </button>
+                        )}
                     </OverlayTrigger>
                     <OverlayTrigger
                         placement="top"

@@ -83,16 +83,9 @@ export default function DetailProductPage() {
                                 <h4 className="">Sản phẩm cùng loại</h4>
                                 <Row md={{ cols: LIMIT_PRODUCT_RECOMMENDED }}>
                                     {suggestProducts?.slice(0, LIMIT_PRODUCT_RECOMMENDED).map((product, index) => {
-                                        const imgs = product?.attributes.map((attr) => attr.image);
                                         return (
                                             <Col key={index}>
-                                                <ProductCard
-                                                    imgs={imgs}
-                                                    title={product?.productName}
-                                                    price={product?.price}
-                                                    discount={product?.discount}
-                                                    link={pathname.productDetail.split(":")[0] + product?._id}
-                                                />
+                                                <ProductCard product={product} />
                                             </Col>
                                         );
                                     })}

@@ -186,17 +186,10 @@ export default function ProductPage() {
                                         <Loading />
                                     ) : (
                                         products.map((product) => {
-                                            const imgs = product?.attributes.map((attr) => attr.image);
                                             return (
                                                 <Col className="mt-4" key={product?._id}>
                                                     <div>
-                                                        <ProductCard
-                                                            imgs={imgs}
-                                                            title="Sofa Vải Phòng Khách Nhỏ"
-                                                            price={product?.price}
-                                                            discount={product?.discount}
-                                                            link={pathname.productDetail.split(":")[0] + product._id}
-                                                        />
+                                                        <ProductCard product={product} />
                                                     </div>
                                                 </Col>
                                             );

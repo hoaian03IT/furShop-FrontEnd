@@ -30,6 +30,17 @@
             }
         }
     }
+    .add-to-favorite {
+        margin-top: 8px;
+        text-align: center;
+        .btn-add {
+            padding: 4px;
+            outline: none;
+            background-color: $white-color;
+            color: $link-color;
+            border: 1px solid rgba($color: $black-color, $alpha: 0.2);
+        }
+    }
     .content {
         .branch {
             font-weight: 500;
@@ -42,6 +53,7 @@
         .product-code {
             font-size: 14px;
             font-weight: 500;
+            overflow: hidden;
             .label {
                 color: $black-color;
             }
@@ -161,13 +173,6 @@
                 color: $black-color;
                 font-weight: 500;
             }
-        }
-        .add-to-favorite {
-            padding: 4px;
-            outline: none;
-            background-color: $white-color;
-            color: $link-color;
-            border: 1px solid rgba($color: $black-color, $alpha: 0.2);
         }
     }
 }

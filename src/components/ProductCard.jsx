@@ -6,10 +6,17 @@ import { CiShoppingCart } from "react-icons/ci";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import styles from "~/styles/ProductCard.module.scss";
+import { QuickViewProductModal } from "./QuickViewProductModal";
+import { useState } from "react";
+import { pathname } from "~/configs/path";
 const cx = classNames.bind(styles);
 
-export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => {
+export const ProductCard = ({ product }) => {
+    const { discount, price, _id, productName } = product;
+    const imgs = product?.attributes.map((attr) => attr.image);
+    const [showModalQuickView, setShowModalQuickView] = useState(false);
     const realPrice = formatCurrencyVND(discount > 0 ? price - price * discount : price);
+    const link = pathname.productDetail.split(":")[0] + _id;
 
     const handleAddToCard = () => {};
 
@@ -28,11 +35,9 @@ export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => 
                                 <span style={{ fontSize: 10 }}>Thêm vào giỏ hàng</span>
                             </Tooltip>
                         }>
-                        {({ ref, ...triggerHandler }) => (
-                            <button className={cx("add-card")}>
-                                <CiShoppingCart className="fs-6" />
-                            </button>
-                        )}
+                        <button className={cx("add-card")}>
+                            <CiShoppingCart className="fs-6" />
+                        </button>
                     </OverlayTrigger>
                     <OverlayTrigger
                         placement="top"
@@ -41,16 +46,16 @@ export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => 
                                 <span style={{ fontSize: 10 }}>Xem nhanh</span>
                             </Tooltip>
                         }>
-                        <button className={cx("view-detail")}>
+                        <button className={cx("view-detail")} onClick={() => setShowModalQuickView(true)}>
                             <FaEye className="fs-6" />
                         </button>
                     </OverlayTrigger>
                 </div>
             </div>
             <div className={cx("content", "mt-2")}>
-                <OverlayTrigger placement="top" overlay={<span style={{ fontSize: 10 }}>{title}</span>}>
+                <OverlayTrigger placement="top" overlay={<span style={{ fontSize: 10 }}>{productName}</span>}>
                     <Link to={link} className={cx("title", "fw-semibold limit-line-1")}>
-                        {title}
+                        {productName}
                     </Link>
                 </OverlayTrigger>
                 <span className="fw-normal text-black">{formatCurrencyVND(realPrice)}</span>
@@ -67,6 +72,11 @@ export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => 
                     </div>
                 )}
             </div>
+            <QuickViewProductModal
+                show={showModalQuickView}
+                onHide={() => setShowModalQuickView(false)}
+                product={product}
+            />
         </div>
     );
 };

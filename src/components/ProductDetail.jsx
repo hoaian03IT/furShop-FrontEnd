@@ -22,6 +22,7 @@ export const ProductDetail = ({ product }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { _id, productName, brand, price = 0, discount = 0, attributes } = product;
+    console.log(product);
 
     const [images, setImages] = useState([]);
     const [colors, setColors] = useState([]);
@@ -119,6 +120,7 @@ export const ProductDetail = ({ product }) => {
                     axiosJWT,
                     dispatch
                 );
+                toast.success("Đã thêm sản phẩm vào giỏ hàng");
             } else {
                 navigate(pathname.login + `?redirect=${pathname.productDetail.split(":")[0]}${_id}`);
                 toast.warn("Bạn cần phải đăng nhập để thêm sản phẩm");
@@ -142,11 +144,16 @@ export const ProductDetail = ({ product }) => {
                         <ImTwitter />
                     </a>
                 </div>
+                <div className={cx("add-to-favorite")}>
+                    <button className={cx("btn-add")}>
+                        <span>Thêm vào yêu thích</span>
+                    </button>
+                </div>
             </Col>
             <Col>
                 <div className={cx("content")}>
                     <h4>{productName}</h4>
-                    <div className="d-flex align-items-center">
+                    <div className="d-flex align-items-center w-100 overflow-hidden">
                         <div className={cx("branch", "me-5")}>
                             <span className={cx("label")}>Thương hiệu:</span>&nbsp;
                             <Link
@@ -238,9 +245,6 @@ export const ProductDetail = ({ product }) => {
                             <span> (7:30 - 22:00)</span>
                         </div>
                     </div>
-                    <button className={cx("add-to-favorite")}>
-                        <span>Thêm vào yêu thích</span>
-                    </button>
                 </div>
             </Col>
         </Row>

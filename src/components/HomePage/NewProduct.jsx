@@ -37,15 +37,9 @@ function NewProduct() {
             </Row>
             <Row>
                 {products.map((product) => {
-                    const images = product?.attributes.map((attr) => attr.image);
                     return (
                         <Col key={product?._id}>
-                            <ProductCard
-                                imgs={images}
-                                title={product.productName}
-                                price={product.price}
-                                discount={product.discount}
-                            />
+                            <ProductCard product={product} />
                         </Col>
                     );
                 })}

@@ -8,20 +8,24 @@ import { FaAngleLeft } from "react-icons/fa6";
 
 const cx = classNames.bind(styles);
 
-export const SectionCheckOut = ({ link }) => {
-  const [addressName, setAddressName] = useState("");
-  const handleSetAddressName = (newAddressName) => {
-    setAddressName(newAddressName);
-  };
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [billingPhone, setbillingPhone] = useState("");
-
+export const SectionCheckOut = ({
+  link,
+  email,
+  setEmail,
+  name,
+  setName,
+  addressName,
+  setAddressName,
+  billingPhone,
+  setbillingPhone,
+}) => {
   const [emailError, setEmailError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [billingPhoneError, setBillingPhoneError] = useState(false);
   const [provinceError, setProvinceError] = useState(false);
-
+  const handleSetAddressName = (newAddressName) => {
+    setAddressName(newAddressName);
+  };
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);

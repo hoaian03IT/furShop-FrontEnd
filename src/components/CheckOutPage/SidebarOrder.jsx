@@ -6,7 +6,11 @@ import { CouponProduct } from "~/components/CheckOutPage/CouponProduct";
 import { TotalPayment } from "~/components/CheckOutPage/TotalPayment";
 
 const cx = classNames.bind(styles);
-export const SidebarOrder = ({ quantity = 1 }) => {
+export const SidebarOrder = ({
+  quantity = 1,
+  price = 1000000,
+  fee = 40000,
+}) => {
   return (
     <div className={cx("sidebar")}>
       <div className={cx("header")}>
@@ -18,15 +22,15 @@ export const SidebarOrder = ({ quantity = 1 }) => {
             img={product}
             name={"Bàn học"}
             decription="gỗ liêm"
-            price={640000}
-            quantity={2}
+            price={price}
+            quantity={quantity}
           />
         </div>
         <div className={cx("contentCoupon")}>
           <CouponProduct />
         </div>
         <div className={cx("contentTotal")}>
-          <TotalPayment price={1000000} fee={40000} />
+          <TotalPayment price={price} fee={fee} />
         </div>
       </div>
     </div>

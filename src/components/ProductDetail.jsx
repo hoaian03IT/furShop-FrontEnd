@@ -10,7 +10,7 @@ import { QuantityEditor } from "./QuantityEditor";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCardApi } from "~/api-server";
+import { uploadToCardApi } from "~/api-server";
 import { toast } from "react-toastify";
 
 import styles from "~/styles/ProductDetail.module.scss";
@@ -63,7 +63,11 @@ export const ProductDetail = ({ product }) => {
         )[0];
         const stockProduct = selectedAttributes.size ? selected.quantity : 0;
         setStock(stockProduct);
-        setSelectedAttributes({ ...selectedAttributes, image: selected?.image, _id: selected?._id });
+        setSelectedAttributes({
+            ...selectedAttributes,
+            image: selected?.image,
+            _id: selected?._id,
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [attributes, selectedAttributes.size]);
 
@@ -110,7 +114,7 @@ export const ProductDetail = ({ product }) => {
     const handleAddToCart = async () => {
         try {
             if (user.isLogged) {
-                await addToCardApi(
+                await uploadToCardApi(
                     { amount: selectedAttributes.quantity, productId: _id, productAttributes: selectedAttributes._id },
                     axiosJWT,
                     dispatch

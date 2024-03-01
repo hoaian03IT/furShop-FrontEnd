@@ -1,0 +1,173 @@
+@use "variables" as *;
+.details {
+    .share {
+        .social-network {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $white-color;
+            transition: opacity 0.3s;
+
+            &.facebook {
+                background-color: #4267b2;
+            }
+            &.pinterest {
+                background-color: #e60023;
+            }
+            &.twitter {
+                background-color: #1da1f2;
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            & + .social-network {
+                margin-left: 8px;
+            }
+        }
+    }
+    .content {
+        .branch {
+            font-weight: 500;
+            font-size: 14px;
+            font-size: 14px;
+            .label {
+                color: $black-color;
+            }
+        }
+        .product-code {
+            font-size: 14px;
+            font-weight: 500;
+            .label {
+                color: $black-color;
+            }
+            .code {
+                color: rgba($color: $black-color, $alpha: 0.6);
+            }
+        }
+        .prices {
+            .current-price {
+                font-size: 20px;
+                font-weight: 500;
+            }
+            .origin-price {
+                font-size: 16px;
+                color: rgba($color: $black-color, $alpha: 0.6);
+                font-weight: 500;
+                text-decoration: line-through;
+            }
+            .discount {
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .save-money {
+                font-size: 14px;
+                font-weight: 500;
+            }
+        }
+        .promotion {
+            position: relative;
+            padding: 20px;
+            border: 2px dashed $blue-color;
+            border-radius: 8px;
+            .list {
+                .item {
+                    font-size: 14px;
+                    font-weight: 500;
+                    list-style: circle;
+                }
+            }
+            .label {
+                padding: 2px 8px;
+                position: absolute;
+                top: 0;
+                left: 4%;
+                transform: translateY(-50%);
+                font-size: 14px;
+                color: $blue-color;
+                background-color: $white-color;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+        }
+        .color,
+        .size,
+        .stock {
+            .label {
+                font-size: 14px;
+                color: $black-color;
+                font-weight: 500;
+            }
+            .colors,
+            .sizes {
+                .color-btn,
+                .size-btn {
+                    padding: 2px;
+                    border: 1px solid rgba($color: $black-color, $alpha: 0.2);
+                    background-color: $white-color;
+                    border-radius: 4px;
+                    opacity: 0.6;
+
+                    & + .color-btn,
+                    & + .size-btn {
+                        margin-left: 4px;
+                    }
+
+                    &:hover,
+                    &.active {
+                        opacity: 1;
+                        border-color: rgba($color: $black-color, $alpha: 0.4);
+                    }
+                }
+            }
+        }
+        .purchase {
+            .add-to-cart {
+                padding: 8px;
+                font-size: 16px;
+                color: $black-color;
+                font-weight: 500;
+                border: 1px solid $black-color;
+                background-color: $white-color;
+                border-radius: 4px;
+                transition: all 0.3s;
+
+                &:hover {
+                    background-color: $black-color;
+                    color: $white-color;
+                }
+            }
+            .buy-product {
+                width: 100%;
+                padding: 8px;
+                font-size: 16px;
+                color: $white-color;
+                font-weight: 500;
+                border: 1px solid $black-color;
+                background-color: $black-color;
+                border-radius: 4px;
+                transition: all 0.3s;
+
+                &:hover {
+                    opacity: 0.9;
+                }
+            }
+            .phone-contact {
+                font-size: 14px;
+                color: $black-color;
+                font-weight: 500;
+            }
+        }
+        .add-to-favorite {
+            padding: 4px;
+            outline: none;
+            background-color: $white-color;
+            color: $link-color;
+            border: 1px solid rgba($color: $black-color, $alpha: 0.2);
+        }
+    }
+}

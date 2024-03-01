@@ -77,10 +77,11 @@ export default function ProductPage() {
 
     const sp = new URLSearchParams(search);
 
-    const [categoryFilter, setCategoryFilter] = useState(sp.get("category") || "all");
     const [brandFilter, setBrandFilter] = useState(sp.get("branch") || "all");
     const [priceFilter, setPriceFilter] = useState(sp.get("price") || "all");
     const [order, setOrder] = useState(sp.get("order") || "asc");
+
+    const category = sp.get("category") || "all";
 
     useEffect(() => {
         const fetchBrands = async () => {
@@ -92,12 +93,12 @@ export default function ProductPage() {
     useEffect(() => {
         const fetchListProduct = async () => {
             await fetchListProductApi(
-                `category=${categoryFilter}&order=${order}&brand=${brandFilter}&price=${priceFilter}&pageSize=${nPageTemp}&page=${activePage}`,
+                `category=${category}&order=${order}&brand=${brandFilter}&price=${priceFilter}&pageSize=${nPageTemp}&page=${activePage}`,
                 dispatch
             );
         };
         fetchListProduct();
-    }, [activePage, brandFilter, categoryFilter, dispatch, order, priceFilter, search]);
+    }, [activePage, brandFilter, dispatch, order, priceFilter, category]);
 
     const handleBackPage = () => {
         if (activePage > 1) setActivePage((prev) => prev - 1);
@@ -153,7 +154,6 @@ export default function ProductPage() {
                                             checked={brandFilter === "all"}
                                             onChange={() => {
                                                 setBrandFilter("all");
-                                                setCategoryFilter("all");
                                             }}
                                         />
                                         {brands?.map((brand) => (

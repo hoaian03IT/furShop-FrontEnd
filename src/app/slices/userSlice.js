@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 const initialState = {
     userInfo: {},
     token: "",
+    isLogged: false,
     loading: false,
     error: "",
 };
@@ -21,6 +22,7 @@ export const userSlice = createSlice({
             if (user?._id) {
                 state.userInfo = user;
                 state.token = token;
+                state.isLogged = true;
             }
             state.loading = false;
         },
@@ -37,6 +39,7 @@ export const userSlice = createSlice({
             if (user?._id) {
                 state.userInfo = user;
                 state.token = token;
+                state.isLogged = true;
             }
             state.loading = false;
         },
@@ -52,6 +55,7 @@ export const userSlice = createSlice({
             state.loading = false;
             state.userInfo = {};
             state.token = "";
+            state.isLogged = false;
         },
         logoutFailed: (state, action) => {
             state.error = action.payload;

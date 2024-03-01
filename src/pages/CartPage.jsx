@@ -57,7 +57,7 @@ export default function CartPage() {
                 <div className={cx("cart-container")}>
                     <h1 className={cx("cart-title")}>Giỏ hàng</h1>
                     <div className={cx("cart-content")}>
-                        {!user.token ? (
+                        {!user.isLogged ? (
                             <span>
                                 Bạn cần đăng nhập để xem giỏ hàng{" "}
                                 <Link

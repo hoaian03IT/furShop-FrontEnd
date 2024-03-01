@@ -37,7 +37,7 @@ export const InteractionGroupBtn = () => {
                     <CiSearch className="fs-2" />
                 </div>
             </OverlayTrigger>
-            {Object.keys(userInfo).length > 0 ? (
+            {user.isLogged ? (
                 <OverlayTrigger
                     placement="bottom"
                     trigger="click"

@@ -20,7 +20,7 @@ function App() {
     }, [dispatch]);
 
     return (
-        <div className="d-flex flex-column justify-content-between vh-100">
+        <div className="d-flex flex-column justify-content-between min-vh-100">
             <ScrollToTop />
             <div>
                 <header className="header">

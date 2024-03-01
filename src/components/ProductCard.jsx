@@ -11,6 +11,8 @@ const cx = classNames.bind(styles);
 export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => {
     const realPrice = formatCurrencyVND(discount > 0 ? price - price * discount : price);
 
+    const handleAddToCard = () => {};
+
     return (
         <div className={cx("wrapper", "w-100")}>
             <div className={cx("img-wrapper")}>
@@ -45,7 +47,7 @@ export const ProductCard = ({ imgs = [], title, price, discount = 0, link }) => 
             </div>
             <div className={cx("content", "mt-2")}>
                 <OverlayTrigger placement="top" overlay={<span style={{ fontSize: 10 }}>{title}</span>}>
-                    <Link to={link} className={cx("title", "fw-semibold limit-line-2")}>
+                    <Link to={link} className={cx("title", "fw-semibold limit-line-1")}>
                         {title}
                     </Link>
                 </OverlayTrigger>

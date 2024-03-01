@@ -28,16 +28,47 @@ export const cartSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+
         clearCartItems: (state) => {
             state.cartItems = [];
             state.pages = 0;
             state.page = 0;
             state.loading = false;
         },
+
+        addToCartRequest: (state) => {
+            state.loading = true;
+            state.error = "";
+        },
+        addToCartSuccess: (state, action) => {
+            const { data } = action.payload;
+            const newCartItems = state.cartItems;
+            for (let i = 0; i < state.cartItems.length; i++) {
+                if (state.cartItems[i]._id === data._id) {
+                    newCartItems[i] = data;
+                } else {
+                    newCartItems.push(data);
+                }
+            }
+            state.cartItems = newCartItems;
+            state.loading = false;
+        },
+        addToCartFailed: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { fetchCartItemRequest, fetchCartItemSuccess, fetchCartItemFail, clearCartItems } = cartSlice.actions;
+export const {
+    fetchCartItemRequest,
+    fetchCartItemSuccess,
+    fetchCartItemFail,
+    clearCartItems,
+    addToCartFailed,
+    addToCartRequest,
+    addToCartSuccess,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

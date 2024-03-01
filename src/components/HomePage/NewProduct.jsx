@@ -8,43 +8,50 @@ import { ProductCard } from "../ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchNewProduct } from "~/api-server";
+import axios from "axios";
+import { pathname } from "~/configs/path";
 
 const cx = classNames.bind(styles);
 
 function NewProduct() {
-  const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    (async () => {
-      const data = await fetchNewProduct(dispatch, 4);
-      setProducts(data?.data || []);
-    })();
-  }, []);
-  return (
-    <Container>
-      <Row>
-        <Col>
-          <div className={cx("new-product__info")}>
-            <h3 className="mt-3 ">Sản phẩm mới</h3>
-            <Link to={""}>Đến cữa hàng</Link>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        {products.map((product, index) => (
-          <Col key={index}>
-            <ProductCard
-              img1={product.image[0] || ""}
-              img2={product.image[1] || ""}
-              title={product.productName}
-              price={product.price}
-              discount={product.discount}
-            />
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  );
+    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const fetchNewProduct = async () => {
+            try {
+                const res = await axios.get("api/san-pham/loc-san-pham?order=newest&pageSize=6");
+                setProducts(res.data.products);
+            } catch (error) {}
+        };
+        fetchNewProduct();
+    }, [dispatch]);
+    return (
+        <Container>
+            <Row>
+                <Col>
+                    <div className={cx("new-product__info")}>
+                        <h3 className="mt-3 ">Sản phẩm mới</h3>
+                        <Link to={pathname.product + `?order=newest`}>Đến cửa hàng</Link>
+                    </div>
+                </Col>
+            </Row>
+            <Row>
+                {products.map((product) => {
+                    const images = product?.attributes.map((attr) => attr.image);
+                    return (
+                        <Col key={product?._id}>
+                            <ProductCard
+                                imgs={images}
+                                title={product.productName}
+                                price={product.price}
+                                discount={product.discount}
+                            />
+                        </Col>
+                    );
+                })}
+            </Row>
+        </Container>
+    );
 }
 
 export default NewProduct;

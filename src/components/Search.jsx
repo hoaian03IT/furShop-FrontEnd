@@ -22,6 +22,7 @@ export const Search = () => {
     const debouncedSearchValue = useDebounce(searchValue, 500);
 
     useEffect(() => {
+        console.log(debouncedSearchValue);
         const fetchSearchProduct = async () => {
             setLoading(true);
             try {
@@ -66,7 +67,7 @@ export const Search = () => {
                                 </label>
                             </FormGroup>
                             <ResultSearchModal
-                                show={searchList.length > 0}
+                                show={searchList.length > 0 && debouncedSearchValue !== ""}
                                 onHide={handleClose}
                                 listProduct={searchList}
                             />

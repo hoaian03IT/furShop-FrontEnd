@@ -85,16 +85,17 @@ export const loginApi = async (dispatch, payload, navigate, redirect) => {
     }
 };
 
-export const registerApi = async (dispatch, payload = {}) => {
+export const registerApi = async (dispatch, payload = {}, navigate, redirect) => {
     dispatch(registerRequest());
-    const { email, username, password, role, gender } = payload;
+    const { email, gender, password, phoneNumber, role } = payload;
     try {
         const res = await axios.post(
             "/api/tai-khoan/dang-ky",
-            { email, username, password, role, gender },
+            { email, phone: phoneNumber, password, role, gender },
             { withCredentials: true }
         );
         dispatch(registerSuccess(res.data));
+        navigate(redirect);
     } catch (error) {
         const errMsg = error.response?.data.message || error.message;
         toast.error(errMsg);

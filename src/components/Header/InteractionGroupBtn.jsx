@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 export const InteractionGroupBtn = () => {
     const { setShowSearchOffCanvas } = useContext(HeaderContext);
 
-    const { user } = useSelector((state) => state.persist);
+    const { user, cart } = useSelector((state) => state.persist);
     const { userInfo } = user;
 
     const dispatch = useDispatch();
@@ -66,7 +66,9 @@ export const InteractionGroupBtn = () => {
             <OverlayTrigger placement="bottom" overlay={<Tooltip>Giỏ hàng</Tooltip>}>
                 <Link to={"/gio-hang"} className={cx("action", "cart")}>
                     <CiShoppingCart className="fs-2" />
-                    <span className={cx("number-item-in-cart")}>9+</span>
+                    <span className={cx("number-item-in-cart")}>
+                        {cart.cartItems.length > 9 ? "9+" : cart.cartItems.length}
+                    </span>
                 </Link>
             </OverlayTrigger>
         </div>

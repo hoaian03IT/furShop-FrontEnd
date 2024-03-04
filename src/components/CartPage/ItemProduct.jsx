@@ -8,120 +8,140 @@ import { GoPlus } from "react-icons/go";
 import styles from "~/styles/ItemProduct.module.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadToCardApi } from "~/api-server";
+import { deleteToCartApi, uploadToCardApi } from "~/api-server";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { updateCart, uploadToCartSuccess } from "~/app/slices/cartSlide";
 
 const cx = classNames.bind(styles);
 export const ItemProduct = ({
-    link,
-    img,
-    nameProduct,
-    description,
-    size,
-    color,
-    price,
-    discount = 0,
-    amount,
-    totalQuantity,
-    productId,
-    attributesId,
+  link,
+  img,
+  nameProduct,
+  description,
+  size,
+  color,
+  price,
+  discount = 0,
+  amount,
+  totalQuantity,
+  productId,
+  attributesId,
+  cartId,
 }) => {
-    const [quantity, setQuantity] = useState(amount);
-    const realPrice = discount > 0 ? price - price * discount : price;
-    const { user } = useSelector((state) => state.persist);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const axiosJWT = axiosInterceptor(user, dispatch, navigate);
+  const [quantity, setQuantity] = useState(amount);
+  const { user } = useSelector((state) => state.persist);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [checkLoad, setCheckLoad] = useState(false);
+  const axiosJWT = axiosInterceptor(user, dispatch, navigate);
 
-    const handleUploadItem = async (quantity) => {
-        if (quantity >= 1 && quantity <= totalQuantity) {
-            await uploadToCardApi(
-                {
-                    amount: quantity,
-                    productId,
-                    productAttributes: attributesId,
-                },
-                axiosJWT,
-                dispatch
-            );
-        }
-    };
+  const handleIncreaseQuantity = (e) => {
+    if (quantity === totalQuantity) return;
+    setCheckLoad(true);
+    setQuantity(quantity + 1);
+  };
+  const handleReduceQuantity = () => {
+    if (quantity === 1) return;
+    setCheckLoad(true);
+    setQuantity(quantity - 1);
+  };
 
-    const handleIncreaseQuantity = async () => {
-        let newQuantity = Number(quantity);
-        if (quantity < totalQuantity) {
-            newQuantity++;
-            await handleUploadItem(newQuantity);
-        } else {
-            newQuantity = totalQuantity;
-        }
-        setQuantity(newQuantity);
-    };
-    const handleReduceQuantity = async () => {
-        const minValue = 1;
-        let newQuantity = Number(quantity);
-        if (quantity > minValue) {
-            newQuantity--;
-            await handleUploadItem(newQuantity);
-        } else {
-            newQuantity = 1;
-        }
-        setQuantity(newQuantity);
-    };
+  const handleInputChange = (e) => {
+    let amount = e.target.value * 1;
+    if (!amount) {
+      amount = 0;
+      setCheckLoad(false);
+      setQuantity(0);
+    } else if (amount && amount <= totalQuantity) {
+      setCheckLoad(true);
+      setQuantity(amount);
+    } else {
+      setCheckLoad(true);
+      setQuantity(totalQuantity);
+    }
+  };
 
-    const handleInputChange = async (e) => {
-        let newQuantity = Number(quantity);
-        if (e.target.value > totalQuantity) {
-            newQuantity = totalQuantity;
-        } else if (e.target.value < 1) {
-            newQuantity = 1;
-        } else {
-            newQuantity = Number(e.target.value);
-        }
-        await handleUploadItem(newQuantity);
+  const handleBlurAmount = () => {
+    if (quantity === 0) {
+      setCheckLoad(true);
+      setQuantity(1);
+    }
+  };
 
-        setQuantity(newQuantity);
-    };
+  const handleDeleteProduct = () => {
+    // (async () => {
+    //   try {
+    //     await deleteToCartApi({ cartId: cartId }, axiosJWT, dispatch);
+    //   } catch (error) {
+    //     console.log(error.message);
+    //   }
+    // })();
+  };
 
-    return (
-        <div className={cx("cart-item-product")}>
-            <div className={cx("cart-icon-close")}>
-                <IoCloseOutline title="Xóa" className={cx("icon-close")} />
-            </div>
-            <div className={cx("cart-image")}>
-                <Link to={link}>
-                    <Image className={cx("cart-image-product")} src={img} alt="logo" />
-                </Link>
-            </div>
-            <div className={cx("cart-info")}>
-                <div className={cx("cart-info-title")}>
-                    <h3 className={cx("product-name")}>
-                        <Link to={link}>{nameProduct}</Link>
-                    </h3>
-                    <span className={cx("product-description")}>
-                        {size} - {color}
-                    </span>
-                </div>
-                <div className={cx("product-right")}>
-                    <div className={cx("cart-price")}>
-                        {/* <span className={cx("product-price")}>{formatCurrencyVND(realPrice)}</span> */}
-                    </div>
-                    <div className={cx("cart-select-item")}>
-                        <button className={cx("btn_product")} type="button" onClick={handleReduceQuantity}>
-                            <HiMiniMinus />
-                        </button>
-                        <input
-                            className={cx("quantity-product")}
-                            type="number"
-                            value={quantity}
-                            onChange={handleInputChange}></input>
-                        <button className={cx("btn_product_right")} type="button" onClick={handleIncreaseQuantity}>
-                            <GoPlus />
-                        </button>
-                    </div>
-                </div>
-            </div>
+  useEffect(() => {
+    if (checkLoad) {
+      (async () => {
+        try {
+          await uploadToCardApi(
+            { cartId: cartId, amount: quantity },
+            axiosJWT,
+            dispatch
+          );
+        } catch (error) {}
+      })();
+    }
+  }, [quantity]);
+
+  return (
+    <div className={cx("cart-item-product")}>
+      <button className={cx("cart-icon-close")} onClick={handleDeleteProduct}>
+        <IoCloseOutline title="Xóa" className={cx("icon-close")} />
+      </button>
+      <div className={cx("cart-image")}>
+        <Link to={link}>
+          <Image className={cx("cart-image-product")} src={img} alt="logo" />
+        </Link>
+      </div>
+      <div className={cx("cart-info")}>
+        <div className={cx("cart-info-title")}>
+          <h3 className={cx("product-name")}>
+            <Link to={link}>{nameProduct}</Link>
+          </h3>
+          <span className={cx("product-description")}>
+            {size} - {color}
+          </span>
         </div>
-    );
+        <div className={cx("product-right")}>
+          <div className={cx("cart-price")}>
+            {/* <span className={cx("product-price")}>{formatCurrencyVND(realPrice)}</span> */}
+          </div>
+          <div className={cx("cart-select-item")}>
+            <button
+              className={cx("btn_product")}
+              type="button"
+              onClick={handleReduceQuantity}
+            >
+              <HiMiniMinus />
+            </button>
+            <input
+              className={cx("quantity-product")}
+              type="number"
+              value={quantity}
+              onChange={handleInputChange}
+              onBlur={handleBlurAmount}
+            ></input>
+            <button
+              className={cx("btn_product_right")}
+              type="button"
+              onClick={handleIncreaseQuantity}
+            >
+              <GoPlus />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };

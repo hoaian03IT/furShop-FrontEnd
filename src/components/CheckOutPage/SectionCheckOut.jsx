@@ -3,7 +3,7 @@ import styles from "~/styles/SectionCheckOut.module.scss";
 import Address from "~/components/CheckOutPage/Address";
 import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa6";
 
 const cx = classNames.bind(styles);
@@ -16,19 +16,28 @@ export const SectionCheckOut = ({
   setName,
   addressName,
   setAddressName,
+  addressDetail,
+  setAddressDetail,
   billingPhone,
   setbillingPhone,
+  handleCheckout,
 }) => {
   const [emailError, setEmailError] = useState(false);
   const [nameError, setNameError] = useState(false);
   const [billingPhoneError, setBillingPhoneError] = useState(false);
   const [provinceError, setProvinceError] = useState(false);
+  const [callApi, setCallApi] = useState(false);
+
   const handleSetAddressName = (newAddressName) => {
     setAddressName(newAddressName);
   };
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
+  };
+  const handleSetAddressDetail = (e) => {
+    const value = e.target.value;
+    setAddressDetail(value);
   };
   const handleNameChange = (e) => {
     const value = e.target.value;
@@ -49,6 +58,17 @@ export const SectionCheckOut = ({
       addressName.trim() === "" || addressName.trim() === "thành--"
     );
   };
+
+  useEffect(() => {
+    if (callApi) {
+      if (emailError || nameError || billingPhoneError || provinceError) {
+        return;
+      } else {
+        handleCheckout();
+      }
+    }
+    setCallApi(false);
+  }, [callApi]);
   return (
     <div>
       <div className={cx("header")}>
@@ -103,6 +123,7 @@ export const SectionCheckOut = ({
             id="billingAddress"
             className={cx("input")}
             placeholder="Địa chỉ (tùy chọn)"
+            onChange={handleSetAddressDetail}
           ></input>
         </div>
         <Address
@@ -125,7 +146,9 @@ export const SectionCheckOut = ({
           <span className={cx("title-btn")}>Giỏ hàng</span>
         </Link>
         <button className={cx("btn")} type="submit" onClick={handleSubmit}>
-          <span className={cx("content-btn")}>Thanh toán</span>
+          <span onClick={() => setCallApi(true)} className={cx("content-btn")}>
+            Thanh toán
+          </span>
         </button>
       </div>
     </div>

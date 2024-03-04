@@ -8,48 +8,54 @@ import { SidebarOrder } from "~/components/CheckOutPage/SidebarOrder";
 import axios from "axios";
 import styles from "~/styles/CheckOutPage.module.scss";
 import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from "~/api-server";
+import { useNavigate } from "react-router-dom";
+import { axiosInterceptor } from "~/utils/axiosInterceptor";
 
 const cx = classNames.bind(styles);
 
 function CheckOutPage() {
   const [addressName, setAddressName] = useState("");
-
+  const [addressDetail, setAddressDetail] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [billingPhone, setbillingPhone] = useState("");
+  const { user } = useSelector((state) => state.persist);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const axiosJWT = axiosInterceptor(user, dispatch, navigate);
+  const { cartItems } = useSelector((state) => state.persist.cart);
 
-  const cartItems = useSelector((state) => state.persist);
-  console.log(cartItems);
-
-  // const product = useMemo(() => {
-  //   return cartItems.reduce((first, item) => [
-  //     ...first,
-  //     { productId: item._id },
-  //   ]);
-  // });
-
-  useEffect(() => {
-    const handleCheckout = async () => {
-      const dataToSend = {
-        name: name,
-        product: "",
-        customerId: "",
-        address: addressName,
-        phoneNumber: billingPhone,
-        paymentType: "",
-      };
-      try {
-        // const response = await axios.post("/api/don-hang", dataToSend);
-        // console.log("Đã gửi dữ liệu thành công:", response.data);
-      } catch (error) {
-        console.error("Lỗi khi gửi dữ liệu:", error);
-      }
+  const product = useMemo(() => {
+    return cartItems.reduce(
+      (first, item) => [
+        ...first,
+        {
+          productId: item.productId._id,
+          productAttributeId: item.productAttributes._id,
+          amount: item.amount,
+        },
+      ],
+      []
+    );
+  }, []);
+  const handleCheckout = async () => {
+    const dataToSend = {
+      customerId: user.userInfo._id,
+      name: name,
+      product: product,
+      address: addressDetail + " " + addressName,
+      phoneNumber: billingPhone,
+      paymentType: "",
     };
-
-    handleCheckout();
-  }, [name, email, addressName, billingPhone]);
-
+    try {
+      await createOrder(dataToSend, axiosJWT);
+      alert("Thanh toán thành công");
+    } catch (error) {
+      console.error("Lỗi khi gửi dữ liệu:", error);
+    }
+  };
   return (
     <div>
       <Container>
@@ -68,8 +74,11 @@ function CheckOutPage() {
                 ]}
               />
               <SectionCheckOut
+                handleCheckout={handleCheckout}
                 addressName={addressName}
                 setAddressName={setAddressName}
+                addressDetail={addressDetail}
+                setAddressDetail={setAddressDetail}
                 email={email}
                 setEmail={setEmail}
                 name={name}

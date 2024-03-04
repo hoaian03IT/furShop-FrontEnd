@@ -4,13 +4,39 @@ import product from "~/assets/imgs/product1.png";
 import { ProductOrder } from "~/components/CheckOutPage/ProductOrder";
 import { CouponProduct } from "~/components/CheckOutPage/CouponProduct";
 import { TotalPayment } from "~/components/CheckOutPage/TotalPayment";
+import { useSelector } from "react-redux";
+
+import { useEffect, useMemo, useState } from "react";
 
 const cx = classNames.bind(styles);
-export const SidebarOrder = ({
-  quantity = 1,
-  price = 1000000,
-  fee = 40000,
-}) => {
+export const SidebarOrder = ({}) => {
+  const { user } = useSelector((state) => state.persist);
+  const { cartItems } = useSelector((state) => state.persist.cart);
+  const [fee, setFee] = useState(0);
+  const totalPrice = useMemo(() => {
+    return cartItems.reduce((first, item) => {
+      const price =
+        item.productId.price * item.amount * (1 - item.productId.discount);
+      return first + price;
+    }, 0);
+  }, []);
+  const quantity = useMemo(() => {
+    return cartItems.reduce((first, item) => {
+      const amount = item.amount;
+      return first + amount;
+    }, 0);
+  }, []);
+
+  useEffect(() => {
+    let calculatedFee = 0;
+    if (totalPrice < 500000) {
+      calculatedFee = 0;
+    } else {
+      calculatedFee = 40000;
+    }
+    setFee(calculatedFee);
+  }, [totalPrice]);
+
   return (
     <div className={cx("sidebar")}>
       <div className={cx("header")}>
@@ -18,19 +44,26 @@ export const SidebarOrder = ({
       </div>
       <div className={cx("content")}>
         <div className={cx("contentProduct")}>
-          <ProductOrder
-            img={product}
-            name={"Bàn học"}
-            decription="gỗ liêm"
-            price={price}
-            quantity={quantity}
-          />
+          {cartItems.map((item, index) => (
+            <ProductOrder
+              key={index}
+              img={item.productAttributes.image}
+              name={item.productId.productName}
+              decription={
+                item.productAttributes.size +
+                " - " +
+                item.productAttributes.color
+              }
+              price={item.productId.price}
+              quantity={item.amount}
+            />
+          ))}
         </div>
         <div className={cx("contentCoupon")}>
           <CouponProduct />
         </div>
         <div className={cx("contentTotal")}>
-          <TotalPayment price={price} fee={fee} />
+          <TotalPayment price={totalPrice} fee={fee} />
         </div>
       </div>
     </div>

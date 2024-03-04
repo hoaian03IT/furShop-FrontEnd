@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "~/styles/InteractionGroupBtn.module.scss";
 import { logoutApi } from "~/api-server";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
+import { pathname } from "~/configs/path";
 
 const cx = classNames.bind(styles);
 
@@ -43,7 +44,7 @@ export const InteractionGroupBtn = () => {
                     trigger="click"
                     overlay={
                         <div className={cx("tooltip-user-logged")}>
-                            <Link className={cx("item", "link")} to={"/profile"}>
+                            <Link className={cx("item", "link")} to={pathname.account}>
                                 Thông tin cá nhân
                             </Link>
                             <Link className={cx("item", "link")} to={"/profile"}>

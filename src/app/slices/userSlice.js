@@ -61,6 +61,17 @@ export const userSlice = createSlice({
             state.error = action.payload;
             state.loading = false;
         },
+        updateProfileRequest: (state) => {
+            state.loading = true;
+            state.error = "";
+        },
+        updateProfileSuccess: (state, action) => {
+            state.userInfo = action.payload;
+        },
+        updateProfileFailed: (state, action) => {
+            state.error = action.payload;
+            state.loading = false;
+        },
     },
 });
 
@@ -75,6 +86,9 @@ export const {
     registerFailed,
     registerRequest,
     registerSuccess,
+    updateProfileFailed,
+    updateProfileRequest,
+    updateProfileSuccess,
 } = userSlice.actions;
 
 export default userSlice.reducer;

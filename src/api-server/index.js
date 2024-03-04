@@ -112,25 +112,6 @@ export const loginApi = async (dispatch, payload, navigate, redirect) => {
   }
 };
 
-<<<<<<< HEAD
-export const registerApi = async (dispatch, payload = {}, navigate, redirect) => {
-    dispatch(registerRequest());
-    const { email, phoneNumber, password, role, gender } = payload;
-    try {
-        const res = await axios.post(
-            "/api/tai-khoan/dang-ky",
-            { email, phone: phoneNumber, password, role, gender },
-            { withCredentials: true }
-        );
-        const { user, token } = res.data;
-        dispatch(registerSuccess({ user, token }));
-        navigate(redirect);
-    } catch (error) {
-        const errMsg = error.response?.data.message || error.message;
-        toast.error(errMsg);
-        dispatch(registerFailed(errMsg));
-    }
-=======
 export const registerApi = async (dispatch, payload = {}) => {
   dispatch(registerRequest());
   const { email, username, password, role, gender } = payload;
@@ -147,7 +128,6 @@ export const registerApi = async (dispatch, payload = {}) => {
     toast.error(errMsg);
     dispatch(registerFailed(errMsg));
   }
->>>>>>> c01f253bfd9f3fbdaffc7602bf3d97294e8fd76c
 };
 
 export const logoutApi = async (dispatch, navigate, axiosJWT) => {

@@ -14,6 +14,7 @@ import { uploadToCardApi } from "~/api-server";
 import { toast } from "react-toastify";
 
 import styles from "~/styles/ProductDetail.module.scss";
+import { CiShop } from "react-icons/ci";
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +23,6 @@ export const ProductDetail = ({ product }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { _id, productName, brand, price = 0, discount = 0, attributes } = product;
-    console.log(product);
 
     const [images, setImages] = useState([]);
     const [colors, setColors] = useState([]);
@@ -131,6 +131,15 @@ export const ProductDetail = ({ product }) => {
     return (
         <Row md={{ cols: 2 }} className={cx("details", "g-5")}>
             <Col>
+                <div className="mb-2 d-flex align-items-center">
+                    <CiShop className="fs-2" />
+                    <Link
+                        to={pathname.shop.split(":")[0] + product.shop?.tagname}
+                        className="ps-2 fs-5 fw-semibold text-black text-decoration-underline">
+                        {/* {product.shop?.name} */}
+                        Mental shop
+                    </Link>
+                </div>
                 <PreviewImageProduct images={images} />
                 <div className={cx("share", "d-flex align-items-center justify-content-center mt-4")}>
                     <span className="me-3">Chia sẻ</span>

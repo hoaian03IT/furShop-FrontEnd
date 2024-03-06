@@ -15,6 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchCartItemApi } from "~/api-server";
 import { Loading } from "~/components/Loading";
+import {
+  PaginationForward,
+  PaginationItem,
+  PaginationPrev,
+  Pagination,
+  PaginationEllipsis,
+} from "~/components/Pagination";
 const cx = classNames.bind(styles);
 
 export default function CartPage() {
@@ -22,7 +29,11 @@ export default function CartPage() {
   const [textValue, setTextValue] = useState("");
   const [checked, setChecked] = useState(false);
   const { user } = useSelector((state) => state.persist);
-  const { cartItems, loading } = useSelector((state) => state.persist.cart);
+  const [activePage, setActivePage] = useState(1);
+
+  const { cartItems, loading, pages } = useSelector(
+    (state) => state.persist.cart
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const axiosJWT = axiosInterceptor(user, dispatch, navigate);
@@ -30,9 +41,16 @@ export default function CartPage() {
   useEffect(() => {
     if (user.token)
       (async () => {
-        await fetchCartItemApi(dispatch, axiosJWT);
+        await fetchCartItemApi(dispatch, axiosJWT, 5, activePage);
       })();
-  }, [dispatch, user.token]);
+  }, [dispatch, user.token, activePage]);
+  const handleBackPage = () => {
+    if (activePage > 1) setActivePage((prev) => prev - 1);
+  };
+
+  const handleNextPage = () => {
+    if (activePage < pages) setActivePage((prev) => prev + 1);
+  };
 
   const totalPrice = useMemo(() => {
     return cartItems?.reduce((first, item, i) => {
@@ -108,6 +126,39 @@ export default function CartPage() {
                         disabled={cartItems?.length === 0}
                       />
                     </div>
+                    {pages > 1 && (
+                      <div className="mt-4">
+                        <Pagination placement="right">
+                          <PaginationPrev onClick={handleBackPage} />
+                          {Math.ceil(pages / 2) < activePage && (
+                            <PaginationEllipsis />
+                          )}
+                          {[...Array(pages + 1).keys()]
+                            .slice(1)
+                            .map((value) => {
+                              if (
+                                value === activePage ||
+                                value === activePage - 1 ||
+                                value === activePage + 1
+                              ) {
+                                return (
+                                  <PaginationItem
+                                    key={value}
+                                    active={value === activePage}
+                                    onClick={() => setActivePage(value)}
+                                  >
+                                    {value}
+                                  </PaginationItem>
+                                );
+                              }
+                            })}
+                          {Math.ceil(pages / 2) > activePage && (
+                            <PaginationEllipsis />
+                          )}
+                          <PaginationForward onClick={handleNextPage} />
+                        </Pagination>
+                      </div>
+                    )}
                   </div>
                 </Col>
                 <Col md={4}>

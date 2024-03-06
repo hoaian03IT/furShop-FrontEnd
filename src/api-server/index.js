@@ -10,6 +10,9 @@ import {
   fetchCartItemSuccess,
   fetchCartItemFail,
   clearCartItems,
+  addToCartRequest,
+  addToCartSuccess,
+  addToCartFailed,
   uploadToCartRequest,
   uploadToCartSuccess,
   uploadToCartFailed,
@@ -160,10 +163,17 @@ export const refreshTokenApi = async (userId, navigate) => {
   }
 };
 
-export const fetchCartItemApi = async (dispatch, axiosJWT) => {
-  dispatch(fetchCartItemRequest());
+export const fetchCartItemApi = async (
+  dispatch,
+  axiosJWT,
+  limit,
+  pageNumber
+) => {
+  // dispatch(fetchCartItemRequest());
   try {
-    const res = await axiosJWT.get(`/api/gio-hang/xem-gio-hang`);
+    const res = await axiosJWT.get(
+      `/api/gio-hang/xem-gio-hang?limit=${limit}&pageNumber=${pageNumber}`
+    );
     dispatch(fetchCartItemSuccess(res.data));
   } catch (error) {
     const errMsg = error.response?.data.message || error.message;
@@ -200,9 +210,10 @@ export const uploadToCardApi = async (payload, axiosJWT, dispatch) => {
   }
 };
 
-export const createOrder = async (payload, axiosJWT) => {
+export const createOrder = async (payload, axiosJWT, dispatch) => {
   try {
     const res = await axiosJWT.post(`/api/don-hang/dat-hang`, payload);
+    dispatch(clearCartItems());
   } catch (error) {
     const errMsg = error.response?.data.message || error.message;
     toast.error(errMsg);
@@ -219,5 +230,22 @@ export const deleteToCartApi = async (payload, axiosJWT, dispatch) => {
     const errMsg = error.response?.data.message || error.message;
     toast.error(errMsg);
     dispatch(deleteToCartItemFail(errMsg));
+  }
+};
+
+export const addToCardApi = async (payload, axiosJWT, dispatch) => {
+  dispatch(addToCartRequest());
+  try {
+    const { amount, productId, productAttributes } = payload;
+    const res = await axiosJWT.post(`/api/gio-hang/them-vao-gio-hang`, {
+      amount,
+      productId,
+      productAttributes,
+    });
+    dispatch(addToCartSuccess(res.data));
+  } catch (error) {
+    const errMsg = error.response?.data.message || error.message;
+    toast.error(errMsg);
+    dispatch(addToCartFailed(errMsg));
   }
 };

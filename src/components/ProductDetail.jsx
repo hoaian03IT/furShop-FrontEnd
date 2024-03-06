@@ -10,7 +10,7 @@ import { QuantityEditor } from "./QuantityEditor";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
 import { useSelector, useDispatch } from "react-redux";
-import { uploadToCardApi } from "~/api-server";
+import { addToCardApi } from "~/api-server";
 import { toast } from "react-toastify";
 
 import styles from "~/styles/ProductDetail.module.scss";
@@ -29,7 +29,6 @@ export const ProductDetail = ({ product }) => {
     discount = 0,
     attributes,
   } = product;
-  console.log(product);
 
   const [images, setImages] = useState([]);
   const [colors, setColors] = useState([]);
@@ -130,7 +129,7 @@ export const ProductDetail = ({ product }) => {
   const handleAddToCart = async () => {
     try {
       if (user.isLogged) {
-        await uploadToCardApi(
+        await addToCardApi(
           {
             amount: selectedAttributes.quantity,
             productId: _id,

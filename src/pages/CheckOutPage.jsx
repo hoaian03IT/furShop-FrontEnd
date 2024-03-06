@@ -50,7 +50,7 @@ function CheckOutPage() {
       paymentType: "",
     };
     try {
-      await createOrder(dataToSend, axiosJWT);
+      await createOrder(dataToSend, axiosJWT, dispatch);
       alert("Thanh toán thành công");
     } catch (error) {
       console.error("Lỗi khi gửi dữ liệu:", error);

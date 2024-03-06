@@ -6,6 +6,11 @@ import {
   fetchBrandSuccess,
 } from "~/app/slices/brandSlice";
 import {
+  fetchBrandFailed,
+  fetchBrandRequest,
+  fetchBrandSuccess,
+} from "~/app/slices/brandSlice";
+import {
   fetchCartItemRequest,
   fetchCartItemSuccess,
   fetchCartItemFail,
@@ -45,6 +50,9 @@ import {
   registerFailed,
   registerRequest,
   registerSuccess,
+  updateProfileFailed,
+  updateProfileRequest,
+  updateProfileSuccess,
 } from "~/app/slices/userSlice";
 import { pathname } from "~/configs/path";
 
@@ -115,17 +123,23 @@ export const loginApi = async (dispatch, payload, navigate, redirect) => {
   }
 };
 
-export const registerApi = async (dispatch, payload = {}) => {
+export const registerApi = async (
+  dispatch,
+  payload = {},
+  navigate,
+  redirect
+) => {
   dispatch(registerRequest());
-  const { email, username, password, role, gender } = payload;
+  const { email, phoneNumber, password, role, gender } = payload;
   try {
     const res = await axios.post(
       "/api/tai-khoan/dang-ky",
-      { email, username, password, role, gender },
+      { email, phone: phoneNumber, password, role, gender },
       { withCredentials: true }
     );
     const { user, token } = res.data;
     dispatch(registerSuccess({ user, token }));
+    navigate(redirect);
   } catch (error) {
     const errMsg = error.response?.data.message || error.message;
     toast.error(errMsg);
@@ -149,6 +163,24 @@ export const logoutApi = async (dispatch, navigate, axiosJWT) => {
     const errMsg = error.response?.data.message || error.message;
     toast.error(errMsg);
     dispatch(logoutFailed(errMsg));
+  }
+};
+
+export const uploadProfileApi = async (payload, axiosJWT, dispatch) => {
+  dispatch(updateProfileRequest());
+  try {
+    const { image, username, phone, gender } = payload;
+    const res = await axiosJWT.post(`/api/tai-khoan/auth/cap-nhat`, {
+      image,
+      username,
+      phone,
+      gender,
+    });
+    dispatch(updateProfileSuccess(res.data));
+  } catch (error) {
+    const errMsg = error.response?.data.message || error.message;
+    toast.error(errMsg);
+    dispatch(updateProfileFailed(errMsg));
   }
 };
 

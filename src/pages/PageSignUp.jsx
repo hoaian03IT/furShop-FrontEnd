@@ -93,7 +93,7 @@ export default function SignUp() {
                                         Email <span style={{ color: "red" }}>*</span>
                                     </label>
                                     <input
-                                        type="email"
+                                        type="text"
                                         name="email"
                                         className={cx("signup-form__input")}
                                         id="email"

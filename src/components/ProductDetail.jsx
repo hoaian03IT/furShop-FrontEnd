@@ -14,6 +14,7 @@ import { addToCardApi } from "~/api-server";
 import { toast } from "react-toastify";
 
 import styles from "~/styles/ProductDetail.module.scss";
+import { CiShop } from "react-icons/ci";
 
 const cx = classNames.bind(styles);
 

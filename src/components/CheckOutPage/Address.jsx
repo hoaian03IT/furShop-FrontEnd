@@ -5,18 +5,13 @@ import { getDistrict, getProvince, getVillage } from "~/api-server/GHN";
 
 const cx = classNames.bind(styles);
 
-function Address({ setAddressName }) {
+function Address({ setAddressName, address, setAddress }) {
   const [province, setProvince] = useState([]);
   const [selectedProvinceClass, setSelectedProvinceClass] = useState("");
   const [selectedDictrictClass, setSelectedDictrictClass] = useState("");
   const [selectedVillageClass, setSelectedVillageClass] = useState("");
   const [district, setDistrict] = useState([]);
   const [village, setVillage] = useState([]);
-  const [address, setAddress] = useState({
-    province: "",
-    district: "",
-    village: "",
-  });
 
   const handleChangeProvince = (e) => {
     const element = e.target.value.split(" ");

@@ -5,11 +5,7 @@ import {
   fetchBrandRequest,
   fetchBrandSuccess,
 } from "~/app/slices/brandSlice";
-import {
-  fetchBrandFailed,
-  fetchBrandRequest,
-  fetchBrandSuccess,
-} from "~/app/slices/brandSlice";
+
 import {
   fetchCartItemRequest,
   fetchCartItemSuccess,
@@ -207,6 +203,25 @@ export const fetchCartItemApi = async (
       `/api/gio-hang/xem-gio-hang?limit=${limit}&pageNumber=${pageNumber}`
     );
     dispatch(fetchCartItemSuccess(res.data));
+  } catch (error) {
+    const errMsg = error.response?.data.message || error.message;
+    toast.error(errMsg);
+    dispatch(fetchCartItemFail(errMsg));
+  }
+};
+
+export const fetchCartItemApiAll = async (
+  dispatch,
+  axiosJWT,
+  limit,
+  pageNumber
+) => {
+  // dispatch(fetchCartItemRequest());
+  try {
+    const res = await axiosJWT.get(
+      `/api/gio-hang/xem-gio-hang?limit=${limit}&pageNumber=${pageNumber}`
+    );
+    return res.data;
   } catch (error) {
     const errMsg = error.response?.data.message || error.message;
     toast.error(errMsg);

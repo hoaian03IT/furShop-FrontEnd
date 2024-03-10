@@ -26,7 +26,14 @@ export const SectionCheckOut = ({
   const [nameError, setNameError] = useState(false);
   const [billingPhoneError, setBillingPhoneError] = useState(false);
   const [provinceError, setProvinceError] = useState(false);
+  const [districtError, setDistrictError] = useState(false);
+  const [wardError, setWardError] = useState(false);
   const [callApi, setCallApi] = useState(false);
+  const [address, setAddress] = useState({
+    province: "",
+    district: "",
+    village: "",
+  });
 
   const handleSetAddressName = (newAddressName) => {
     setAddressName(newAddressName);
@@ -54,9 +61,13 @@ export const SectionCheckOut = ({
     );
     setNameError(!/^[A-Za-z\s]+$/.test(name) || name.trim() === "");
     setBillingPhoneError(!/^\d{10,11}$/.test(billingPhone));
-    setProvinceError(
-      addressName.trim() === "" || addressName.trim() === "thành--"
-    );
+    setProvinceError(address.province === "");
+    setDistrictError(() => {
+      return address.district === "";
+    });
+    setWardError(() => {
+      return address.village === "";
+    });
   };
 
   useEffect(() => {
@@ -129,9 +140,17 @@ export const SectionCheckOut = ({
         <Address
           setAddressName={handleSetAddressName}
           setProvinceError={setProvinceError}
+          address={address}
+          setAddress={setAddress}
         />
         {provinceError && (
           <span className={cx("error")}>Vui lòng chọn tỉnh/thành phố</span>
+        )}
+        {districtError && (
+          <span className={cx("error")}>Vui lòng chọn Quận/Huyện</span>
+        )}
+        {wardError && (
+          <span className={cx("error")}>Vui lòng chọn Phường/Xã</span>
         )}
         <div className={cx("note")}>
           <label htmlFor="note" className={cx("field-note")}>

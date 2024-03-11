@@ -9,7 +9,11 @@ import axios from "axios";
 import styles from "~/styles/CheckOutPage.module.scss";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrder } from "~/api-server";
+import {
+  createOrder,
+  fetchCartItemApi,
+  fetchCartItemApiAll,
+} from "~/api-server";
 import { useNavigate } from "react-router-dom";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
 
@@ -21,14 +25,14 @@ function CheckOutPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [billingPhone, setbillingPhone] = useState("");
+  const [cartItemsAll, setCartItemsAll] = useState([]);
   const { user } = useSelector((state) => state.persist);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const axiosJWT = axiosInterceptor(user, dispatch, navigate);
   const { cartItems } = useSelector((state) => state.persist.cart);
-
   const product = useMemo(() => {
-    return cartItems.reduce(
+    return cartItemsAll.reduce(
       (first, item) => [
         ...first,
         {
@@ -39,7 +43,7 @@ function CheckOutPage() {
       ],
       []
     );
-  }, []);
+  }, [JSON.stringify(cartItemsAll)]);
   const handleCheckout = async () => {
     const dataToSend = {
       customerId: user.userInfo._id,
@@ -50,12 +54,31 @@ function CheckOutPage() {
       paymentType: "",
     };
     try {
-      await createOrder(dataToSend, axiosJWT);
+      await createOrder(dataToSend, axiosJWT, dispatch);
       alert("Thanh toán thành công");
     } catch (error) {
       console.error("Lỗi khi gửi dữ liệu:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchCartItemApiAll(
+          dispatch,
+          axiosJWT,
+          100000,
+          1
+        );
+        console.log(response.data);
+        setCartItemsAll(response?.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <div>
       <Container>

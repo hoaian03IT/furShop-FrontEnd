@@ -10,7 +10,7 @@ import { QuantityEditor } from "./QuantityEditor";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
 import { useSelector, useDispatch } from "react-redux";
-import { uploadToCardApi } from "~/api-server";
+import { addToCardApi, uploadToCardApi } from "~/api-server";
 import { toast } from "react-toastify";
 
 import styles from "~/styles/ProductDetail.module.scss";

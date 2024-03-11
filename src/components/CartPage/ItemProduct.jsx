@@ -10,9 +10,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteToCartApi, uploadToCardApi } from "~/api-server";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
-import { toast } from "react-toastify";
-import axios from "axios";
-import { updateCart, uploadToCartSuccess } from "~/app/slices/cartSlide";
 
 const cx = classNames.bind(styles);
 export const ItemProduct = ({
@@ -22,12 +19,8 @@ export const ItemProduct = ({
   description,
   size,
   color,
-  price,
-  discount = 0,
   amount,
   totalQuantity,
-  productId,
-  attributesId,
   cartId,
 }) => {
   const [quantity, setQuantity] = useState(amount);
@@ -71,13 +64,13 @@ export const ItemProduct = ({
   };
 
   const handleDeleteProduct = () => {
-    // (async () => {
-    //   try {
-    //     await deleteToCartApi({ cartId: cartId }, axiosJWT, dispatch);
-    //   } catch (error) {
-    //     console.log(error.message);
-    //   }
-    // })();
+    (async () => {
+      try {
+        await deleteToCartApi({ cartId: cartId }, axiosJWT, dispatch);
+      } catch (error) {
+        console.log(error.message);
+      }
+    })();
   };
 
   useEffect(() => {
@@ -114,9 +107,6 @@ export const ItemProduct = ({
           </span>
         </div>
         <div className={cx("product-right")}>
-          <div className={cx("cart-price")}>
-            {/* <span className={cx("product-price")}>{formatCurrencyVND(realPrice)}</span> */}
-          </div>
           <div className={cx("cart-select-item")}>
             <button
               className={cx("btn_product")}

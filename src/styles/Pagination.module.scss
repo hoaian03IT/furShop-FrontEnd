@@ -1,46 +1,46 @@
 @use "variables" as *;
 
 .wrapper {
-    .pagination {
-        list-style: none;
+  .pagination {
+    list-style: none;
 
-        &.end,
-        &.right {
-            justify-content: flex-end;
-        }
-
-        &.start,
-        &.left {
-            justify-content: flex-start;
-        }
-
-        & .item {
-            margin: 0 4px;
-            font-size: 14px;
-            height: 38px;
-            width: 38px;
-            border: 1px solid rgba($color: $black-color, $alpha: 0.2);
-            border-radius: 50%;
-            user-select: none;
-            cursor: pointer;
-            transition: all 0.3s;
-
-            &.active {
-                background-color: rgba($color: $black-color, $alpha: 0.8);
-                border-color: $white-color;
-                color: $white-color;
-                pointer-events: none;
-            }
-
-            &.disabled {
-                opacity: 0.6;
-                pointer-events: none;
-            }
-
-            &:hover {
-                border-color: rgba($color: $black-color, $alpha: 0.3);
-                background-color: rgba($color: $black-color, $alpha: 0.05);
-            }
-        }
+    &.end,
+    &.right {
+      justify-content: flex-end;
     }
+
+    &.start,
+    &.left {
+      justify-content: flex-start;
+    }
+
+    & .item {
+      margin: 0 4px;
+      font-size: 14px;
+      height: 38px;
+      width: 38px;
+      border: 1px solid rgba($color: $black-color, $alpha: 0.2);
+      border-radius: 50%;
+      user-select: none;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &.active {
+        background-color: rgba($color: $black-color, $alpha: 0.8);
+        border-color: $white-color;
+        color: $white-color;
+        pointer-events: none;
+      }
+
+      &.disabled {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      &:hover {
+        border-color: rgba($color: $black-color, $alpha: 0.3);
+        background-color: rgba($color: $black-color, $alpha: 0.05);
+      }
+    }
+  }
 }

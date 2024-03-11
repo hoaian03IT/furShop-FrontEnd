@@ -19,13 +19,13 @@ export const SidebarOrder = ({}) => {
         item.productId.price * item.amount * (1 - item.productId.discount);
       return first + price;
     }, 0);
-  }, []);
+  }, [JSON.stringify(cartItems)]);
   const quantity = useMemo(() => {
     return cartItems.reduce((first, item) => {
       const amount = item.amount;
       return first + amount;
     }, 0);
-  }, []);
+  }, [JSON.stringify(cartItems)]);
 
   useEffect(() => {
     let calculatedFee = 0;

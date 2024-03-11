@@ -99,7 +99,9 @@ export default function DetailProductPage() {
                                 <Row className="my-2">
                                     <Col md={2} className="d-flex flex-column align-items-center">
                                         <img src={feedback?.customerId?.image} alt="" />
-                                        <p className="limit-line-1 w-100">{feedback?.customerId?.username}</p>
+                                        <p className="limit-line-1 w-100">
+                                            {feedback?.customerId?.name || feedback?.customerId?.username}
+                                        </p>
                                     </Col>
                                     <Col md={10}>
                                         <div>

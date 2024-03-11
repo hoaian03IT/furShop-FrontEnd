@@ -5,7 +5,6 @@ import { BreadCrumbs } from "~/components/BreadCrumbs";
 import { LogoCheckOut } from "~/components/CheckOutPage/LogoCheckOut";
 import { SectionCheckOut } from "~/components/CheckOutPage/SectionCheckOut";
 import { SidebarOrder } from "~/components/CheckOutPage/SidebarOrder";
-import axios from "axios";
 import styles from "~/styles/CheckOutPage.module.scss";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,12 +20,12 @@ function CheckOutPage() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [billingPhone, setbillingPhone] = useState("");
-    const [cartItemsAll, setCartItemsAll] = useState([]);
     const { user } = useSelector((state) => state.persist);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const axiosJWT = axiosInterceptor(user, dispatch, navigate);
     const { cartItems } = useSelector((state) => state.persist.cart);
+    const [cartItemsAll, setCartItemsAll] = useState(cartItems);
     const product = useMemo(() => {
         return cartItemsAll.reduce(
             (first, item) => [
@@ -60,16 +59,16 @@ function CheckOutPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetchCartItemApiAll(dispatch, axiosJWT, 100000, 1);
-                console.log(response.data);
-                setCartItemsAll(response?.data);
+                if (cartItems.length === 0) {
+                    await fetchCartItemApi(dispatch, axiosJWT, 1000, 1);
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [cartItems.length]);
     return (
         <div>
             <Container>

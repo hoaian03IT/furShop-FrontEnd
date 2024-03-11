@@ -1,0 +1,79 @@
+.container {
+  input {
+    outline: none;
+    height: 35px;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-size: 1rem;
+  }
+
+  .price,
+  .size,
+  .color {
+    width: 130px;
+  }
+
+  .name {
+    width: 350px;
+  }
+
+  select {
+    height: 35px;
+    border-radius: 10px;
+  }
+  textarea {
+    width: 500px;
+    height: 100px;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+
+  .imgs {
+    display: flex;
+  }
+
+  .img-hover {
+    position: relative;
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-left: 5px;
+    }
+    span {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: rgb(66, 65, 65, 0.4);
+      transform: translateX(-100%);
+      display: none;
+      text-align: center;
+      line-height: 100px;
+      color: white;
+      cursor: pointer;
+    }
+
+    &:hover span {
+      display: inline-block;
+    }
+  }
+
+  .btn-img {
+    display: flex;
+    justify-content: center;
+    span {
+      border-radius: 5px;
+      padding: 5px 10px;
+      background-color: rgb(66, 65, 65);
+      color: white;
+      text-align: center;
+      width: 120px;
+      cursor: pointer;
+      display: block;
+      margin-top: 5px;
+    }
+  }
+  button {
+    width: 150px;
+  }
+}

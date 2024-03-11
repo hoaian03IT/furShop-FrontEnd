@@ -12,4 +12,5 @@ export const pathname = {
     contacts: "/lien-he",
     changePassword: "/doi-mat-khau",
     shop: "/cua-hang/:tagname",
+    addproduct:"/them-san-pham"
 };

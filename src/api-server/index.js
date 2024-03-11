@@ -1,10 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  fetchBrandFailed,
-  fetchBrandRequest,
-  fetchBrandSuccess,
-} from "~/app/slices/brandSlice";
+
 import {
   fetchBrandFailed,
   fetchBrandRequest,

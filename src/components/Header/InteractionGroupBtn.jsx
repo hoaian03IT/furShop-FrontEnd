@@ -53,6 +53,9 @@ export const InteractionGroupBtn = () => {
               <Link className={cx("item", "link")} to={"/profile"}>
                 Yêu thích
               </Link>
+              <Link to={pathname.addproduct} className={cx("item", "link")}>
+                Tạo sản phẩm
+              </Link>
               <button
                 className={cx("item", "btn-logged")}
                 onClick={handleLogout}

@@ -8,10 +8,10 @@ import { pathname } from "~/configs/path";
 import { useParams } from "react-router-dom";
 import { ProductCard } from "~/components/ProductCard";
 import axios from "axios";
+import { toast } from "react-toastify";
 import styles from "~/styles/ShopProductPage.module.scss";
 
 import gucciImg from "~/assets/imgs/gucci-logo.png";
-import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -59,7 +59,7 @@ export default function ShopProductPage() {
                         name: "Trang chủ",
                     },
                     {
-                        path: pathname.shop + "/123",
+                        path: pathname.shop,
                         name: "Cửa hàng",
                         isCurrent: true,
                     },

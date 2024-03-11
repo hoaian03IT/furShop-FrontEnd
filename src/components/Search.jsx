@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { LogoHeader } from "./Header/LogoHeader";
 import { InteractionGroupBtn } from "./Header/InteractionGroupBtn";
 import { HeaderContext } from "./Header/Header";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/";
 
 import styles from "~/styles/Search.module.scss";
 import axios from "axios";

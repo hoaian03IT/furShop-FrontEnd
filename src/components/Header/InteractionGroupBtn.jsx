@@ -47,6 +47,11 @@ export const InteractionGroupBtn = () => {
                             <Link className={cx("item", "link")} to={pathname.account}>
                                 Thông tin cá nhân
                             </Link>
+                            {userInfo?.role === "provider" && (
+                                <Link className={cx("item", "link")} to={"/cua-hang"}>
+                                    Cửa hàng
+                                </Link>
+                            )}
                             <Link className={cx("item", "link")} to={"/profile"}>
                                 Yêu thích
                             </Link>

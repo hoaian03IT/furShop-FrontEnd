@@ -82,6 +82,7 @@
         -webkit-line-clamp: $i; /* number of lines to show */
         line-clamp: $i;
         -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
     }
 }
 

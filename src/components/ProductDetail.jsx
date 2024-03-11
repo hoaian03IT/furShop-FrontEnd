@@ -121,7 +121,7 @@ export const ProductDetail = ({ product }) => {
     const handleAddToCart = async () => {
         try {
             if (user.isLogged) {
-                await uploadToCardApi(
+                await addToCardApi(
                     {
                         amount: selectedAttributes.quantity,
                         productId: _id,
@@ -254,7 +254,7 @@ export const ProductDetail = ({ product }) => {
                                 thêm vào giỏ hàng
                             </button>
                         </div>
-                        <button className={cx("buy-product", "text-uppercase mt-2")}>mua ngay</button>
+                        {/* <button className={cx("buy-product", "text-uppercase mt-2")}>mua ngay</button> */}
                         <div className={cx("phone-contact", "text-center")}>
                             <span>Gọi đặt mua </span>
                             <a href="tel:+1800.0000">1800.0000</a>

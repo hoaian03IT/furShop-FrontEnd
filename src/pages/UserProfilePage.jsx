@@ -9,6 +9,7 @@ import { uploadProfileApi } from "~/api-server";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Resizer from "react-image-file-resizer";
 
 const cx = classNames.bind(styles);
 
@@ -19,17 +20,30 @@ function UserProfilePage() {
     const { userInfo } = user;
 
     const handleImageChange = async (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            setNewAvatarUrl(reader.result);
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
+        try {
+            const file = e.target.files[0];
+            const image = await resizeFile(file);
+            setNewAvatarUrl(image);
+        } catch (err) {
+            console.log(err);
         }
     };
+
+    const resizeFile = (file) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                300,
+                300,
+                "JPEG",
+                100,
+                0,
+                (uri) => {
+                    resolve(uri);
+                },
+                "base64"
+            );
+        });
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

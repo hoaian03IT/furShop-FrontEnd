@@ -17,7 +17,7 @@ function axiosInterceptor(user, dispatch, navigate) {
                     const { token: newToken } = await refreshTokenApi(user.userInfo._id, navigate);
                     currentToken = newToken;
 
-                    dispatch(loginSuccess({ ...user, token: currentToken }));
+                    dispatch(loginSuccess({ user: user.userInfo, token: currentToken }));
                 } catch (error) {
                     localStorage.removeItem("persist:root");
                 }

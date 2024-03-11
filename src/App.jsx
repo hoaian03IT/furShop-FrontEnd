@@ -11,53 +11,53 @@ import { fetchCategoriesApi } from "./api-server";
 import { Loading } from "./components/Loading";
 
 function App() {
-  // fetch categories
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const fetchCategories = async () => {
-      await fetchCategoriesApi(dispatch);
-    };
-    fetchCategories();
-  }, [dispatch]);
+    // fetch categories
+    const dispatch = useDispatch();
+    useEffect(() => {
+        const fetchCategories = async () => {
+            await fetchCategoriesApi(dispatch);
+        };
+        fetchCategories();
+    }, [dispatch]);
 
-  return (
-    <div className="d-flex flex-column justify-content-between min-vh-100">
-      <ScrollToTop />
-      <div>
-        <header className="header">
-          <Header />
-        </header>
-        <main>
-          <Routes>
-            {publicRoutes.map((route) => {
-              let Page;
-              const Component = route.component;
-              if (route.layout === null) {
-                Page = <Component />;
-              } else {
-                const Layout = route.layout;
-                Page = (
-                  <Layout>
-                    <Component />
-                  </Layout>
-                );
-              }
-              return (
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={<Suspense fallback={<Loading />}>{Page}</Suspense>}
-                />
-              );
-            })}
-          </Routes>
-        </main>
-      </div>
-      <footer>
-        <Footer />
-      </footer>
-    </div>
-  );
+    return (
+        <div className="d-flex flex-column justify-content-between min-vh-100">
+            <ScrollToTop />
+            <div>
+                <header className="header">
+                    <Header />
+                </header>
+                <main>
+                    <Routes>
+                        {publicRoutes.map((route) => {
+                            let Page;
+                            const Component = route.component;
+                            if (route.layout === null) {
+                                Page = <Component />;
+                            } else {
+                                const Layout = route.layout;
+                                Page = (
+                                    <Layout>
+                                        <Component />
+                                    </Layout>
+                                );
+                            }
+                            return (
+                                <Route
+                                    key={route.path}
+                                    path={route.path}
+                                    element={<Suspense fallback={<Loading />}>{Page}</Suspense>}
+                                />
+                            );
+                        })}
+                    </Routes>
+                </main>
+            </div>
+            <footer>
+                <Footer />
+            </footer>
+        </div>
+    );
 }
 
 export default App;

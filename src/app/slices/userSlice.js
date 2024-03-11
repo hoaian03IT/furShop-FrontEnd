@@ -19,11 +19,9 @@ export const userSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             const { user, token } = action.payload;
-            if (user.userInfo?._id || user?._id) {
-                state.userInfo = user;
-                state.token = token;
-                state.isLogged = true;
-            }
+            state.userInfo = user;
+            state.token = token;
+            state.isLogged = true;
             state.loading = false;
         },
         loginFailed: (state, action) => {
@@ -36,11 +34,9 @@ export const userSlice = createSlice({
         },
         registerSuccess: (state, action) => {
             const { user, token } = action.payload;
-            if (user.userInfo?._id || user?._id) {
-                state.userInfo = user;
-                state.token = token;
-                state.isLogged = true;
-            }
+            state.userInfo = user;
+            state.token = token;
+            state.isLogged = true;
             state.loading = false;
         },
         registerFailed: (state, action) => {

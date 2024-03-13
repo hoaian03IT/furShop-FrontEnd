@@ -1,27 +1,5 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-<<<<<<< HEAD
-
-import {
-  fetchBrandFailed,
-  fetchBrandRequest,
-  fetchBrandSuccess,
-} from "~/app/slices/brandSlice";
-import {
-  fetchCartItemRequest,
-  fetchCartItemSuccess,
-  fetchCartItemFail,
-  clearCartItems,
-  addToCartRequest,
-  addToCartSuccess,
-  addToCartFailed,
-  uploadToCartRequest,
-  uploadToCartSuccess,
-  uploadToCartFailed,
-  deleteToCartItemRequest,
-  deleteToCartItemSuccess,
-  deleteToCartItemFail,
-=======
 import { fetchBrandFailed, fetchBrandRequest, fetchBrandSuccess } from "~/app/slices/brandSlice";
 
 import {
@@ -38,7 +16,6 @@ import {
     deleteToCartItemRequest,
     deleteToCartItemSuccess,
     deleteToCartItemFail,
->>>>>>> 1559ba1a70603d8dbd162984a1b961400eb2e3cf
 } from "~/app/slices/cartSlide";
 import { fetchCategoriesFailed, fetchCategoriesRequest, fetchCategoriesSuccess } from "~/app/slices/categorySlice";
 import {

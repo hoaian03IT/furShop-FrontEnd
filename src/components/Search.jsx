@@ -4,12 +4,12 @@ import classNames from "classnames/bind";
 import { CiSearch } from "react-icons/ci";
 import { LogoHeader } from "./Header/LogoHeader";
 import { InteractionGroupBtn } from "./Header/InteractionGroupBtn";
-import { HeaderContext } from "./Header/Header";
 import { useDebounce } from "~/hooks/";
 
 import styles from "~/styles/Search.module.scss";
 import axios from "axios";
 import { ResultSearchModal } from "./ResultSearchModal";
+import { HeaderContext } from "~/App";
 
 const cx = classNames.bind(styles);
 

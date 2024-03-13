@@ -7,18 +7,15 @@ import { NavbarItem } from "./NavbarItem";
 import { useSelector } from "react-redux";
 
 import styles from "~/styles/Header.module.scss";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { pathname } from "~/configs/path";
+import { HeaderContext } from "~/App";
 
 const cx = classNames.bind(styles);
 
-export const HeaderContext = createContext();
-
 export const Header = () => {
     const { categories } = useSelector((state) => state.persist.category);
-
-    const [showSearchOffCanvas, setShowSearchOffCanvas] = useState(false);
-
+    const { showSearchOffCanvas, setShowSearchOffCanvas } = useContext(HeaderContext);
     const [productCategories, setProductCategories] = useState([]);
     const [accessoryCategories, setAccessoryCategories] = useState([]);
 
@@ -102,38 +99,36 @@ export const Header = () => {
     }, [categories]);
 
     return (
-        <HeaderContext.Provider value={{ showSearchOffCanvas, setShowSearchOffCanvas }}>
-            <div className={cx("wrapper")}>
-                <Container className="h-100 overflow-hidden">
-                    <Row className="h-100 align-items-center">
-                        <Col md={3} className={cx("logo")}>
-                            <LogoHeader />
-                        </Col>
-                        <Col md={6} className={cx("navbar")}>
-                            <NavbarItem
-                                path={pathname.product}
-                                title={"sản phẩm"}
-                                fullScreenPopper={true}
-                                list={productCategories}
-                            />
-                            <NavbarItem
-                                path={"/tmp"}
-                                disablePath={true}
-                                title={"phụ kiện"}
-                                fullScreenPopper={true}
-                                list={accessoryCategories}
-                            />
-                            <NavbarItem path={"/khuyen-mai"} title={"Khuyễn mãi"} />
-                            <NavbarItem path={"/lien-he"} title={"liên hệ"} />
-                            <NavbarItem path={pathname.policy} title={"chính sách"} />
-                        </Col>
-                        <Col md={3}>
-                            <InteractionGroupBtn />
-                        </Col>
-                    </Row>
-                </Container>
-                <Search />
-            </div>
-        </HeaderContext.Provider>
+        <div className={cx("wrapper")}>
+            <Container className="h-100 overflow-hidden">
+                <Row className="h-100 align-items-center">
+                    <Col md={3} className={cx("logo")}>
+                        <LogoHeader />
+                    </Col>
+                    <Col md={6} className={cx("navbar")}>
+                        <NavbarItem
+                            path={pathname.product}
+                            title={"sản phẩm"}
+                            fullScreenPopper={true}
+                            list={productCategories}
+                        />
+                        <NavbarItem
+                            path={"/tmp"}
+                            disablePath={true}
+                            title={"phụ kiện"}
+                            fullScreenPopper={true}
+                            list={accessoryCategories}
+                        />
+                        <NavbarItem path={"/khuyen-mai"} title={"Khuyến mãi"} />
+                        <NavbarItem path={"/lien-he"} title={"liên hệ"} />
+                        <NavbarItem path={pathname.policy} title={"chính sách"} />
+                    </Col>
+                    <Col md={3}>
+                        <InteractionGroupBtn />
+                    </Col>
+                </Row>
+            </Container>
+            <Search />
+        </div>
     );
 };

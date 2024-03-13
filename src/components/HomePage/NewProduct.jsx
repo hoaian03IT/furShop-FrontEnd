@@ -19,7 +19,7 @@ function NewProduct() {
     useEffect(() => {
         const fetchNewProduct = async () => {
             try {
-                const res = await axios.get("api/san-pham/loc-san-pham?order=newest&pageSize=6");
+                const res = await axios.get("api/san-pham/loc-san-pham?order=newest&pageSize=6&page=2");
                 setProducts(res.data.products);
             } catch (error) {}
         };

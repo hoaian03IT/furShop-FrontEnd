@@ -1,28 +1,28 @@
 .container {
-  font-size: 16px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
+    font-size: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
 
-p {
-  margin-bottom: 16px;
-}
+    p {
+        margin-bottom: 16px;
+    }
 
-strong {
-  font-weight: 600;
-}
+    strong {
+        font-weight: 600;
+    }
 
-ul {
-  list-style-type: none;
-}
+    ul {
+        list-style-type: none;
+    }
 
-li {
-  text-indent: 4px;
-}
+    li {
+        text-indent: 4px;
+    }
 
-li::marker {
-  content: "\2022";
-  color: black;
-  font-size: 20px;
-  font-weight: bold;
+    li::marker {
+        content: "\2022";
+        color: black;
+        font-size: 20px;
+        font-weight: bold;
+    }
 }

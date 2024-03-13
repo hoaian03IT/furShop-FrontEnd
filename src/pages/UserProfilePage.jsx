@@ -93,6 +93,9 @@ function UserProfilePage() {
                     <p>Số Điện Thoại : {userInfo.phone} </p>
                 </div>
                 <Button onClick={handleUpdate}>Cập nhật</Button>
+                <Button className="ms-4" onClick={() => navigate(pathname.changePassword)}>
+                    Đổi mật khẩu
+                </Button>
             </Container>
         </div>
     );

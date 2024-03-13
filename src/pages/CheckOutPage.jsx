@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createOrder, fetchCartItemApi, fetchCartItemApiAll } from "~/api-server";
 import { useNavigate } from "react-router-dom";
 import { axiosInterceptor } from "~/utils/axiosInterceptor";
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -50,7 +51,8 @@ function CheckOutPage() {
         };
         try {
             await createOrder(dataToSend, axiosJWT, dispatch);
-            alert("Thanh toán thành công");
+            toast.success("Thanh toán thành công");
+            navigate(pathname.product);
         } catch (error) {
             console.error("Lỗi khi gửi dữ liệu:", error);
         }

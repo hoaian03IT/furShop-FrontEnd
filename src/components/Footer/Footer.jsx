@@ -1,12 +1,13 @@
 import classNames from "classnames/bind";
 import { Container, Col, Row } from "react-bootstrap";
 import { GiPositionMarker } from "react-icons/gi";
-import React from "react";
+import React, { useContext } from "react";
 import styles from "~/styles/Footer.module.scss";
 import { LogoHeader } from "../Header/LogoHeader";
 import { IoIosPhonePortrait, IoIosMail } from "react-icons/io";
 import { AiFillFacebook, AiFillInstagram, AiFillYoutube } from "react-icons/ai";
 import { SiZalo } from "react-icons/si";
+import { HeaderContext } from "~/App";
 
 const cx = classNames.bind(styles);
 
@@ -48,7 +49,7 @@ const navbar = [
 
             {
                 title: "Cửa Hàng",
-                path: "/cua-hang",
+                path: "/san-pham",
             },
         ],
     },
@@ -79,6 +80,7 @@ const navbar = [
 ];
 
 export const Footer = () => {
+    const { showSearchOffCanvas, setShowSearchOffCanvas } = useContext(HeaderContext);
     return (
         <div className={cx("footer", "mt-5")}>
             <Container>

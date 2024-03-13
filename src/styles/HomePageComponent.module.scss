@@ -1,62 +1,63 @@
 .home {
-  button {
-    height: 30px;
-    border: none;
-    background-color: white;
-    padding: 3px 7px;
-    border-radius: 7px;
-  }
-  .background {
-    width: 100%;
-    height: 80vh;
-    // background-image: url("../assets/imgs/backgroundhomepage_1.jpg");
-    background-size: cover;
-    transition: all 0.5s linear;
-  }
-  .btn-href {
-    display: block;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 10px;
-    width: 150px;
-    height: 40px;
-    color: black;
-    background-color: white;
-    text-decoration: none;
-    margin: auto;
-    margin-top: 20px;
-    transition: all 0.1s linear;
-    &:hover {
-      opacity: 0.9;
-      box-shadow: 0 0 3px 3px #999;
+    button {
+        height: 30px;
+        border: none;
+        background-color: white;
+        padding: 3px 7px;
+        border-radius: 7px;
     }
-  }
-  .btn-icon {
-    width: 50px;
-    height: 40px;
-    &:hover {
-      opacity: 0.9;
+    .background {
+        width: 100%;
+        height: 80vh;
+        // background-image: url("../assets/imgs/backgroundhomepage_1.jpg");
+        background-position: center;
+        background-size: cover;
+        transition: all 0.5s linear;
     }
-  }
-  .contain-info {
-    margin-bottom: 5%;
-  }
+    .btn-href {
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 10px;
+        width: 150px;
+        height: 40px;
+        color: black;
+        background-color: white;
+        text-decoration: none;
+        margin: auto;
+        margin-top: 20px;
+        transition: all 0.1s linear;
+        &:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 3px 3px #999;
+        }
+    }
+    .btn-icon {
+        width: 50px;
+        height: 40px;
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+    .contain-info {
+        margin-bottom: 5%;
+    }
 }
 
 @keyframes changeBackground {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.7;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  80% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    80% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+    }
 }
